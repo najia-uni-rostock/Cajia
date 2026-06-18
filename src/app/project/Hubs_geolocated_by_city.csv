@@ -1,0 +1,638 @@
+,Hub,Needed (N),Remaining (R = N-T-D),% Completed,Country,Semaphore,Needed,In transit (T),Delivered (D),Remaining (R = N-T-D).1,Longitude,Latitude
+0,Spain | Barcelona | Labdoo Hub Barcelona @LaSalle,20,15,25,Spain,open,18,1,4,13,2.177073,41.3825802
+1,Kenya | Busia | Labdoo Hub Busia,18,16,11,Kenya,closed,18,0,2,16,34.0160135,0.3917103
+2,United States | San Jose | Labdoo Hub California (North),62,20,67,United States,open,55,1,41,13,-121.890591,37.3361663
+3,United States | Irvine | Labdoo Hub California (South),1303,712,45,United States,open,1134,15,576,543,-117.825981,33.6856969
+4,China | Chengdu | Labdoo Hub Chengdu OQ,0,0,0,China,inactive,0,0,2,0,104.063315,30.659867
+5,"Bangladesh | Dhaka | Labdoo Hub Dhaka, Bangladesh",0,0,0,Bangladesh,closed,0,0,0,0,90.3890144,23.7643863
+6,Ireland | Galway | Labdoo Hub Galway,0,0,0,Ireland,open,0,0,0,0,-9.0490601,53.2744122
+7,"Hong Kong S.A.R., China | Wan Chai | Labdoo Hub Hong Kong - Fleming",70,67,4,"Hong Kong S.A.R., China",closed,70,1,2,67,114.1724833,22.2790146
+8,Spain | Madrid  | La Tabacalera - Madrid,36,15,58,Spain,closed,25,6,15,4,-3.703507,40.416782
+9,Australia | Brighton | Labdoo Hub Melbourne,65,14,78,Australia,open,32,3,48,0,-0.1400561,50.8214626
+10,United States | Doral | Labdoo Hub Miami - Doral,33,7,78,United States,inactive,26,1,25,0,-80.3553302,25.8195424
+11,United States | New York City | Labdoo Hub Upper West - New York,551,453,17,United States,inactive,477,5,93,379,-74.0060152,40.7127281
+12,Italy | Rome | Labdoo Hub Rome,278,101,63,Italy,open,242,7,170,65,12.4829321,41.8933203
+13,Taiwan | Taipei | Labdoo Hub Taipei @EWB-Taiwan,235,0,100,Taiwan,inactive,234,1,241,0,121.5636796,25.0375198
+14,xx | @PlanetEarth | Grassroots,1844,13,99,xx,open,1798,74,1757,0,0.0,0.0
+15,Spain | Madrid | Labdoo Hub Madrid - Medialab-Prado,2,0,100,Spain,inactive,2,0,4,0,-3.703507,40.416782
+16,Spain | Reus | Labdoo School Hub Reus - Institut Baix Camp,7,0,100,Spain,open,7,1,21,0,1.1076133,41.1555564
+17,Spain | Vilanova i la Geltru | Labdoo School Hub Vilanova - Institut Baix a Mar,79,18,77,Spain,closed,24,1,60,0,1.7256327,41.2241992
+18,Spain | Vilafranca del Penedes | Labdoo Hub Vilafranca Centre - El Hub de la Gestoria,325,103,68,Spain,open,259,29,193,37,1.6995213,41.3463825
+19,Spain | Vilafranca del Penedes | Labdoo School Hub Vilafranca - INS Eugeni d'ORS,71,12,83,Spain,open,31,7,52,0,1.6995213,41.3463825
+20,Taiwan | Hsinchu | Labdoo Hub Taiwan @EWB-Taiwan,129,34,73,Taiwan,inactive,129,25,70,34,120.9686833,24.8066333
+21,"Mexico | México, D.F. | Labdoo Hub Mexico DF",113,72,36,Mexico,open,113,2,39,72,-99.1514678,19.3207722
+22,Mexico | Tepoztlán | Labdoo Hub Tepoztlán,0,0,0,Mexico,open,0,0,1,0,-99.1025453,18.9914959
+23,Pakistan | Hayatabad | Labdoo Hub Hayatabad,0,0,0,Pakistan,closed,0,0,0,0,71.4372584,33.9767168
+24,Germany | Dresden | Labdoo Annahmestelle 01309 Dresden (Hub),42,5,88,Germany,open,22,1,36,0,13.7381437,51.0493286
+25,Spain | Manresa | Labdoo Hub Manresa,295,112,62,Spain,open,234,52,131,51,1.8286765,41.7288939
+26,Spain | Berga | Labdoo Hub Berga,0,0,0,Spain,open,0,5,8,0,5.3259192,60.3943055
+27,India | Chennai | Labdoo Hub Mambalam,10,10,0,India,closed,10,0,0,10,80.270186,13.0836939
+28,Albania | Vlora | Labdoo Hub Vlora,0,0,0,Albania,open,0,0,0,0,19.4912716,40.4707602
+29,Guatemala | Guatemala City | Labdoo Hub Guatemala City,11,10,9,Guatemala,inactive,11,0,1,10,-90.5132836,14.6416142
+30,Romania | Bucharest | Labdoo Hub Bucharest,11,0,100,Romania,open,11,0,11,0,26.102684,44.4361414
+31,Germany | Aalen | Labdoo Annahmestelle 73431 Aalen (Hub),0,0,0,Germany,open,0,1,16,0,10.0929593,48.8375607
+32,Netherlands | ’s-Hertogenbosch | Labdoo Hub s-Hertogenbosch,0,0,0,Netherlands,inactive,0,0,3,0,5.303116,51.6889387
+33,Morocco | Casablanca | Labdoo Hub Casablanca,219,124,43,Morocco,open,173,21,74,78,-7.6200284,33.5945144
+34,Austria | Kufstein | Labdoo Annahmestelle 6330 Kufstein: kubi - Kufstein Bibliothek für Wissenschaft & Freizeit,4,0,100,Austria,open,4,3,31,0,12.1692134,47.582996
+35,Spain | Barcelona | Labdoo School Hub  Barcelona Frederic Mistral - Tècnic Eulàlia,86,25,70,Spain,inactive,36,4,57,0,2.177073,41.3825802
+36,Romania | Timisoara | Labdoo Hub Timisoara,0,0,0,Romania,open,0,0,0,0,21.2257474,45.7538355
+37,United States | Holmdel | Labdoo Hub Holmdel/New Jersey,22,0,100,United States,inactive,7,1,25,0,-74.1840322,40.3451095
+38,Germany | Hamburg | [CLOSED] Labdoo Annahmestelle 21037 Hamburg - Kirchwerder: Tina Meier [zur Zeit geschlossen],353,142,59,Germany,closed,311,25,186,100,10.0013165,53.5501721
+39,Germany | Lichtenstein | Labdoo Annahmestelle 72805 Schwäbische Alb (Hub),389,57,85,Germany,open,384,0,332,52,9.2591169,48.4209332
+40,"Thailand | Thepkasattri, Thalang | Labdoo Hub Phuket",0,0,0,Thailand,closed,0,0,0,0,98.2983527,8.2017549
+41,"United States | Durham | Labdoo Hub Durham, North Carolina",18,0,100,United States,closed,13,0,28,0,-1.75,54.666667
+42,Spain | Vilafranca del Penedes | Labdoo School Hub Vilafranca - Escola Montagut,58,0,100,Spain,open,22,24,47,0,1.6995213,41.3463825
+43,Spain | Madrid | Labdoo School Hub Madrid - IES Villablanca,164,66,59,Spain,open,157,24,74,59,-3.703507,40.416782
+44,"India | Kodambakkam, Chennai | Labdoo Hub Chennai",0,0,0,India,closed,0,0,0,0,80.2242829,13.049207
+45,Spain | Barcelona | Labdoo Hub Barcelona @Itnig,0,0,0,Spain,closed,0,0,5,0,2.177073,41.3825802
+46,Germany | Wuppertal-Barmen | Labdoo Annahmestelle 42287 Wuppertal-Barmen (Hub),228,0,100,Germany,open,141,41,640,0,7.1951992,51.2670229
+47,Germany | München | Labdoo Annahmestelle 80804 München (Hub),3124,964,69,Germany,open,2449,129,2031,289,11.5753822,48.1371079
+48,Spain | Barcelona | Labdoo School Hub Barcelona - Aula Escola Europea,172,48,72,Spain,open,123,0,124,0,2.177073,41.3825802
+49,Spain | Sant Cugat del Vallés | Labdoo hub Barcelona @ESADE,0,0,0,Spain,closed,0,0,0,0,2.0817809,41.4728432
+50,Spain | Hondarribia | Labdoo Hub Hondarribia - Euskadi,10,4,60,Spain,open,3,2,4,0,-1.7914309,43.3624468
+51,Denmark | Frederiksbe | Labdoo Hub Copenhaguen Business School,0,0,0,Denmark,closed,0,0,0,0,0.0,0.0
+52,Spain | Barcelona | Labdoo Hub Barcelona Amics de Gracia,72,19,73,Spain,inactive,31,1,52,0,2.177073,41.3825802
+53,United States | Newport Beach | Labdoo School Hub California - Corona del Mar,0,0,0,United States,closed,0,0,4,0,-117.9294401,33.6170092
+54,Germany | Berlin | Labdoo Annahmestelle 12051 Berlin: Wertraum | Die Wille gGmbH,384,52,86,Germany,open,257,16,316,0,13.3951309,52.5173885
+55,Spain | Sant Martí Sarroca | Labdoo Hub Sant Martí Sarroca,24,0,100,Spain,inactive,14,2,25,0,1.6108158,41.3854214
+56,Austria | Reichenthal | Labdoo Hub Mühlviertel (OÖ),25,5,80,Austria,open,25,0,20,5,14.3849807,48.5434585
+57,Germany | Nürnberg | Labdoo Annahmestelle 90402 Nürnberg (Hub),376,4,98,Germany,open,312,30,342,0,11.077298,49.453872
+58,United States | Irvine | Labdoo School Hub California - Irvine High School,0,0,0,United States,closed,0,0,4,0,-117.825981,33.6856969
+59,United States | New York City | Labdoo Hub Broadway - New York,58,35,39,United States,closed,22,0,23,0,-74.0060152,40.7127281
+60,Germany | Frankfurt am Main | Labdoo Annahmestelle 60487 Frankfurt am Main: [zur Zeit geschlossen],162,43,73,Germany,inactive,124,0,119,5,8.6820917,50.1106444
+61,Spain | Vilafranca del Penedès | Labdoo School Hub Vilafranca - Col·legi Vedruna Sant Elies,445,6,98,Spain,open,218,41,398,0,1.6995213,41.3463825
+62,Spain | Las Rozas de Madrid | Labdoo School Hub Madrid - Colegio Balder,43,33,23,Spain,inactive,43,0,10,33,-3.8758396,40.4933095
+63,Germany | Bremen | Labdoo Annahmestelle 28215 Bremen (Hub),266,0,100,Germany,open,171,7,347,0,8.8071646,53.0758196
+64,Germany | Freiburg | Labdoo Annahmestelle 79104 Freiburg Baden [zur Zeit geschlossen],200,37,81,Germany,closed,197,8,155,34,7.8494005,47.9960901
+65,Germany | Mülheim an der Ruhr | Labdoo Annahmestelle 45478 MH / Rhein-Ruhr (Hub),35095,7983,77,Germany,open,33229,836,26276,6117,6.8829192,51.4272925
+66,Austria | Salzburg | Labdoo Hub Salzburg,1027,180,82,Austria,open,788,24,823,0,13.0464806,47.7981346
+67,Switzerland | Oberwil-Lieli | Labdoo Hub Zürich (Schweiz),7768,352,95,Switzerland,open,7521,35,7381,105,8.3843501,47.3338992
+68,Spain | Vilafranca del Penedes | Labdoo Hub Vilafranca @ Torres,0,0,0,Spain,inactive,0,0,2,0,1.6995213,41.3463825
+69,Spain | Sant Cugat del Vallés  | Labdoo School Hub - Agora Sant Cugat International,20,15,25,Spain,inactive,20,0,5,15,2.0817809,41.4728432
+70,Austria | Wien | Labdoo Hub Wien:  SANI,35,1,97,Austria,inactive,25,3,31,0,16.3725042,48.2083537
+71,Spain | Barcelona | Labdoo Hub Barcelona @I2CAT Campus Nord,1723,504,70,Spain,open,1368,133,1086,149,2.177073,41.3825802
+72,Germany | Soest | Labdoo Annahmestelle 59494 Soest: Kulturhaus Alter Schlachthof,0,0,0,Germany,open,0,2,6,0,8.1061259,51.5725501
+73,Germany | Berlin | Labdoo Annahmestelle 12103 Berlin-Schöneberg: AfB gGmbH Shop Berlin,0,0,0,Germany,open,0,24,538,0,13.3951309,52.5173885
+74,Germany | Suhl | Labdoo Annahmestelle 98527 Suhl: Frank Hoffmann,0,0,0,Germany,open,0,0,2,0,10.6926437,50.6086518
+75,Germany | Dortmund | Labdoo Annahmestelle 44263 Dortmund - Hörde (Phoenixsee),0,0,0,Germany,open,0,0,15,0,7.4652789,51.5142273
+76,Germany | Düsseldorf | Labdoo Annahmestelle 40227 Düsseldorf  (Nähe Hauptbahnhof): Dirk Balzer,20,0,100,Germany,open,10,1,88,0,6.7763137,51.2254018
+77,Germany | Wuppertal | Labdoo Annahmestelle 42327 Wuppertal: GEPA - The Fair Trade Company,0,0,0,Germany,open,0,3,62,0,7.1780374,51.264018
+78,Germany | Essen | Labdoo Annahmestelle 45139 Essen: AfB gGmbH Shop Essen,0,0,0,Germany,open,0,8,753,0,7.0158171,51.4582235
+79,Germany | Hannover | Labdoo Annahmestelle 30165 Hannover: AfB gGmbH Shop Hannover,0,0,0,Germany,open,0,29,209,0,9.7385532,52.3744779
+80,Germany | Wesel | Labdoo Annahmestelle 46485 Wesel: Stefan Abeln,0,0,0,Germany,open,0,6,29,0,6.617087,51.6576909
+81,Germany | Neuenhagen | Labdoo Annahmestelle 15366 Neuenhagen bei Berlin: Holger Höing,0,0,0,Germany,open,0,0,5,0,13.1115253,53.7467873
+82,Germany | Ettlingen | Labdoo Annahmestelle 76275 Ettlingen: AfB gGmbH Shop Ettlingen,0,0,0,Germany,open,0,2,222,0,8.4076347,48.9414188
+83,Germany | Mülheim an der Ruhr | Labdoo Annahmestelle 45473 Mülheim an der Ruhr: VHS Volkshochschule,0,0,0,Germany,open,0,1,36,0,6.8829192,51.4272925
+84,Germany | Hamburg | Labdoo Annahmestelle 21035 Hamburg - Bergedorf:  PC112 PCFeuerwehr GmbH [nach Absprache geöffnet],303,40,86,Germany,open,141,2,261,0,10.0013165,53.5501721
+85,Germany | Hamburg | Labdoo Annahmestelle 22761 Hamburg - Bahrenfeld,0,0,0,Germany,open,0,0,55,0,10.0013165,53.5501721
+86,Germany | Nürnberg | Labdoo Annahmestelle 90427 Nürnberg: Raphael Seebröker,70,0,100,Germany,open,70,3,67,0,11.077298,49.453872
+87,Austria | Putzleinsdorf | Annahmestelle Putzleinsdorf: Judith Fuchs,0,0,0,Austria,open,0,0,0,0,13.8733381,48.5165615
+88,Austria | Wien | Annahmestelle Wien Liesing (23. Bezirk): AfB Shop,0,0,0,Austria,open,0,0,1,0,16.3725042,48.2083537
+89,Germany | Bonn | Labdoo Annahmestelle 53173 Bonn: Ulrich Egger (Hub),1291,258,80,Germany,open,1145,52,981,112,7.1024635,50.7352621
+90,Germany | Düren | Labdoo Annahmestelle 52353 Düren: AfB gGmbH Shop Düren,0,0,0,Germany,open,0,1,335,0,6.4820806,50.8031684
+91,Germany | Köln | Labdoo Annahmestelle 51103 Köln: AfB gGmbH Store Köln,0,0,0,Germany,open,0,0,107,0,6.959974,50.938361
+92,Switzerland | Uettligen | Annahmestelle 3043 Uettligen (BE),0,0,0,Switzerland,open,0,0,0,0,7.3860162,46.987784
+93,Switzerland | Randa | Annahmestelle 3928 Randa (VS),0,0,0,Switzerland,open,0,0,3,0,7.782412,46.1002792
+94,Switzerland | Visp | GESCHLOSSEN: Annahmestelle 3930 Visp (VS),0,0,0,Switzerland,closed,0,0,0,0,7.8811918,46.2913113
+95,Switzerland | Therwil | GESCHLOSSEN: Annahmestelle 4106 Therwil (BL),0,0,0,Switzerland,closed,0,0,0,0,7.5574673,47.4992969
+96,Switzerland | Mägenwil | Annahmestelle 5506 Mägenwil (AG),0,0,0,Switzerland,open,0,0,0,0,8.2301927,47.4122258
+97,Switzerland | Willisau | Annahmestelle 6130 Willisau (LU),0,0,0,Switzerland,open,0,0,0,0,7.99659,47.1215184
+98,Switzerland | Regensdorf | GESCHLOSSEN: Annahmestelle 8105 Regensdorf (ZH),0,0,0,Switzerland,closed,0,0,0,0,8.4680435,47.4317645
+99,Switzerland | Wallisellen | GESCHLOSSEN: Annahmestelle 8304 Wallisellen (ZH),0,0,0,Switzerland,closed,0,0,0,0,8.5919985,47.4166195
+100,Switzerland | Volketswil | GESCHLOSSEN: Annahmestelle 8604 Volketswil (ZH),0,0,0,Switzerland,closed,0,0,0,0,8.690503,47.3898617
+101,Switzerland | Unteriberg | Annahmestelle 8842 Unteriberg (SZ),0,0,0,Switzerland,open,0,0,0,0,8.8035271,47.0598018
+102,Switzerland | Oberwil-Lieli | Annahmestelle 8966 Oberwil-Lieli (AG),0,0,0,Switzerland,open,0,0,0,0,8.3843501,47.3338992
+103,Switzerland | St. Gallen | Annahmestelle 9001 St. Gallen (SG),0,0,0,Switzerland,open,0,0,0,0,9.3762397,47.425618
+104,Switzerland | Kreuzlingen | Annahmestelle 8280 Kreuzlingen (TG),0,0,0,Switzerland,open,0,0,0,0,9.1725621,47.6464362
+105,Switzerland | Biel/Bienne | Annahmestelle 2500 Biel/Bienne (BE),0,0,0,Switzerland,open,0,0,0,0,7.2439029,47.1402077
+106,United States | Irvine | Labdoo Hub California @PeopleSpace,0,0,0,United States,inactive,0,1,95,0,-117.825981,33.6856969
+107,Germany | Oberhausen | Labdoo Annahmestelle 46117 Oberhausen: Ajdin Halilovic,0,0,0,Germany,open,0,0,36,0,6.8514435,51.4696137
+108,Spain | Valldoreix | Labdoo Hub Casal d'Avis de Valldoreix,0,0,0,Spain,closed,0,0,0,0,2.050516,41.4599073
+109,Austria | Salzburg | Annahmestelle Salzburg: Amref Austria,0,0,0,Austria,open,0,0,0,0,13.0464806,47.7981346
+110,Austria | Graz | Annahmestelle Graz Zentrum,0,0,0,Austria,closed,0,0,5,0,15.4382786,47.0708678
+111,Austria | Salzburg - Gneis | Annahmestelle Salzburg-Gneis: Weltladen Salzburg-Gneis,0,0,0,Austria,open,0,0,0,0,13.0408524,47.7791152
+112,Austria | Köstendorf | Annahmestelle Köstendorf: EZA Fairer Handel,0,0,0,Austria,open,0,0,0,0,13.1978045,47.9568047
+113,Austria | Salzburg | Annahmestelle Salzburg: Pfarre Maria-Hilf in Leopoldskron-Moos,0,0,0,Austria,inactive,0,0,21,0,13.0464806,47.7981346
+114,Austria | Innsbruck / Arzl  | Annahmestelle Innsbruck:  Mittelschule Olympisches Dorf,0,0,0,Austria,open,0,0,5,0,11.4297668,47.283434
+115,Switzerland | Siebnen | GESCHLOSSEN: Annahmestelle 8854 Siebnen (SZ),0,0,0,Switzerland,closed,0,0,0,0,8.8987142,47.1755353
+116,Germany | Duisburg | Labdoo Annahmestelle 47198 Duisburg: Mail Boxes Etc. | AB Druck & Versand GmbH,0,0,0,Germany,open,0,1,25,0,6.759562,51.434999
+117,Spain | Hospitalet | Labdoo School Hub Barcelona - Institut Pedraforca,0,0,0,Spain,closed,0,0,0,0,2.0997927,41.3598601
+118,Spain | Lliçà de Vall | Labdoo Hub Lliçà de Vall - Obra Tutelar Agraria (OTA),24,0,100,Spain,inactive,6,0,25,0,2.2422403,41.5915542
+119,Switzerland | Alpnach | Annahmestelle 6055 Alpnach (OW),0,0,0,Switzerland,open,0,0,0,0,8.2736829,46.9411661
+120,Germany | Bergisch Gladbach | Labdoo Annahmestelle 51429 Bergisch Gladbach: Frank Dietz (Freifunk),45,0,100,Germany,open,39,0,60,0,7.1277379,50.9929303
+121,Colombia | Bello | Labdoo Hub Medellín / Divergente,134,44,67,Colombia,open,126,8,82,36,-1.4997476,40.922441
+122,Switzerland | Solothurn | GESCHLOSSEN: Annahmestelle 4500 Solothurn (SO),0,0,0,Switzerland,closed,0,0,0,0,7.6698284,47.31874
+123,Germany | München | Labdoo Annahmestelle 80335 München: Kinder- und Jugendmuseum München [zur Zeit nicht aktiv],0,0,0,Germany,closed,0,15,174,0,11.5753822,48.1371079
+124,Germany | Gründau-Lieblos | Labdoo Annahmestelle 63584 Gründau-Lieblos: Malteser Hilfsdienst Kreisgeschäftsstelle Main-Kinzig-Kreis,0,0,0,Germany,open,0,0,12,0,9.1400401,50.2000732
+125,Germany | Dortmund | Labdoo Annahmestelle 44263 Dortmund (Hub),57,0,100,Germany,open,45,1,57,0,7.4652789,51.5142273
+126,Germany | Hofsingelding | Labdoo Annahmestelle 85457 Hofsingelding: Anna Maria Blau (ADIA Erding e.V.),0,0,0,Germany,open,0,0,16,0,11.8773377,48.2479594
+127,Germany | Fulda | Labdoo Annahmestelle 36039 Fulda: Malteser Hilfsdienst Diözesangeschäftsstelle,0,0,0,Germany,open,0,0,4,0,9.6770448,50.5542328
+128,Germany | Hofheim am Taunus | Labdoo Annahmestelle 65719 Hofheim am Taunus: Tobias Schmidtke,65,0,100,Germany,open,32,8,672,0,8.42285,50.09494
+129,Luxembourg | Luxembourg | EuropaHub Lux,0,0,0,Luxembourg,open,0,0,0,0,6.1296751,49.8158683
+130,United Arab Emirates | Dubai | Labdoo Hub Dubai - World Trade Center,0,0,0,United Arab Emirates,inactive,0,0,0,0,55.1885387,25.0742823
+131,Switzerland | Dietikon | Annahmestelle 8953 Dietikon (ZH),0,0,0,Switzerland,open,0,0,0,0,8.4030765,47.4050746
+132,Switzerland | Stäfa | Annahmestelle 8712 Stäfa (ZH),0,0,0,Switzerland,open,0,0,0,0,8.7348747,47.2413349
+133,Switzerland | Olten | GESCHLOSSEN: Annahmestelle 4600 Olten (SO),0,0,0,Switzerland,closed,0,0,0,0,7.903787,47.3496571
+134,Spain | Vilafranca del Penedes | Labdoo City Hub Vilafranca del Penedes - Escorxador,3,0,100,Spain,open,1,3,17,0,1.6995213,41.3463825
+135,Spain | La Garriga | Labdoo Hub La Garriga - eXplorium,0,0,0,Spain,closed,0,0,0,0,2.2865796,41.6849111
+136,Spain | Barcelona | Labdoo Hub Barcelona BaseTIS,10,0,100,Spain,open,10,0,26,0,2.177073,41.3825802
+137,Switzerland | Bern | GESCHLOSSEN: Annahmestelle 3027 Bern (BE),0,0,0,Switzerland,closed,0,0,0,0,7.4521749,46.9484742
+138,Spain | Berga | Labdoo Hub Berga - Inforber,0,0,0,Spain,open,0,0,0,0,5.3259192,60.3943055
+139,Spain | Manresa | Labdoo Hub Manresa - Inforber,0,0,0,Spain,open,0,0,0,0,1.8286765,41.7288939
+140,Germany | Düsseldorf | Labdoo Annahmestelle 40233 Düsseldorf - Flingern: AWISTA Kommunal Recyclinghof Flingern,0,0,0,Germany,open,0,38,742,0,6.7763137,51.2254018
+141,Spain | Valencia | Labdoo Hub Valencia - Antiguos Alumnos UPV,0,0,0,Spain,open,0,0,11,0,-0.3763353,39.4697065
+142,Germany | Werder | Labdoo Annahmestelle 14542 Werder: Jürgen Weinreich,13,0,100,Germany,open,8,4,45,0,12.9329125,52.3715809
+143,Switzerland | Breitenbach | Annahmestelle 4226 Breitenbach (SO),0,0,0,Switzerland,open,0,0,0,0,7.2930383,48.3657983
+144,United States | Lake Forest | TechAnnex ,3,0,100,United States,open,3,0,48,0,-87.8407055,42.2586461
+145,Germany | Duisburg | Labdoo Annahmestelle 47167 Duisburg Röttgersbach: Recyclingzentrum Nord Wirtschaftsbetriebe Duisburg,0,0,0,Germany,open,0,0,42,0,6.759562,51.434999
+146,Germany | Duisburg | Labdoo Annahmestelle 47053 Duisburg Hochfeld: Recyclinghof Mitte Wirtschaftsbetriebe Duisburg / R(h)einladen,0,0,0,Germany,open,0,19,19,0,6.759562,51.434999
+147,Germany | Duisburg | Labdoo Annahmestelle 47059 Duisburg - Innenhafen: Wirtschaftsbetriebe Duisburg (H2Office),0,0,0,Germany,open,0,1,402,0,6.759562,51.434999
+148,Spain | Granollers | Labdoo Hub Granollers - Educem,12,0,100,Spain,closed,6,0,20,0,2.2876008,41.6079555
+149,Greece | Athens | Labdoo Hub Athens,5,5,0,Greece,open,5,0,0,5,-83.376398,33.9597677
+150,"United States | Pomona | Labdoo Hub California Polytechnic State University, Pomona",0,0,0,United States,inactive,0,4,9,0,-117.7517496,34.0553813
+151,Spain | Vilafranca del Penedes | Labdoo School Hub Vilafranca - Col·legi Sant Josep,3,0,100,Spain,inactive,1,0,3,0,1.6995213,41.3463825
+152,Dominican Republic | Santo Domingo Este | Labdoo Hub Santo Domingo (Dominican Republic),0,0,0,Dominican Republic,open,0,0,0,0,-69.8383703,18.4936515
+153,New Zealand | Auckland | Labdoo Hub Auckland,288,70,75,New Zealand,open,280,34,184,62,174.7631803,-36.852095
+154,Netherlands | Amsterdam | Labdoo Hub Amsterdam,0,0,0,Netherlands,closed,0,0,0,0,4.8924534,52.3730796
+155,Spain | Vilafranca del Penedès |  Labdoo City Hub Vilafranca del Penedes - Biblioteca Torras i Bages ,0,0,0,Spain,open,0,5,32,0,1.6995213,41.3463825
+156,Switzerland | Aarau | GESCHLOSSEN: Annahmestelle 5000 Aarau (AG),0,0,0,Switzerland,closed,0,0,0,0,8.0444448,47.3927146
+157,Switzerland | Glattbrugg | GESCHLOSSEN: Annahmestelle 8152 Glattbrugg (ZH),0,0,0,Switzerland,closed,0,0,0,0,8.5589291,47.4308526
+158,"Hong Kong S.A.R., China | Hong Kong | Labdoo Hub Hong Kong - Central",45,21,53,"Hong Kong S.A.R., China",closed,30,2,22,6,114.1628907,22.2792968
+159,Germany | Neuss | Labdoo Annahmestelle 41462 Neuss:  Ambulante Hilfen Neuss | Neukirchener Erziehungsverein,0,0,0,Germany,open,0,0,15,0,6.6916476,51.1981778
+160,Germany | Neukirchen-Vluyn | Labdoo Annahmestelle 47506 Neukirchen-Vluyn: Neukirchener Erziehungsverein,0,0,0,Germany,open,0,0,1,0,6.5467641,51.4413742
+161,Switzerland | Flamatt | GESCHLOSSEN: Annahmestelle 3175 Flamatt (FR),0,0,0,Switzerland,closed,0,0,0,0,7.3110208,46.8894589
+162,Austria | Klagenfurt | Annahmestelle AfB Klagenfurt,0,0,0,Austria,open,0,0,0,0,14.3075976,46.623943
+163,United States | San Jose |  Labdoo Hub Melody Semiconductors,0,0,0,United States,inactive,0,0,0,0,-121.890591,37.3361663
+164,United States | Palo Alto | Labdoo Hub-Palo Alto,0,0,0,United States,open,0,0,9,0,-122.1598465,37.4443293
+165,Spain | Barcelona | Labdoo Hub - Associació Catalana d’Enginyers de Telecomunicació,0,0,0,Spain,open,0,1,14,0,2.177073,41.3825802
+166,Germany | Dietzenbach | Labdoo Annahmestelle 63128 Dietzenbach: Amira Bieber,0,0,0,Germany,open,0,0,9,0,8.784277,50.0171926
+167,Germany | Sandhausen | Labdoo Annahmestelle 69207 Sandhausen / Rhein-Neckar: Heinrich Wegener (Hub),129,0,100,Germany,open,129,14,338,0,8.6595053,49.3424055
+168,Austria | Wien - Mödling    Annahmestelle Hr. Rossmann | Annahmestelle Rossmann,0,0,0,Austria,open,0,0,6,0,0.0,0.0
+169,Spain | Sant Pere de Riudebitlles | Labdoo City Hub Sant Pere de Riudebitlles - Biblioteca Maria Àngels Torrents,0,0,0,Spain,open,0,0,0,0,1.7017388,41.4535893
+170,Spain | Sant Quintí de Mediona | Labdoo City Hub Sant Quintí de Mediona - Biblioteca Joan Sardà i Lloret,0,0,0,Spain,open,0,0,0,0,1.6652161,41.4627909
+171,Spain | Sant Sadurní d’Anoia | Labdoo City Hub Sant Sadurní d’Anoia - Biblioteca Ramon Bosch de Noya,0,0,0,Spain,open,0,0,0,0,1.7863949,41.4244663
+172,Spain | Santa Margarida i els Monjos | Labdoo City Hub Santa Margarida i els Monjos - Biblioteca Santa Margarida i els Monjos,0,0,0,Spain,open,0,0,16,0,1.6623519,41.3213389
+173,Spain | Sant Pere de Ribes | Labdoo City Hub Sant Pere de Ribes - Biblioteca Manuel de Pedrolo,0,0,0,Spain,open,0,2,4,0,1.7721357,41.2619218
+174,Spain | Sant Pere de Ribes | Labdoo City Hub Sant Pere de Ribes - Biblioteca Josep Pla,0,0,0,Spain,open,0,0,3,0,1.7721357,41.2619218
+175,Spain | Sitges | Labdoo City Hub Sitges - Biblioteca Santiago Rusiñol,0,0,0,Spain,open,0,0,0,0,1.8228136,41.2366707
+176,Spain | Sitges | Labdoo City Hub Sitges - Biblioteca Josep Roig i Raventós,0,0,0,Spain,open,0,0,2,0,1.8228136,41.2366707
+177,Spain | Vilanova i la Geltru | Labdoo City Hub Vilanova i la Geltrú - Biblioteca Joan Oliva i Milà,0,0,0,Spain,open,0,1,2,0,1.7256327,41.2241992
+178,Spain | Vilanova i la Geltrú | Labdoo City Hub Vilanova i la Geltrú - Biblioteca Armand Cardona Torrandell ,0,0,0,Spain,open,0,1,4,0,1.7256327,41.2241992
+179,Spain | Vilafranca del Penedés | Labdoo Mobile Hub Vilafranca del Penedes - BIBLIOBUS CASTELLOT,0,0,0,Spain,open,0,0,0,0,1.6995213,41.3463825
+180,Spain | Vilafranca del Penedés | Labdoo Mobile Hub Vilafranca del Penedes - BIBLIOBUS MONTAU,0,0,0,Spain,open,0,1,0,0,1.6995213,41.3463825
+181,"Austria | St. Pölten | EVI  Naturkost, Laptopsammelstelle und Restaurant",0,0,0,Austria,open,0,0,15,0,15.6229118,48.2043985
+182,Austria | Röthis | Labdoo Hub Vorarlberg,2,2,0,Austria,open,1,0,0,1,9.6534863,47.2922308
+183,Venezuela | Maturin  | Labdoo Hub Venezuela - Maturin,0,0,0,Venezuela,open,0,0,0,0,-63.1888854,9.7422774
+184,Germany | Neuss | Labdoo Annahmestelle 41460 Neuss:  SPD Geschäftsstelle Neuss,0,0,0,Germany,open,0,0,29,0,6.6916476,51.1981778
+185,Germany | Oberkirchen | Labdoo Annahmestelle 66629 Oberkirchen (Saar): Ehrenamtliches Café Edelstein Heimat- und Verkehrsverein | WEISELBERG e.V.,63,21,66,Germany,open,31,1,41,0,8.3743827,51.1584393
+186,"Switzerland | St. Gallen | GESCHLOSSEN: Annahmestelle 9001 St. Gallen (SG), Bahnhof",0,0,0,Switzerland,closed,0,0,0,0,9.3762397,47.425618
+187,Switzerland | Uhwiesen | GESCHLOSSEN: Annahmestelle 8248 Uhwiesen (ZH),0,0,0,Switzerland,closed,0,0,0,0,8.6350982,47.6709937
+188,Spain | Barcelona | Escola Monlau ,30,0,100,Spain,closed,25,2,87,0,2.177073,41.3825802
+189,Spain | Ourense | Labdoo School Hub Ourense - CIFP A Carballeira-Márcos Valcarcel,15,8,46,Spain,open,15,2,5,8,-7.537124,42.1939629
+190,United States | Middlebury | Middlebury College Laptop Hub,0,0,0,United States,open,0,0,0,0,-73.167229,44.014299
+191,Spain | Sant Cugat del Vallès | Labdoo City Hub Sant Cugat ,2876,1424,50,Spain,open,2202,341,1111,750,2.0817809,41.4728432
+192,Switzerland | Pfäffikon | Annahmestelle 8808 Pfäffikon (SZ),0,0,0,Switzerland,open,0,0,0,0,8.7819841,47.365582
+193,United Kingdom | Oxford | Labdoo Hub Oxford,153,117,23,United Kingdom,inactive,103,2,34,67,-1.2578499,51.7520131
+194,United States | Irvine | WeServe Leadership Program,30,27,10,United States,closed,15,0,3,12,-117.825981,33.6856969
+195,Spain | Madrid | Labdoo School Hub Madrid - IES Arquitecto Ventura Rodríguez,16,0,100,Spain,open,16,0,30,0,-3.703507,40.416782
+196,Spain | Badajoz | IES Castelar (Badajoz),0,0,0,Spain,open,0,0,0,0,-6.9701115,38.878187
+197,Switzerland | Oberwil-Lieli | ZENTRALLAGER und Aufbereitungsstelle: 8966 Oberwil-Lieli (AG),0,0,0,Switzerland,open,0,0,0,0,8.3843501,47.3338992
+198,United Kingdom | Hemingford Grey | Labdoo Hub Cambridge,0,0,0,United Kingdom,inactive,0,0,0,0,-0.1006425,52.306201
+199,Switzerland | Hittnau | Annahmestelle 8335 Hittnau (ZH),0,0,0,Switzerland,open,0,0,0,0,8.8233708,47.3682799
+200,Spain | Vilanova i la Geltru | Labdoo School Hub Vilanova - Institut Municipal d'Educació i Treball (IMET),0,0,0,Spain,open,0,0,1,0,1.7256327,41.2241992
+201,Spain | Bilbao | CIFP Elorrieta Erreka Mari,0,0,0,Spain,inactive,0,0,0,0,-2.9350039,43.2630018
+202,Romania | Santana | Romania Santana Liceul Technologie 'Stefan Hell',0,0,0,Romania,open,0,0,0,0,-44.05064,-12.979217
+203,Mongolia | Ulaanbaatar | Labdoo Hub Ulaanbaatar,55,24,56,Mongolia,open,55,0,31,24,106.9177016,47.9184676
+204,Spain | Cerdanyola del Vallès  | Labdoo School Hub Cerdanyola - FEDAC ,0,0,0,Spain,closed,0,0,0,0,2.1374969,41.4910324
+205,Spain | Leon | Labdoo Dropping Point Leon España,0,0,0,Spain,open,0,0,1,0,-95.9953382,31.2715127
+206,Germany | München | Labdoo Annahmestelle 81245 München: Pasing,9,0,100,Germany,open,9,23,311,0,11.5753822,48.1371079
+207,Switzerland | Renens | GESCHLOSSEN/FERME: Annahmestelle 1020 Renens (VD),0,0,0,Switzerland,closed,0,0,0,0,6.5928442,46.5349093
+208,Germany | Bochum | Labdoo Annahmestelle 44799 Bochum: Center for Advanced Internet Studies (CAIS) gGmbH,0,0,0,Germany,open,0,4,19,0,7.2196635,51.4818111
+209,Spain | Vilafranca del Penedès | Labdoo School Hub Vilafranca - Institut Alt Penedès,142,0,100,Spain,open,71,2,155,0,1.6995213,41.3463825
+210,Spain | Tegueste | Labdoo Hub Canary Islands - Tegueste,0,0,0,Spain,open,0,0,0,0,-16.3407638,28.5232609
+211,Spain | Badalona | Labdoo Hub Badalona - Plaça de Carme Guasch,0,0,0,Spain,inactive,0,0,0,0,2.248254,41.4493539
+212,Germany | Bremen | Labdoo Annahmestelle 28215 Bremen Findorff (Ajimba African Tours) ,0,0,0,Germany,open,0,0,7,0,8.8071646,53.0758196
+213,United States | San Jose | Labdoo Hub Sewa Bay Area,50,36,28,United States,inactive,50,0,14,36,-121.890591,37.3361663
+214,Switzerland | Arisdorf | GESCHLOSSEN: Annahmestelle 4422 Arisdorf (BL),0,0,0,Switzerland,closed,0,0,0,0,7.7654983,47.5123916
+215,Switzerland | Gwatt/Thun | GESCHLOSSEN: Annahmestelle 3645 Gwatt/Thun (BE),0,0,0,Switzerland,closed,0,0,0,0,7.6201429,46.7254458
+216,Switzerland | Staad/Thal | GESCHLOSSEN: Annahmestelle 9422 Staad/Thal (SG),0,0,0,Switzerland,closed,0,0,0,0,9.5368455,47.4802989
+217,Romania | Saniob | Romania Oradea - Saniob,0,0,0,Romania,open,0,0,0,0,22.1301322,47.2628461
+218,United Kingdom | Brighton  | Revive: University of Sussex Enactus Hub,25,13,48,United Kingdom,inactive,12,0,12,0,-0.1400561,50.8214626
+219,Spain | Barcelona | Labdoo School Hub Barcelona - Institut Joan d'Àustria,4,0,100,Spain,open,4,0,4,0,2.177073,41.3825802
+220,Switzerland | Rüschlikon | Annahmestelle 8803 Rüschlikon (ZH),0,0,0,Switzerland,open,0,0,0,0,8.5546421,47.307465
+221,"Switzerland | Zürich | Annahmestelle 8048 Zürich (ZH), Altstetten",0,0,0,Switzerland,open,0,0,0,0,8.5410422,47.3744489
+222,United States | Long Island City | Labdoo Hub Long Island City - New York,0,0,0,United States,closed,0,0,0,0,-73.9484995,40.7455316
+223,Spain | Antequera | IES. Los Colegiales. Antequera.,0,0,0,Spain,open,0,0,0,0,-4.5596649,37.0183652
+224,Germany | München | Labdoo Annahmestelle 80796 München: Schwabing-West,126,0,100,Germany,open,78,1,217,0,11.5753822,48.1371079
+225,Spain | Gelida | Labdoo School Hub Gelida - Institut Gelida,0,0,0,Spain,open,0,0,0,0,1.8634309,41.4408877
+226,Germany | Kassel | Labdoo Annahmestelle 34134 Kassel (Hub),42,0,100,Germany,open,34,1,96,0,9.4978479,51.3157833
+227,Germany | Stade | Labdoo Annahmestelle 21680 Stade (Hub),198,0,100,Germany,open,80,125,348,0,9.475438,53.599794
+228,Spain | Cubelles | Labdoo City Hub Cubelles - Deixalleria,0,0,0,Spain,inactive,0,0,2,0,1.6730541,41.2083363
+229,Spain | Cubelles | Labdoo City Hub Cubelles - Biblioteca Municipal Mn Joan Avinyo i Andreu de Cubelles,0,0,0,Spain,open,0,0,2,0,1.6730541,41.2083363
+230,Spain | Cubelles | Labdoo City Hub Cubelles - Centre Social Ajuntament de Cubelles,1,0,100,Spain,open,1,0,10,0,1.6730541,41.2083363
+231,Spain | Girona | Labdoo Hub Girona - Avgda Lluís Pericot,160,30,81,Spain,open,152,15,115,22,2.8199439,41.9793006
+232,Spain | Granollers | Labdoo School Hub Granollers - Escola Pia,20,18,10,Spain,open,10,0,2,8,2.2876008,41.6079555
+233,United Kingdom | Sittingbourne | Labdoo Hub Sittingbourne -  The Swale Labdoo Hub,0,0,0,United Kingdom,inactive,0,0,0,0,0.7342319,51.3397366
+234,Germany | Wismar | Labdoo Annahmestelle 23968 Wismar - Wendorf,0,0,0,Germany,open,0,0,14,0,11.4647932,53.8909832
+235,United States | New York | Labdoo Hub Soho  - New York,0,0,0,United States,closed,0,0,3,0,-74.0060152,40.7127281
+236,Spain | Sant Cugat del Vallès | Labdoo School Hub Sant Cugat - Aula de So,100,27,73,Spain,open,25,9,64,0,2.0817809,41.4728432
+237,Spain | Barcelona | Labdoo Hub Barcelona - Probike,0,0,0,Spain,closed,0,1,4,0,2.177073,41.3825802
+238,Switzerland | Winterthur | GESCHLOSSEN: Annahmestelle 8404 Winterthur (ZH),0,0,0,Switzerland,closed,0,0,0,0,8.7291498,47.4991723
+239,Spain | Esplugues de Llobregat | Labdoo Hub - Esplugues de Llobregat,0,0,0,Spain,open,0,0,9,0,2.0899722,41.3776796
+240,Kenya | Ukunda | Hub Ukunda UJUZI na UFUNDI Vocational Training Institute in Cooperation with Humanitas activa,104,4,96,Kenya,closed,52,0,100,0,39.571219,-4.29451
+241,Georgia | Tblisi | Tblisi,0,0,0,Georgia,inactive,0,0,0,0,44.8014495,41.6934591
+242,Switzerland | Laax | Annahmestelle 7031 Laax (GR),0,0,0,Switzerland,open,0,0,0,0,9.2581267,46.806412
+243,Spain | Vilafr | Labdoo City Hub Vilafranca del Penedès - La Nau,8,0,100,Spain,open,4,21,52,0,0.0,0.0
+244,Germany | Leipzig | Labdoo Annahmestelle 04229 Leipzig: DATA REVERSE,0,0,0,Germany,open,0,4,69,0,12.3747329,51.3406321
+245,Switzerland | Widnau | Annahmestelle 9443 Widnau (SG),0,0,0,Switzerland,open,0,0,0,0,9.6356294,47.4053426
+246,Spain | Tarragona | URV-MongolRally-GoCharlieGo,17,0,100,Spain,open,17,3,49,0,1.2546057,41.1172364
+247,Spain | Girona | Labdoo Hub Girona @ Gimnàs Escola Avança,0,0,0,Spain,closed,0,0,17,0,2.8199439,41.9793006
+248,Spain | Barcelona | Labdoo Hub Casa Orlandai,0,0,0,Spain,open,0,3,114,0,2.177073,41.3825802
+249,Germany | Hamburg | Labdoo Annahmestelle 20146 Hamburg - Rotherbaum: Daniel Heydebreck am DKRZ [selten geöffnet],0,0,0,Germany,open,0,3,69,0,10.0013165,53.5501721
+250,Spain | Madrid | Labdoo Hub Madrid - IES Clara del Rey,31,0,100,Spain,closed,16,0,32,0,-3.703507,40.416782
+251,Switzerland | Berikon | Annahmestelle 8965 Berikon (AG),0,0,0,Switzerland,open,0,0,0,0,8.3701013,47.3528355
+252,Switzerland | Trogen | Annahmestelle 9043 Trogen (AR),0,0,0,Switzerland,open,0,0,0,0,9.4650591,47.4079877
+253,Spain | Sant Cugat del Vallès | Labdoo City Hub Sant Cugat - Ambiteca ,40,36,10,Spain,open,20,3,1,16,2.0817809,41.4728432
+254,Spain | Sant Cugat del Vallès | Labdoo School Hub Sant Cugat - Escola Santa Isabel ,0,0,0,Spain,open,0,0,1,0,2.0817809,41.4728432
+255,Spain | Barcelona | Labdoo Hub AUCOOP UPC,107,25,76,Spain,open,48,31,51,0,2.177073,41.3825802
+256,India | New Delhi | Labdoo Hub New Delhi,15,13,13,India,open,15,0,2,13,77.2090057,28.6138954
+257,Finland | Espoo | Labdoo Hub Espoo,0,0,0,Finland,open,0,0,0,0,24.6559808,60.2049651
+258,Belgium | Leuven | Labdoo Hub Leuven,63,56,11,Belgium,open,63,0,7,56,4.7011675,50.879202
+259,Switzerland | Frick | GESCHLOSSEN: Annahmestelle 5070 Frick (AG),0,0,0,Switzerland,closed,0,0,0,0,8.0203065,47.5075081
+260,Germany | Bielefeld | Labdoo Annahmestelle 33609 Bielefeld: SeedCom Ltd,0,0,0,Germany,open,0,0,75,0,8.531007,52.0191005
+261,Switzerland | Neudorf | GESCHLOSSEN: Annahmestelle 6025 Neudorf (LU),0,0,0,Switzerland,closed,0,0,0,0,7.5696755,47.6054816
+262,Spain | sant cugat del valles | Explorium,0,0,0,Spain,closed,0,0,0,0,2.0817809,41.4728432
+263,Spain | Sant Cugat del Vallès | Labdoo City Hub Sant Cugat del Vallès - Biblioteca Mira-sol Marta Pessarrodona ,0,0,0,Spain,open,0,3,9,0,2.0817809,41.4728432
+264,"Spain | Sant Cugat del Vallès | Labdoo City Hub Sant Cugat del Vallès - Biblioteca Miquel Batllori, Volpelleres.",0,0,0,Spain,open,0,1,1,0,2.0817809,41.4728432
+265,Switzerland | Bern | GESCHLOSSEN: Annahmestelle 3007 Bern (BE),0,0,0,Switzerland,inactive,0,0,0,0,7.4521749,46.9484742
+266,Switzerland | Lumino | GESCHLOSSEN: Annahmestelle 6533 Lumino (TI),0,0,0,Switzerland,closed,0,0,0,0,9.0672648,46.2318743
+267,Spain | Tarragona | Punt de recollida Labdoo- CRAI URV Campus Catalunya (Tarragona),0,0,0,Spain,open,0,0,10,0,1.2546057,41.1172364
+268,Spain | Barcelona | Labdoo School Hub  Barcelona -  Aula 19 Centre de Formació,30,8,73,Spain,open,30,16,6,8,2.177073,41.3825802
+269,Spain | Tarragona | Punt de recollida Labdoo- CRAI URV Campus Sescelades (Tarragona),4,0,100,Spain,open,2,22,16,0,1.2546057,41.1172364
+270,Spain | Tarragona | Hub Universitat Rovira i Virgili (URV),46,22,52,Spain,open,33,10,14,9,1.2546057,41.1172364
+271,Spain | Tortosa | Punt de recollida Labdoo- CRAI URV Campus Terres de l’Ebre (Tortosa),0,0,0,Spain,open,0,0,0,0,0.5209333,40.8110158
+272,Spain | Coma-ruga | Punt de recollida Labdoo- CRAI URV Campus Baix Penedès (Vendrell),0,0,0,Spain,open,0,0,0,0,1.5230383,41.181593
+273,Spain | Reus | Punt de recollida Labdoo- CRAI URV Campus Bellissens (Reus),0,0,0,Spain,open,0,0,0,0,1.1076133,41.1555564
+274,Spain | Reus | Punt de recollida Labdoo- CRAI URV Campus Medicina (Reus),0,0,0,Spain,open,0,0,0,0,1.1076133,41.1555564
+275,Spain | Tarragona | Punt de recollida Labdoo- URV Solidària (Tarragona),81,21,74,Spain,open,66,26,34,6,1.2546057,41.1172364
+276,Spain | Vila-seca | Punt de recollida Labdoo- CRAI URV Campus Vila-seca,0,0,0,Spain,open,0,0,0,0,1.144961,41.1109268
+277,Spain | Barcelona | Labdoo Hub Barcelona - Foundawtion,90,0,100,Spain,open,60,0,194,0,2.177073,41.3825802
+278,Germany | Schwerin | Labdoo Annahmestelle 19055 Schwerin: Computer Studio GmbH Mecklenburg,0,0,0,Germany,open,0,0,0,0,11.4148038,53.6288297
+279,Spain | Sant Cugat del Vallès | Labdoo School Hub Sant Cugat - Institut Angeleta Ferrer i Sensat,52,17,67,Spain,open,36,1,34,1,2.0817809,41.4728432
+280,Spain | Sant Cugat del Vallès | Labdoo School Hub Sant Cugat - Institut FP Sant Cugat,10,0,100,Spain,open,5,62,187,0,2.0817809,41.4728432
+281,Germany | Köln | Labdoo Annahmestelle 50737 Köln: KABRO Motorradtechnik,0,0,0,Germany,open,0,0,31,0,6.959974,50.938361
+282,Germany | Frankfurt am Main | Labdoo Annahmestelle 60489 Frankfurt am Main (Rödelheim): Chris Neygandhi,0,0,0,Germany,open,0,1,29,0,8.6820917,50.1106444
+283,Spain | Terrassa | Labdoo Hub Terrassa - Paisalanes,89,19,78,Spain,open,81,13,57,11,2.0100492,41.5629623
+284,Spain | Barcelona | Labdoo Hub - Acollida de persones refugiades a Catalunya (COVID-19-CAT),92,15,83,Spain,inactive,69,11,66,0,2.177073,41.3825802
+285,Spain | Sant Cugat del Vallès | Labdoo School Hub Sant Cugat - Escola Pi d'en Xandri ,0,0,0,Spain,open,0,0,2,0,2.0817809,41.4728432
+286,Germany | Schlangenbad | Labdoo Annahmestelle 65388 Schlangenbad: Carola Bill,0,0,0,Germany,open,0,1,19,0,8.04375,50.09487
+287,Germany | Windeck | Labdoo Annahmestelle 51570 Rhein-Sieg-Oberberg: Sascha Mantscheff (Hub),0,0,0,Germany,open,0,0,3,0,7.5746042,50.7977107
+288,United States | Brea | Labdoo Hub CEWS (Corporate eWaste Solutions),10,0,100,United States,open,10,4,62,0,-117.888855,33.9170444
+289,Germany | Schwerin | Labdoo Annahmestelle 19053 Schwerin: Perfectum Computersysteme,0,0,0,Germany,open,0,0,13,0,11.4148038,53.6288297
+290,Spain | Banyoles | Banyoles City Hub,34,0,100,Spain,open,21,1,63,0,2.7653607,42.1180477
+291,Germany | Kaulsdorf | Labdoo Annahmestelle 07338 Kaulsdorf: Axel Brümmer,689,276,59,Germany,open,502,2,411,89,11.4308881,50.6209074
+292,United States | Miami  | Labdoo Hub Miami,222,148,33,United States,open,152,2,72,78,-80.1935973,25.7741566
+293,Spain | Cornellà del Llobregat | Labdoo School Hub Cornellà - Fundació El Llindar,1,0,100,Spain,open,0,7,52,0,2.0723373,41.3484792
+294,Spain | Sant Cugat del Vallès | Labdoo  School Hub Sant Cugat - PFI-PTT Sant Cugat del Vallès ,0,0,0,Spain,open,0,0,0,0,2.0817809,41.4728432
+295,Germany | Stadt Wehlen | Labdoo Annahmestelle 01829 Stadt Wehlen: Michael Klix,4,0,100,Germany,open,4,0,16,0,14.0307534,50.957091
+296,Spain | Málaga | Labdoo Hub Malaga - Asociación Chavorrillos Asperones UMA,100,19,81,Spain,open,100,66,15,19,-4.4216366,36.7213028
+297,Spain | Valencia | Labdoo Hub Valencia - Barrio Patraix,0,0,0,Spain,open,0,0,0,0,-0.3763353,39.4697065
+298,Spain | Valencia | Labdoo Hub Valencia cg,0,0,0,Spain,open,0,0,0,0,-0.3763353,39.4697065
+299,Spain | NARON | Narón - La Coruña ,0,0,0,Spain,open,0,0,0,0,-8.1923091,43.5010981
+300,Spain | Finestrat | Labdoo Hub - Finestrat - Sally Farrera,0,0,0,Spain,open,0,0,0,0,-0.2122319,38.5679236
+301,Spain | San Pedro Alcántara (Marbella) | San Pedro Alcántara ,0,0,0,Spain,open,0,0,0,0,-4.990532,36.486635
+302,Spain | Valencia | Labdoo Hub Valencia - costa,0,0,0,Spain,open,0,0,0,0,-0.3763353,39.4697065
+303,Spain | Naron | Narón - La Coruña  ,0,0,0,Spain,open,0,0,0,0,-8.1923091,43.5010981
+304,Spain | Finestrat | Finestrat,0,0,0,Spain,open,0,0,0,0,-0.2122319,38.5679236
+305,Spain | Banyoles | Institut Pere Alsius,0,0,0,Spain,open,0,1,43,0,2.7653607,42.1180477
+306,Spain | Banyoles | Punt Òmnia de Banyoles,0,0,0,Spain,open,0,0,1,0,2.7653607,42.1180477
+307,Germany | Hamburg | Labdoo Annahmestelle 22607 Hamburg - Groß Flottbek: Jacques Weindepot,0,0,0,Germany,open,0,0,0,0,10.0013165,53.5501721
+308,Germany | Bremen | Labdoo Annahmestelle 28203 Bremen: Helmut R Werner,0,0,0,Germany,open,0,2,9,0,8.8071646,53.0758196
+309,Spain | La Eliana | Labdoo Hub La Eliana - València,0,0,0,Spain,open,0,0,0,0,-0.5302784,39.5659086
+310,Germany | Wetter (Ruhr) | Labdoo Annahmestelle 58300 Volmarstein: Berufsbildungswerk Volmarstein,1,0,100,Germany,open,1,2,17,0,7.3951553,51.3879463
+311,Spain | Banyoles | Banyoles - Oficina Jove Cal Drac,0,0,0,Spain,open,0,0,3,0,2.7653607,42.1180477
+312,Spain | Banyoles | Institut Josep Brugulat,0,0,0,Spain,open,0,0,0,0,2.7653607,42.1180477
+313,Spain | Banyoles | Institut Pla de l'Estany,0,0,0,Spain,open,0,0,2,0,2.7653607,42.1180477
+314,Germany | Düsseldorf | Labdoo Annahmestelle 40223 Düsseldorf - Bilk / Südring: Jacques Weindepot,0,0,0,Germany,open,0,2,95,0,6.7763137,51.2254018
+315,Spain | Manresa | Labdoo Hub Manresa - Xup Wadea,0,0,0,Spain,open,0,0,0,0,1.8286765,41.7288939
+316,Spain | Salamanca | Salamanca,0,0,0,Spain,inactive,0,0,0,0,-5.6640182,40.9651572
+317,"Spain | Llinars del Vallès | City Hub Llinars del Vallès, Can Lletres",70,51,27,Spain,open,70,14,5,51,2.4025704,41.641913
+318,Spain | Cercs | Labdoo Hub Cercs ,0,0,0,Spain,open,0,0,0,0,1.8606233,42.1463987
+319,Germany | Messel | Labdoo Annahmestelle 64409 Messel: SOCIALARTS E.V. & PROJEKTFABRIK gGmbH,0,0,0,Germany,open,0,0,8,0,8.7449232,49.9369643
+320,Spain | Borreda | Labdoo hub Borredà,0,0,0,Spain,open,0,0,0,0,1.9941054,42.1355536
+321,Spain | Manresa | Labdoo Hub Manresa - Aliehs,0,0,0,Spain,open,0,0,0,0,1.8286765,41.7288939
+322,Spain | Llinars del Vallès | Labdoo City Hub Llinars del Vallès - Biblioteca Can Casas,0,0,0,Spain,open,0,0,0,0,2.4025704,41.641913
+323,Spain | Llinars del Vallès | Labdoo Hub Llinars del Vallès - Escola Ginebró,0,0,0,Spain,open,0,0,0,0,2.4025704,41.641913
+324,Spain | Barcelona | Labdoo Hub Centre Ocupacional Taller Sant Camil,0,0,0,Spain,open,0,35,25,0,2.177073,41.3825802
+325,Spain | Madrid | Labdoo Hub Madrid Futuro,490,86,82,Spain,inactive,490,0,404,86,-3.703507,40.416782
+326,Spain | Granollers | Labdoo City Hub Granollers,138,105,23,Spain,closed,138,0,33,105,2.2876008,41.6079555
+327,Germany | Ulm | Labdoo Annahmestelle 89073 Ulm: Ulmer Weltladen,0,0,0,Germany,open,0,5,93,0,9.9912458,48.3984968
+328,Germany | Neubrunn-Böttigheim | Labdoo Annahmestelle 97277 Main-Tauber: Sambia e.V. Neubrunn-Böttigheim,21,0,100,Germany,open,21,13,82,0,9.6536872,49.7044899
+329,Germany | Gießen  | Labdoo Annahmestelle 35396 Gießen: IG Metall Geschäftsstelle Mittelhessen ,0,0,0,Germany,open,0,4,34,0,8.6938161,50.5808795
+330,Spain | Mataró | Labdoo School Hub Mataró - Institut Damià Campeny,0,0,0,Spain,open,0,0,0,0,2.4448926,41.5398348
+331,Switzerland | Gretzenbach | GESCHLOSSEN: Annahmestelle 5014 Gretzenbach (SO),0,0,0,Switzerland,closed,0,0,0,0,7.9998602,47.3551613
+332,Spain | Madrid | Labdoo Hub Madrid - Universidad Complutense ,64,40,37,Spain,inactive,28,0,24,4,-3.703507,40.416782
+333,Germany | Köln | Labdoo Annahmestelle 50678 Köln: Railslove GmbH,0,0,0,Germany,open,0,0,14,0,6.959974,50.938361
+334,Spain | Sabadell | Labdoo Hub Sabadell,489,225,53,Spain,open,456,53,211,192,2.1083214,41.5460801
+335,Germany | Bonn | Labdoo Annahmestelle 53125 Bonn: Björn Wetzel,2,0,100,Germany,open,2,0,5,0,7.1024635,50.7352621
+336,Germany | Köln | Labdoo Annahmestelle 50968 Köln: Alexander Artz Kibera Hope Academy gUG,0,0,0,Germany,open,0,1,2,0,6.959974,50.938361
+337,Germany | Freudenstadt | Labdoo Annahmestelle 72250 Freudenstadt: AVIA Freudenstadt,0,0,0,Germany,open,0,0,12,0,8.4111727,48.4637727
+338,Germany | Freudenstadt | Labdoo Annahmestelle 72250 Freudenstadt: Oest Tankstellen GmbH & Co. KG (Hub),0,0,0,Germany,open,0,1,33,0,8.4111727,48.4637727
+339,Germany | Dornhan | Labdoo Annahmestelle 72175 Dornham: AVIA Dornhan,0,0,0,Germany,open,0,0,0,0,8.5078535,48.3502837
+340,Germany | Ottenhöfen | Labdoo Annahmestelle 77883 Ottenhöfen: AVIA Ottenhöfen,0,0,0,Germany,open,0,0,0,0,8.1521367,48.5658379
+341,Germany | Oberndorf-Aistaig | Labdoo Annahmestelle 78727 Oberndorf: AVIA Oberndorf,0,0,0,Germany,open,0,0,0,0,8.5702667,48.3138235
+342,Spain | Mataró | Labdoo City Hub Mataró - Biblioteca Antoni Comas,0,0,0,Spain,open,0,0,0,0,2.4448926,41.5398348
+343,Spain | Mataró | Labdoo City Hub Mataró - Biblioteca Pompeu Fabra,0,0,0,Spain,open,0,0,1,0,2.4448926,41.5398348
+344,Spain | Girona | Labdoo Hub Girona - OIKIA,21,9,57,Spain,open,21,2,10,9,2.8199439,41.9793006
+345,Germany | Unterhaching | Labdoo Annahmestelle 82008 Unterhaching [zur Zeit geschlossen],0,0,0,Germany,closed,0,4,73,0,11.6102245,48.0662249
+346,Germany | Schongau | Labdoo Annahmestelle 86956 Schongau,0,0,0,Germany,open,0,0,15,0,10.8972133,47.8118973
+347,Germany | München | Labdoo Annahmestelle 81541 München: Giesing,13,0,100,Germany,open,8,0,156,0,11.5753822,48.1371079
+348,"Spain | Manresa | Labdoo School Hub - Institut Cal Gravat, Manresa",0,0,0,Spain,open,0,2,0,0,1.8286765,41.7288939
+349,Germany | Hamburg | Labdoo Annahmestelle 22999 Hamburg: Winterhude [Hub],1737,708,59,Germany,open,1575,243,786,546,10.0013165,53.5501721
+350,Germany | Deutschland | Labdoo.org (Deutschland),21,0,100,Germany,open,7,0,21,0,10.4478313,51.1638175
+351,Spain | Sitges | Hub Labdoo Sitges,0,0,0,Spain,open,0,0,0,0,1.8228136,41.2366707
+352,Spain | Sant Cugat del Vallès | Punt de Recollida Labdoo - 021 Informàtics,0,0,0,Spain,open,0,0,0,0,2.0817809,41.4728432
+353,Spain | Sabadell | Labdoo Hub Sabadell - Clarence House,0,0,0,Spain,open,0,0,2,0,2.1083214,41.5460801
+354,South Africa | Northcliff | Labdoo Hub Johannesburg - Jumpstart,0,0,0,South Africa,open,0,0,0,0,27.9622222,-26.1311111
+355,Germany | Hamburg | [Inactive] Labdoo Annahmestelle 20099 Hamburg - Sankt Georg [zur Zeit geschlossen],0,0,0,Germany,inactive,0,0,13,0,10.0013165,53.5501721
+356,Germany | Schallstadt | Labdoo Annahmestelle 79227 Schallstadt: Simon Mittelstädt,0,0,0,Germany,open,0,0,7,0,7.7496747,47.9568123
+357,Spain | Berga | HUB Berga,0,0,0,Spain,open,0,0,0,0,5.3259192,60.3943055
+358,Spain | Alcobendas | Labdoo Hub Madrid - Indra,357,55,84,Spain,open,326,24,278,24,-3.6358494,40.5400082
+359,Germany | Mülheim an der Ruhr | Zentrale Zustelladresse (Zentrallager Labdoo Deutschland),0,0,0,Germany,open,0,0,0,0,6.8829192,51.4272925
+360,United States | Key Biscayne  | Labdoo Hub Key Biscayne ,155,137,11,United States,open,85,1,17,67,-80.1635261,25.6968351
+361,United States | North Miami | Labdoo Hub North Miami,0,0,0,United States,open,0,0,6,0,-80.1867138,25.8900949
+362,Germany | Hamburg | Labdoo Annahmestelle 22527 Hamburg - Eimsbüttel,0,0,0,Germany,open,0,1,22,0,10.0013165,53.5501721
+363,Spain | Mataró | Labdoo Hub Mataró - Sant Pau,0,0,0,Spain,open,0,0,0,0,2.4448926,41.5398348
+364,Germany | Berlin | Labdoo Annahmestelle 10999 Berlin: bUm GmbH,0,0,0,Germany,open,0,6,42,0,13.3951309,52.5173885
+365,Germany | Dassendorf | Labdoo Annahmestelle 21521 Dassendorf: Durchblick die Lernpraxis,0,0,0,Germany,open,0,5,6,0,10.3749868,53.4900689
+366,Spain | Madrid | Facultad de Informática - Universidad Complutense ,55,36,34,Spain,open,28,10,9,9,-3.703507,40.416782
+367,Spain | Madrid | Servicios Informáticos/Unidad de Medioambiente,0,0,0,Spain,inactive,0,0,0,0,-3.703507,40.416782
+368,Spain | Madrid | Labdoo  Hub Madrid: Oficina OVUS en Facultad de Trabajo Social,0,0,0,Spain,open,0,0,0,0,-3.703507,40.416782
+369,Guatemala | guatemala | Labdoo Hub Guatemala - Bibliotecas Comunitarias de Guatemala,0,0,0,Guatemala,open,0,0,0,0,-90.345759,15.5855545
+370,France | Paris | Labdoo Hub Paris - 18ème arrondissement,277,271,2,France,open,256,0,6,250,2.3483915,48.8534951
+371,Germany | Frankfurt am Main | Labdoo Annahmestelle 60388 Frankfurt Enkheim: Angelika Stryzhych,0,0,0,Germany,open,0,0,11,0,8.6820917,50.1106444
+372,Germany | Erkrath | Labdoo Annahmestelle 40699 Erkrath: Abfallberatung Schimmelbuschstraße,0,0,0,Germany,open,0,1,28,0,6.9056079,51.2209866
+373,Germany | Erkrath | Labdoo Annahmestelle 40699 Erkrath: Naturschutzzentrum,0,0,0,Germany,open,0,0,0,0,6.9056079,51.2209866
+374,Germany | Erkrath | Labdoo Annahmestelle 40699 Erkrath: Wertstoffsammelhof,0,0,0,Germany,open,0,0,1,0,6.9056079,51.2209866
+375,Spain | Mollet del Vallès | Labdoo City Hub - Mollet,100,100,0,Spain,open,100,0,0,100,2.2130934,41.5393484
+376,Sweden | Stockholm | Labdoo Hub Stockholm,176,168,4,Sweden,open,176,0,8,168,18.0710935,59.3251172
+377,Germany | Grevenbroich | Labdoo Annahmestelle 41517 Grevenbroich: Kleinanlieferstelle Neuenhausen,0,0,0,Germany,open,0,0,4,0,6.5848937,51.0862467
+378,Spain | Sant Cugat del Vallès | Labdoo Hub - Club Muntanyenc Sant Cugat,0,0,0,Spain,open,0,2,9,0,2.0817809,41.4728432
+379,Germany | Stadtallendorf | Labdoo Annahmestelle 35260 Stadtallendorf: Webhummel,0,0,0,Germany,open,0,0,0,0,9.0292315,50.8251982
+380,Norway | Trondheim | Labdoo Hub Trondheim: Innherredsveien 24,40,25,37,Norway,open,40,0,15,25,10.3952118,63.4304475
+381,Switzerland | Sirnach | GESCHLOSSEN: Annahmestelle 8370 Sirnach (TG),0,0,0,Switzerland,closed,0,0,0,0,8.9934296,47.461402
+382,Switzerland | Zürich-Flughafen | Annahmestelle 8058 Zürich-Flughafen (ZH),0,0,0,Switzerland,open,0,0,0,0,8.5618985,47.4500978
+383,Germany | Mülheim an der Ruhr | Labdoo Annahmestelle 45468 Mülheim an der Ruhr: Stadtteilbüro Eppinghofen,0,0,0,Germany,open,0,1,8,0,6.8829192,51.4272925
+384,South Africa | Nelspruit | Labdoo Hub Nelspruit - Penreach ,0,0,0,South Africa,open,0,0,0,0,30.9772719,-25.4729094
+385,Spain | O Barco de Valdeorras | O Barco de Valdeorras,0,0,0,Spain,open,0,0,0,0,-6.9801028,42.4301028
+386,United States | Miami  | Coral Reef Hub ,0,0,0,United States,open,0,0,0,0,-80.1935973,25.7741566
+387,Germany | Gronau | Labdoo Annahmestelle 31028 Gronau: Leandra Irrgang,0,0,0,Germany,open,0,0,10,0,9.7751956,52.0841729
+388,Spain | Manresa | Laboo Hub Manresa - CATALUNYA,30,30,0,Spain,open,15,0,0,15,1.8286765,41.7288939
+389,Germany | Dortmund | Labdoo Annahmestelle 44227 Dortmund: Jerome-Bennet Dietrich,0,0,0,Germany,inactive,0,0,1,0,7.4652789,51.5142273
+390,Germany | Rodgau | Labdoo Annahmestelle 63110 Rodgau: WISA - Wir sind angekommen e.V.,71,0,100,Germany,open,59,0,71,0,8.8853392,50.0176771
+391,Spain | Olot | Labdoo Hub Olot - Ayonow,0,0,0,Spain,open,0,0,0,0,2.4890211,42.1822177
+392,Germany | Halbergermoos | Labdoo Annahmestelle 85399 Hallbergmoos: Mast-Eurokrallen-München GmbH,0,0,0,Germany,open,0,0,5,0,0.0,0.0
+393,Spain | Torrijos | Labdoo Hub Toledo - Torrijos,0,0,0,Spain,open,0,0,59,0,-4.2805629,39.9811627
+394,Spain | Romo-Leioa | Labdoo Hub Bilbao - Romo-Leioa,30,17,43,Spain,open,15,8,5,2,-3.0047855,43.3296743
+395,Switzerland | Basel | GESCHLOSSEN: Annahmestelle 4051 Basel (BS),0,0,0,Switzerland,closed,0,0,0,0,7.5878261,47.5581077
+396,Germany | Bedburg-Hau Moyland | Labdoo Annahmestelle 47551 Bedburg-Hau Moyland: KKA Entsorgungszentrum,0,0,0,Germany,open,0,0,0,0,6.238806,51.7534331
+397,Germany | Geldern - Pont | Labdoo Annahmestelle 47608 Geldern-Pont: KKA Entsorgungszentrum,0,0,0,Germany,open,0,0,92,0,6.2961511,51.4916087
+398,Germany | Uedem | Labdoo Annahmestelle 47589 Uedem: KKA Verwaltung,0,0,0,Germany,open,0,12,34,0,6.2735726,51.6686375
+399,Germany | Berlin | Labdoo Annahmestelle 13156 Berlin: Fauna-Reisen GmbH,0,0,0,Germany,open,0,0,15,0,13.3951309,52.5173885
+400,Spain | Lleida | Labdoo Hub Lleida,0,0,0,Spain,open,0,0,0,0,0.6267842,41.6147605
+401,Germany | Wemmetsweiler | Labdoo Annahmestelle 66589 Wemmetsweiler: Sabrina Hartmann ,0,0,0,Germany,open,0,0,6,0,7.0830577,49.3738524
+402,Germany | Preußisch Oldendorf | Labdoo Annahmestelle 32361 Preußisch Oldendorf: Sebastian Mallach,0,0,0,Germany,open,0,0,0,0,8.4971557,52.3048433
+403,Spain | Barcelona | Labdoo Hub Centre d'Estudis Politècnics,0,0,0,Spain,open,0,10,42,0,2.177073,41.3825802
+404,Spain | Mataró | Labdoo School Hub Mataró - Escola Pia Santa Anna,5,0,100,Spain,inactive,5,1,4,0,2.4448926,41.5398348
+405,Germany | Laufenburg | Labdoo Annahmestelle 79725 Laufenburg: Daniel Zipfel,0,0,0,Germany,open,0,0,5,0,8.0599414,47.5671976
+406,Spain | Portugalete  | Labdoo Hub Portugalete -   Hegoalde Visión Sur,0,0,0,Spain,open,0,0,0,0,-3.0198633,43.3189646
+407,Germany | Münster | Labdoo Annahmestelle 48147 Münster: Benjamin Seebröker,195,58,70,Germany,open,127,2,135,0,7.6251879,51.9625101
+408,Spain | Málaga | Labdoo Hub Estepona -Malaga-,0,0,0,Spain,open,0,0,0,0,-4.4216366,36.7213028
+409,Germany | Mannheim | Labdoo Annahmestelle 68307 Mannheim: IT-Consulting Engin Imal,0,0,0,Germany,open,0,6,148,0,8.4673098,49.4892913
+410,Germany | München | Labdoo Annahmestelle 80636 München: Meaalofa Foundation,85,0,100,Germany,open,42,6,108,0,11.5753822,48.1371079
+411,Spain | Sant Joan de Vilatorrada | Labdoo City Hub Sant Joan de Vilatorrada - Biblioteca CAL GALLIFA,0,0,0,Spain,open,0,0,0,0,1.803625,41.7422073
+412,Spain | Barcelona | Labdoo Hub - Biblioteques Públiques de Catalunya Adherides,0,0,0,Spain,open,0,0,0,0,2.177073,41.3825802
+413,Spain | Torelló | Labdoo City Hub Torelló - Biblioteca Dos Rius,0,0,0,Spain,open,0,0,1,0,2.2643391,42.0478304
+414,Spain | Barcelona | Labdoo School Hub - Institut Pedralbes,0,0,0,Spain,open,0,0,11,0,2.177073,41.3825802
+415,Spain | Riells i Viabrea | Labdoo City Hub Riells i Viabrea - Biblioteca Pompeu Fabra  ,0,0,0,Spain,open,0,0,0,0,2.5129067,41.7764308
+416,Spain | Barcelona | Labdoo Hub reaprofitar o esborrar,0,0,0,Spain,closed,0,0,0,0,2.177073,41.3825802
+417,Spain | Castelldefels | Labdoo Hub Castelldefels - Fundación Luz Solidaria,0,0,0,Spain,open,0,0,0,0,1.9824173,41.2861022
+418,Spain | Barcelona | Labdoo City Hub Barcelona - Biblioteca Sant Gervasi - Joan Maragall,0,0,0,Spain,open,0,0,2,0,2.177073,41.3825802
+419,Spain | Santa Margarida de Montbui | Labdoo City Hub Santa Margarida de Montbui - Biblioteca Mont-Agora,0,0,0,Spain,open,0,2,2,0,1.6084538,41.5745942
+420,Spain | Sant Andreu de la Barca | Labdoo City Hub Sant Andreu de la Barca - Biblioteca Aigüestoses,0,0,0,Spain,open,0,0,0,0,1.9719416,41.4499648
+421,Spain | Sant Climent de Llobregat | Labdoo City Hub Sant Climent de Llobregat - Biblioteca Ca l'Altisent,0,0,0,Spain,open,0,0,0,0,1.9970575,41.3366993
+422,Spain | Palafolls | Labdoo City Hub Palafolls - Biblioteca Enric Miralles,0,0,0,Spain,open,0,0,0,0,2.7499262,41.6673913
+423,Spain | Cabrils | Labdoo City Hub Cabrils - Biblioteca Pública,0,0,0,Spain,open,0,0,0,0,2.3676258,41.5262354
+424,Spain | Montcada i Reixac | Labdoo City Hub Montcada i Reixac- Biblioteca Elisenda de Montcada,0,0,0,Spain,open,0,0,0,0,2.1869985,41.4823115
+425,Spain | Cervelló | Labdoo City Hub Cervello - Biblioteca Municipal,0,0,0,Spain,open,0,4,0,0,1.9585925,41.3964186
+426,Germany | Kißlegg | Labdoo Annahmestelle 88353 Kißlegg: APEG Automarkt im Allgäu GmbH,53,0,100,Germany,open,53,13,86,0,9.8828757,47.7911287
+427,Spain | Sevilla | Labdoo Hub Sevilla - A3Satel,0,0,0,Spain,open,0,0,0,0,-5.9953403,37.3886303
+428,Spain | L'Ametlla del Vallès | Labdoo City Hub  L'Ametlla del Vallès - Biblioteca Josep Badia i Moret,0,0,0,Spain,open,0,0,0,0,2.2614527,41.669334
+429,Ecuador | SANGOLQUI | HUB SANGOLQUÍ - ECUADOR,0,0,0,Ecuador,open,0,0,0,0,-78.4368107,-0.39888
+430,Germany | Darmstadt | Labdoo Annahmestelle 64293 Darmstadt: AMC Media Network GmbH & Co. KG.,0,0,0,Germany,open,0,1,20,0,8.651177,49.872775
+431,Spain | Guissona | Labdoo Hub Guissona refugiats ucraïnians,63,0,100,Spain,open,63,14,49,0,1.289032,41.785242
+432,Spain | Barcelona | Labdoo City Hub Barcelona  - Biblioteca Nou Barris,0,0,0,Spain,closed,0,0,1,0,2.177073,41.3825802
+433,Spain | Balaguer | Labdoo City Hub Balaguer - BIblioteca Margarida de Montferrat,0,0,0,Spain,open,0,0,0,0,0.8050711,41.7896408
+434,Spain | Lliçà d'Amunt | Labdoo City Hub Lliçà d'Amunt - Biblioteca Ca l'Oliveres,0,0,0,Spain,open,0,0,0,0,2.2395108,41.6085173
+435,Spain | Barcelona | Labdoo City Hub Barcelona - Biblioteca Montserrat Abelló,0,0,0,Spain,open,0,0,0,0,2.177073,41.3825802
+436,Spain | Gavà | Labdoo City Hub Gavà Biblioteca Josep Soler i Vidal,0,0,0,Spain,open,0,0,0,0,2.0063126,41.3050933
+437,Spain | Martorell | Labdoo City Hub Martorell  - Biblioteca de Martorell,0,0,0,Spain,open,0,0,0,0,1.9283971,41.4769177
+438,Spain | Puig-reig | Labdoo City Hub Puig-Reig - Biblioteca Guillem de Berguedà,0,0,0,Spain,open,0,0,3,0,1.8775308,41.9735499
+439,Spain | MANRESA | Manresa Hub Valldaura,0,0,0,Spain,open,0,0,0,0,1.8286765,41.7288939
+440,Spain | El Vendrell | Labdoo City Hub El Vendrell Biblioteca Pública Terra baixa,0,0,0,Spain,open,0,0,0,0,1.5348566,41.2199677
+441,Spain | Sant Hilari Sacalm | Labdoo City Hub Sant Hilari Sacalm - Biblioteca Soledat Ridaura i Feixas,0,0,0,Spain,open,0,0,0,0,2.5131751,41.8780822
+442,Spain | Santa Bàrbara | Labdoo City Hub Santa Bàrbara - Biblioteca José Escudé de Santa Bàrbara,0,0,0,Spain,open,0,0,0,0,-119.702667,34.4221319
+443,Spain | Ulldecona | Labdoo City Hub Ulldecona - Biblioteca Popular d'Ulldecona,0,0,0,Spain,open,0,0,0,0,0.4475376,40.5967567
+444,Spain | Pineda de Mar | Labdoo City Hub Pineda Biblioteca M. Serra i Moret,0,0,0,Spain,open,0,0,0,0,2.6898707,41.6276807
+445,Spain | Rubí | Labdoo City Hub Rubí - Biblioteca Mestre Martí Tauler,0,0,0,Spain,open,0,0,0,0,2.0319476,41.4936194
+446,Spain | Santpedor | Labdoo City Hub Santpedor - Biblioteca Santpedor,0,0,0,Spain,open,0,0,0,0,1.8386882,41.7847594
+447,Spain | Navàs | Labdoo City Hub Navàs - Biblioteca Navàs,0,0,0,Spain,open,0,0,0,0,1.8767736,41.8989233
+448,Spain | Constantí | Labdoo City Hub Constantí - Biblioteca Municipal de Constantí,0,0,0,Spain,open,0,0,0,0,1.2151822,41.1528113
+449,Spain | Terrassa | Labdoo City Hub Terrassa - Biblioteca Districte 2,0,0,0,Spain,open,0,0,0,0,2.0100492,41.5629623
+450,Spain | Badia del Vallès | Labdoo City Hub Badia del Vallès - Biblioteca Vicente Aleixandre,0,0,0,Spain,open,0,0,0,0,2.1153773,41.5075702
+451,Spain | Sant Feliu de Guíxols | Labdoo City Hub Guíxols - Biblioteca Pública Octavi Viader i Margarit,0,0,0,Spain,open,0,0,2,0,3.0283195,41.7838827
+452,Spain | Tona | Labdoo City Hub Tona - Biblioteca Caterina Figueras,0,0,0,Spain,open,0,0,0,0,2.2280115,41.8538039
+453,Spain | Gavà | Labdoo City Hub Gavà - Biblioteca Marian Colomé,0,0,0,Spain,open,0,0,0,0,2.0063126,41.3050933
+454,Spain | Vila-rodona | Labdoo City Hub Vila-rodona - Biblioteca Municipal de Vila-rodona,0,0,0,Spain,open,0,0,0,0,1.3581489,41.3108464
+455,Spain | Llorenç del Penedès | Labdoo City Hub Llorenç del Penedès - Biblioteca Municipal de Llorenç del Penedès,0,0,0,Spain,open,0,2,6,0,1.5533507,41.2831394
+456,Spain | Terrassa | Labdoo City Hub Terrassa - Biblioteca Districte 5,0,0,0,Spain,open,0,0,1,0,2.0100492,41.5629623
+457,"Germany | Mönchengladbach | Labdoo Annahmestelle 41068 Mönchengladbach: mags Mönchengladbacher Abfall-, Grün- und Straßenbetriebe AöR",0,0,0,Germany,open,0,0,43,0,6.4353792,51.1947131
+458,Spain | Hostalric | Labdoo City Hub Hostalric - Biblioteca Modest Salse i Camarasa,0,0,0,Spain,open,0,1,0,0,2.6330963,41.7451889
+459,Spain | Begues | Labdoo City Hub Begues - Biblioteca La Ginesta,0,0,0,Spain,open,0,0,0,0,1.925468,41.3328119
+460,Spain | Deltebre | Labdoo City Hub Delta de l'Ebre - Biblioteca Delta de l'Ebre,0,0,0,Spain,open,0,0,0,0,0.7243445,40.7203938
+461,Spain | Tremp | Labdoo City Hub Tremp - Biblioteca Maria Barbal,0,0,0,Spain,open,0,0,0,0,0.8950137,42.1669782
+462,Spain | Torrevieja | Rotary Torrevieja,0,0,0,Spain,open,0,0,0,0,-0.6828446,37.9775416
+463,Spain | Folgueroles | Labdoo HUB Folgueroles,0,0,0,Spain,open,0,0,0,0,2.3180742,41.9392868
+464,Germany | Berlin | Labdoo Annahmestelle 13088 Berlin - Weißensee: Daniela Pilih,0,0,0,Germany,open,0,0,0,0,13.3951309,52.5173885
+465,Germany | Markneukirchen | Labdoo Annahmestelle 08258 Markneukirchen: Angela Glaßl,0,0,0,Germany,open,0,0,1,0,12.3292151,50.311883
+466,Spain | Terrassa | Labdoo City Hub Terrassa - Sant Pere,0,0,0,Spain,open,0,0,2,0,2.0100492,41.5629623
+467,Spain | Barberà del Vallès | Labdoo City Hub Barberà del Vallès - Biblioteca Esteve Paluzie,0,0,0,Spain,open,0,0,0,0,2.1265942,41.5172534
+468,Germany | Bad Schwartau | Labdoo Annahmestelle 23611 Bad Schwartau: Bernd Ziemens,74,29,60,Germany,open,49,0,45,4,10.6978692,53.9196435
+469,Spain | Tortosa | Labdoo City Hub Tortosa - Biblioteca Marcel·lí Domingo,0,0,0,Spain,open,0,0,0,0,0.5209333,40.8110158
+470,Spain | Sant Joan Despí  | Labdoo City Hub Sant Joan Despí - Biblioteca Mercè Rodoreda,0,0,0,Spain,open,0,0,0,0,2.0570346,41.3667951
+471,Spain | Sabadell | Labdoo City Hub Sabadell - Biblioteca dels Safareigs,0,0,0,Spain,open,0,1,4,0,2.1083214,41.5460801
+472,Germany | Mönchengladbach | Labdoo Annahmestelle 41068 Mönchengladbach: mags Wertstoffhof Heidgesberg,0,0,0,Germany,open,0,0,0,0,6.4353792,51.1947131
+473,Germany | Mönchengladbach | Labdoo Annahmestelle 41068 Mönchengladbach: mags Wertstoffhof Luisental,0,0,0,Germany,open,0,0,0,0,6.4353792,51.1947131
+474,Spain | Terrassa | Labdoo City Hub Terrassa - Biblioteca Districte 4,0,0,0,Spain,open,0,0,0,0,2.0100492,41.5629623
+475,Spain | Moià | Labdoo City Hub Moia - Biblioteca de Moià,0,0,0,Spain,closed,0,0,0,0,2.0978412,41.8130391
+476,Spain | Manresa | Labdoo Hub Vic - Remei,0,0,0,Spain,open,0,0,0,0,1.8286765,41.7288939
+477,Ireland | Limerick | NNIT IE Hub,0,0,0,Ireland,open,0,0,3,0,-8.6301239,52.661252
+478,Spain | Badalona | Labdoo School Hub Institut La Pineda Badalona,12,0,100,Spain,open,6,42,7,0,2.248254,41.4493539
+479,Spain | Esparreguera | Labdoo City Hub Esparreguera - Biblioteca Municipal L’Ateneu d’Esparreguera,0,0,0,Spain,open,0,0,0,0,1.8694549,41.5393249
+480,Germany | Castrop-Rauxel | Labdoo Annahmestelle 44575 Castrop-Rauxel: Paracelsus Apotheke,0,0,0,Germany,open,0,0,5,0,7.3106175,51.5646195
+481,Germany | Nürnberg | Labdoo Annahmestelle 90443 Nürnberg: AfB gGmbH Shop Nürnberg,0,0,0,Germany,open,0,0,101,0,11.077298,49.453872
+482,Spain | Terrassa. | Labdoo City Hub Terrassa - Biblioteca Districte 3,0,0,0,Spain,open,0,0,1,0,2.0100492,41.5629623
+483,Spain | Valencia | Labdoo Hub Red Bona Via,0,0,0,Spain,open,0,0,8,0,-0.3763353,39.4697065
+484,Spain | SANT BOI DE LLOBREGAT | Labdoo Hub Rotary Club Gavà,0,0,0,Spain,open,0,0,0,0,2.0511278,41.3241016
+485,Germany | Idstein | Labdoo Annahmestelle 65510 Idstein: FHI Flüchtlings- und Integrationshilfe Idstein e.V.,0,0,0,Germany,open,0,0,0,0,8.2902,50.2147
+486,Germany | Magdeburg | Labdoo Annahmestelle 39104 Magdeburg: Mandala Kinderbetreuung gGmbH,0,0,0,Germany,open,0,1,12,0,11.6400789,52.1314783
+487,Spain | Terrassa | Labdoo City Hub Terrassa - Biblioteca Central de Terrassa,0,0,0,Spain,open,0,5,26,0,2.0100492,41.5629623
+488,Spain | Terrassa | Labdoo City Hub Terrassa - Biblioteca Districte 6,0,0,0,Spain,open,0,0,0,0,2.0100492,41.5629623
+489,United States | Miami | Labdoo Hub Key Biscayne,0,0,0,United States,open,0,2,0,0,-80.1935973,25.7741566
+490,Spain | Polinya | ONG ADAIC,0,0,0,Spain,open,0,0,0,0,2.1566544,41.5576041
+491,Spain | Berga | AMALGAMA  7 - VALLDAURA,0,0,0,Spain,open,0,0,0,0,5.3259192,60.3943055
+492,Spain | Barcelona | Labdoo Hub - Asociación de Amigos del Pueblo Marroquí ITRAN,35,12,65,Spain,open,17,0,23,0,2.177073,41.3825802
+493,Spain | Terrassa | Labdoo Hub Terrassa - Institut Nicolau Copèrnic,0,0,0,Spain,open,0,1,16,0,2.0100492,41.5629623
+494,Spain | Berga | Escola Vedruna Berga,0,0,0,Spain,open,0,0,0,0,5.3259192,60.3943055
+495,Germany | Aachen | Labdoo Annahmestelle 52064 Aachen: Adrian Hamm,0,0,0,Germany,open,0,2,46,0,6.083862,50.776351
+496,Germany | Dreieich | Labdoo Annahmestelle 63303 Dreieich: Luca Ricken,0,0,0,Germany,open,0,1,31,0,8.7123912,50.011974
+497,Germany | Oberhausen | Labdoo Annahmestelle 46149 Oberhausen: Levius GbR Lieber & Ronden,0,0,0,Germany,open,0,0,3,0,6.8514435,51.4696137
+498,Spain | San Pedro del Pinatar | Labdoo Hub Rotary Club Mar Menor San Javier,0,0,0,Spain,open,0,0,0,0,-0.7902428,37.833892
+499,Germany | Konstanz | Labdoo Annahmestelle 78467 Konstanz: Constanze Riedinger,0,0,0,Germany,open,0,3,33,0,9.1750718,47.659216
+500,Germany | Köln | Labdoo Annahmestelle 50825 Köln: Lukas Fiebig (Hub),0,0,0,Germany,open,0,1,33,0,6.959974,50.938361
+501,Germany | Nürnberg | Labdoo Annahmestelle 90402 Nürnberg: Begegnungsstätte Marie15,0,0,0,Germany,open,0,3,7,0,11.077298,49.453872
+502,Spain | Tremp | Labdoo School Hub Institut de Tremp,0,0,0,Spain,open,0,0,0,0,0.8950137,42.1669782
+503,Spain | Vilanova del Camí | Labdoo City Hub Vilanova del Camí - Biblioteca de Vilanova del Camí,0,0,0,Spain,open,0,0,0,0,1.6361449,41.5714336
+504,Spain | Barcelona | Labdoo School Hub Institut Tecnològic Barcelona ITB,0,0,0,Spain,open,0,2,12,0,2.177073,41.3825802
+505,Switzerland | Männedorf | GESCHLOSSEN: Annahmestelle 8708 Männedorf (ZH),0,0,0,Switzerland,closed,0,0,0,0,8.6918153,47.253174
+506,Switzerland | Schaffhausen | Annahmestelle 8200 Schaffhausen (SH),0,0,0,Switzerland,open,0,0,0,0,8.634513,47.6960491
+507,Germany | Solingen | Labdoo Annahmestelle 42653 Solingen: Thomas Lunze,0,0,0,Germany,open,0,0,2,0,7.0845893,51.1721629
+508,Germany | Altdorf | Labdoo Annahmestelle 90518 Altdorf,0,0,0,Germany,open,0,2,85,0,7.5271687,48.5229995
+509,Germany | Wendlingen am Neckar | Labdoo Annahmestelle 73240 Wendlingen am Neckar: Familie Biebl,0,0,0,Germany,open,0,3,38,0,9.3838404,48.6727602
+510,Germany | Friedberg | Labdoo Annahmestelle 61169 Friedberg: Umsonstladen Friedberg,0,0,0,Germany,open,0,0,0,0,8.747636,50.328272
+511,Germany | Krefeld | Labdoo Annahmestelle 47829 Krefeld: Mirko Teichmeier,0,0,0,Germany,open,0,0,7,0,6.5623343,51.3331205
+512,Switzerland | Winterthur | Annahmestelle 8406 Winterthur (ZH),0,0,0,Switzerland,open,0,0,0,0,8.7291498,47.4991723
+513,Germany | Langenfeld | Labdoo Annahmestelle 40764 Langenfeld: D. Kremer,0,0,0,Germany,open,0,5,170,0,6.9459377,51.1008952
+514,Germany | Oldenburg | Labdoo Annahmestelle 26135 Oldenburg: Jürgen Köthnig,0,0,0,Germany,open,0,6,17,0,8.2146017,53.1389753
+515,Switzerland | Sax | Annahmestelle 9468 Sax (SG),0,0,0,Switzerland,open,0,0,0,0,-0.818913,38.5350323
+516,Germany | Soest | Labdoo Annahmestelle 59494 Soest: Ihr Soester Computer-Assistent,0,0,0,Germany,open,0,0,55,0,8.1061259,51.5725501
+517,Germany | Köln | Labdoo Annahmestelle 51143 Köln: Torsten Decker - Solibund e.V.,0,0,0,Germany,open,0,0,1,0,6.959974,50.938361
+518,Germany | Beratzhausen | Labdoo Annahmestelle 93176 Beratzhausen: Bettina Laßleben - LETLIFERS for future e.V.,0,0,0,Germany,open,0,0,7,0,11.8072365,49.0958694
+519,Germany | Würzburg | Labdoo Annahmestelle 97084 Würzburg: Thomas Barcatta - Mwanza e.V.,446,126,71,Germany,open,446,46,274,126,9.9434769,49.7780356
+520,Germany | Moers | Labdoo Annahmestelle 47445 Moers: Jörg Jellissen,0,0,0,Germany,open,0,0,4,0,6.62843,51.451283
+521,Germany | Wilnsdorf-Rödgen (b. Siegen) | Labdoo Annahmestelle 57234 Wilnsdorf (b. Siegen): Gerlinde Schönberg,0,0,0,Germany,open,0,2,14,0,0.0,0.0
+522,Germany | Gomaringen | Labdoo Annahmestelle 72810 Gomaringen (Kreis Tübingen): Tim Schmid,0,0,0,Germany,open,0,14,77,0,9.0985587,48.4535917
+523,Germany | Hamburg | Labdoo Annahmestelle 21035 Hamburg - Neuallermöhe,26,0,100,Germany,open,13,22,164,0,10.0013165,53.5501721
+524,Germany | Lüdinghausen | Labdoo Annahmestelle 59348 Lüdinghausen: Heiko Günther-Ständker,1,0,100,Germany,open,1,1,31,0,7.444639,51.7717757
+525,Germany | Kaiserslautern | Labdoo Annahmestelle 67663  Kaiserslautern: Hanny Hovenier,0,0,0,Germany,open,0,2,26,0,7.7689951,49.4432174
+526,Germany | Karben | Labdoo Annahmestelle 61184 Karben: BBW  Berufsbildungswerk Südhessen gGmbH,0,0,0,Germany,open,0,2,117,0,8.7717673,50.2313417
+527,Germany | Moers | Labdoo Annahmestelle 47443 Moers: Interkulturelles Nachbarschaftsnetzwerk 55plus (Hub),26,0,100,Germany,open,20,136,1632,0,6.62843,51.451283
+528,"Germany | Mettmann | Labdoo Annahmestelle 40822 Mettmann: Kreis Mettmann, Regionales Bildungsbüro",0,0,0,Germany,open,0,5,23,0,6.9777778,51.2527778
+529,Colombia | EL RETIRO | HUB LABORATORIO DEL ESPIRITU,10,6,40,Colombia,open,10,4,0,6,-75.502611,6.0572745
+530,Germany | Hamburg Lemsahl Mellingstedt | Labdoo Annahmestelle 22397 Hamburg - Lemsahl Mellingstedt,59,0,100,Germany,open,29,30,156,0,10.0867,53.6811
+531,Germany | Iserlohn | Labdoo Annahmestelle 58640 Iserlohn: Armin Cibulski  (Hub),0,0,0,Germany,open,0,1,142,0,7.6999713,51.3746778
+532,Spain | Puigreig | Labdoo HUB Puigreig,0,0,0,Spain,open,0,0,0,0,1.7411795,41.6067621
+533,Spain | ARTES | LABDOO HUB ARTES PER SIRIA,0,0,0,Spain,open,0,0,0,0,-0.6150029,43.4645781
+534,Germany | Hamburg | Labdoo Annahmestelle 21075 Hamburg - Harburg,0,0,0,Germany,open,0,19,201,0,10.0013165,53.5501721
+535,Germany | Oberhausen | Labdoo Annahmestelle 46149 Oberhausen: Sterkrader Gemeinschaftspraxis,0,0,0,Germany,open,0,0,13,0,6.8514435,51.4696137
+536,Spain | Igualada | Institut Milà i Fontanals d'Igualada,25,0,100,Spain,open,25,19,17,0,1.617346,41.5790182
+537,Germany | Münster | Labdoo Annahmestelle 48143 Münster: Stadtbücherei Münster,0,0,0,Germany,open,0,3,221,0,7.6251879,51.9625101
+538,Germany | Merzalben | Labdoo Annahmestelle 66978 Merzalben: Stefan Diedenhöfer PC - Service,0,0,0,Germany,open,0,5,15,0,7.7307825,49.2445268
+539,Germany | Wilhelmshaven | Labdoo Annahmestelle 26389 Wilhelmshaven,0,0,0,Germany,open,0,0,2,0,8.106301,53.5278793
+540,Germany | Verden | Labdoo Annahmestelle 27283 Verden: Fa. Dittmers | Zonta-Club Verden,0,0,0,Germany,open,0,0,23,0,5.3867277,49.1589278
+541,Germany | Verden | Labdoo Annahmestelle 27283 Verden: Regine Meyer-Bolte | Zonta-Club Verden,0,0,0,Germany,open,0,0,5,0,5.3867277,49.1589278
+542,Germany | Dörverden | Labdoo Annahmestelle 27313 Dörverden: Renate v. Eickstedt-Bosse | Zonta-Club Verden,0,0,0,Germany,open,0,12,14,0,9.2299135,52.847207
+543,Switzerland | Bern | Annahmestelle 3012 Bern (BE),0,0,0,Switzerland,open,0,0,0,0,7.4521749,46.9484742
+544,Spain | Gironella | Hub Institut Gironella,0,0,0,Spain,open,0,0,0,0,1.8825316,42.0337588
+545,Spain | BArcelona | HUB BCN COLOMBIA INNOVA,0,0,0,Spain,open,0,0,0,0,2.177073,41.3825802
+546,Germany | Düsseldorf | Labdoo Annahmestelle 40215 Düsseldorf: Verbraucherzentrale NRW,0,0,0,Germany,open,0,0,8,0,6.7763137,51.2254018
+547,Spain | Berga | LABDOO HUB Berguedà,0,0,0,Spain,open,0,0,9,0,5.3259192,60.3943055
+548,Spain | BETERA | HUB Asoc. Esencia de África,0,0,0,Spain,open,0,0,0,0,-0.4622695,39.5917307
+549,Germany | Bonn | Labdoo Annahmestelle 53127 Bonn: Heike Gollub,0,0,0,Germany,open,0,0,3,0,7.1024635,50.7352621
+550,"Switzerland | Zürich | GESCHLOSSEN: Annahmestelle 8049 Zürich (ZH), Höngg",0,0,0,Switzerland,closed,0,0,0,0,8.5410422,47.3744489
+551,Germany | Bremen | Labdoo Annahmestelle 28199 Bremen Airport: Airport Shop der Werkstatt Bremen,0,0,0,Germany,open,0,0,1,0,8.8071646,53.0758196
+552,Germany | Ganderkesee | Labdoo Annahmestelle 27777 Ganderkesse: GANTER Reisen,0,0,0,Germany,open,0,0,0,0,8.5451469,53.0344984
+553,Germany | Lübeck | Labdoo Annahmestelle 23566 Lübeck: Patrick Nötling,0,0,0,Germany,open,0,0,0,0,10.684738,53.866444
+554,Germany | Mülheim an der Ruhr | Labdoo Annahmestelle 45473 Mülheim an der Ruhr: MEG Mülheimer Entsorgungsgesellschaft mbH,0,0,0,Germany,open,0,0,1,0,6.8829192,51.4272925
+555,Germany | Langenfeld | Labdoo Annahmestelle 40764 Langenfeld: Reparatur Café FIX & FERTIG,0,0,0,Germany,open,0,9,38,0,6.9459377,51.1008952
+556,Germany | Bruchmühlbach-Miesau | Labdoo Annahmestelle 66892 Bruchmühlbach-Miesau: AWO Repair-Café MACH-BAR im Sportheim des FV Bruchmühlbach,0,0,0,Germany,open,0,0,4,0,7.4391678,49.3825183
+557,Germany | Brakel | Labdoo Annahmestelle 33034 Brakel: Gesamtschule Brakel,0,0,0,Germany,open,0,0,0,0,9.1841762,51.7168889
+558,Germany | Minden | Labdoo Annahmestelle 32425 Minden: Niko Dick,0,0,0,Germany,open,0,0,0,0,8.9168852,52.2881045
+559,United States | Coto De Caza | Labdoo Hub Coto De Caza,457,432,5,United States,open,432,2,23,407,-117.5856235,33.6013399
+560,Spain | A Coruña | Labdoo City Hub A Coruña,0,0,0,Spain,open,0,0,0,0,-8.3959425,43.3709703
+561,Spain | Barcelona | Labdoo City Hub Barcelona - Biblioteca La Sagrera-Marina Clotet,0,0,0,Spain,open,0,0,1,0,2.177073,41.3825802
+562,Spain | Avilés | Labdoo School Hub Avilés - CEIP Enrique Alonso,0,0,0,Spain,open,0,0,0,0,-5.9222466,43.5554436
+563,Spain | Llançà | Labdoo School Hub Llançà - Institut de Llançà,8,0,100,Spain,open,4,0,11,0,3.1511804,42.3617316
+564,Switzerland | Au | Annahmestelle 8804 Au (ZH),0,0,0,Switzerland,open,0,0,0,0,134.755,-24.7761086
+565,Spain | Vilanova i la Geltrú | Labdoo School Hub Vilanova i la Geltrú - PFI Institut Joaquim Mir,0,0,0,Spain,open,0,0,0,0,1.7256327,41.2241992
+566,Germany | Bad Nauheim | Labdoo Annahmestelle 61231 Bad Nauheim: Secondhand-Kaufhaus,0,0,0,Germany,open,0,0,0,0,8.7461314,50.40015
+567,United States | Baldwin Park | Care Mission USA,50,37,26,United States,inactive,25,0,13,12,-117.9611761,34.0854739
+568,Spain | Tineo | Labdoo School Hub Tineo (Asturias) - IES Concejo de Tineo,0,0,0,Spain,open,0,0,3,0,-6.4165462,43.333974
+569,Venezuela | Guanare | ALAS DE PAZ,8,8,0,Venezuela,open,8,0,0,8,-69.7412593,9.0407855
+570,Germany | Heidelberg | Labdoo Annahmestelle 69123 Heidelberg: Nils Babion,0,0,0,Germany,open,0,0,17,0,8.694724,49.4093582
+571,Spain | Ávila | IES Alonso Madrigal,8,5,37,Spain,open,8,0,3,5,-4.7002172,40.656478
+572,Venezuela | Valencia | HUB SAN DIEGO,0,0,0,Venezuela,open,0,0,0,0,-0.3763353,39.4697065
+573,Germany | Duisburg | Labdoo Annahmestelle 47119 Duisburg Ruhrort: Umweltlokal Ruhrort,0,0,0,Germany,open,0,1,2,0,6.759562,51.434999
+574,Spain | Oviedo | Villafria,0,0,0,Spain,open,0,0,0,0,-5.8795096,43.3533452
+575,Germany | Flensburg | Labdoo Annahmestelle 24941 Flensburg: Flensburger Bildungsverein / Tamer Coskun,0,0,0,Germany,open,0,0,0,0,9.4333264,54.7833021
+576,Switzerland | Pratteln | Annahmestelle 4133 Pratteln (BL),0,0,0,Switzerland,open,0,0,0,0,7.6944741,47.5192013
+577,Germany | Bayreuth | Labdoo Annahmestelle 95448 Bayreuth: [zur Zeit geschlossen],55,33,40,Germany,closed,55,0,22,33,11.5743543,49.9446345
+578,Spain | Santa Margarida i els Monjos | Labdoo School Hub Santa Margarida i els Monjos - PFI Institut El Foix,0,0,0,Spain,open,0,0,0,0,1.6623519,41.3213389
+579,Germany | Düsseldorf | Labdoo Annahmestelle 40225 Düsseldorf: Bürgerhaus Salzmannbau,0,0,0,Germany,open,0,0,0,0,6.7763137,51.2254018
+580,Germany | Fischingen | Labdoo Annahmestelle 79592 Fischingen: Landhotel Tanne,0,0,0,Germany,open,0,0,0,0,7.5999972,47.650005
+581,Spain | Igualada | Fundació UEA,0,0,0,Spain,open,0,7,0,0,1.617346,41.5790182
+582,Germany | München | Labdoo Annahmestelle 81377 München: Hadern,18,0,100,Germany,open,18,13,45,0,11.5753822,48.1371079
+583,Spain | Vilassar de Mar | Labdoo Hub Vilassar de Mar,218,119,45,Spain,open,207,29,70,108,2.3913883,41.5064041
+584,Germany | Dummerstorf | Labdoo Annahmestelle 18196 Dummerstorf: Repair Café Dummerstorf,7,0,100,Germany,open,3,8,24,0,12.2281926,54.0131361
+585,United States | Cerritos | Labdoo Hub Cerritos,10,8,20,United States,inactive,10,2,0,8,-118.0539323,33.8644291
+586,Spain | Sant Joan Vilatorrada | HUB Sant Joan,0,0,0,Spain,open,0,0,0,0,1.8028799,41.742277
+587,Switzerland | Gais | Annahmestelle 9056 Gais (AR),0,0,0,Switzerland,open,0,0,0,0,11.9474837,46.8331565
+588,Sierra Leone | Makeni | 10 Billion Strong Sierra Leone Hub,0,0,0,Sierra Leone,closed,0,0,0,0,-12.0441862,8.8881938
+589,Spain | Vilassar de Mar | Labdoo City Hub Vilassar de Mar - Biblioteca Ernest Lluch i Martin,0,0,0,Spain,open,0,0,2,0,2.3913883,41.5064041
+590,Switzerland | Airolo | Annahmestelle 6780 Airolo (TI),0,0,0,Switzerland,open,0,0,0,0,8.6086045,46.5290309
+591,Chile | Santiago de Chile | Hub empresa en Chile ,0,0,0,Chile,open,0,3,0,0,-70.6510671,-33.4376995
+592,Spain | Vilafant | Labdoo School Hub Vilafant - Institut de Vilafant,0,0,0,Spain,open,0,0,0,0,2.9418008,42.2515266
+593,Germany | München | Labdoo Annahmestelle 80939 München: Freimann,10,0,100,Germany,open,5,0,10,0,11.5753822,48.1371079
+594,Mexico | Merida  | Universidad Autonoma de Yucatan,0,0,0,Mexico,open,0,0,0,0,-6.3443977,38.9174665
+595,Spain | Granollers | CanJoanCoworking,0,0,0,Spain,open,0,0,1,0,2.2876008,41.6079555
+596,Mexico | Jalisco | Labdoo HUB Guadalajara | La Minerva ,0,0,0,Mexico,open,0,0,0,0,-103.6666671,20.3333331
+597,Germany | Namborn  | Labdoo Annahmestelle 66640 Namborn: Computer Service Czehak,0,0,0,Germany,open,0,0,0,0,7.1403438,49.5216883
+598,Germany | Duisburg | Labdoo Annahmestelle 47053 Duisburg 47259: Recyclinghof Süd Wirtschaftsbetriebe Duisburg,0,0,0,Germany,open,0,0,0,0,6.759562,51.434999
+599,Germany | Geeste | Labdoo Annahmestelle 49744 Geeste (Emsland): Michael Rieken,0,0,0,Germany,open,0,0,2,0,7.268098,52.6009773
+600,Germany | Bad Laasphe | Labdoo Annahmestelle 57334 Bad Laasphe: F. Grebe,0,0,0,Germany,open,0,0,0,0,8.4123648,50.9271541
+601,Germany | Hannover | Labdoo Annahmestelle 30449 Hannover: Erik Uden,0,0,0,Germany,open,0,0,0,0,9.7385532,52.3744779
+602,Spain | Sant Martí Sarroca | Labdoo School Hub - Institut de l'Alt Foix,0,0,0,Spain,open,0,0,0,0,1.6108158,41.3854214
+603,Germany | Berlin | Labdoo Annahmestelle 12489 Berlin: Dezhi Jacky Fu,0,0,0,Germany,open,0,1,3,0,13.3951309,52.5173885
+604,Germany | Böblingen | Labdoo Annahmestelle 71034 Böblingen: HP Deutschland GmbH,0,0,0,Germany,open,0,5,11,0,9.0113444,48.684969
+605,Germany | Eschborn | Labdoo Annahmestelle 65760 Eschborn: HP Deutschland GmbH,0,0,0,Germany,open,0,0,3,0,8.5607767,50.1504737
+606,Spain | Ripoll | Labdoo City Hub Ripoll - Biblioteca Lambert Mata,0,0,0,Spain,open,0,0,0,0,2.1932496,42.1982391
+607,Germany | Mainz | Labdoo Annahmestelle 55131 Mainz: Filip Bugajski,0,0,0,Germany,open,0,0,0,0,8.2736253,49.9995205
+608,Germany | Hude | Labdoo Annahmestelle 27798 Hude: Repair Café Hude,0,0,0,Germany,open,0,4,4,0,9.2148137,54.3880564
+609,Germany | Waghäusel-Wiesental | Labdoo Annahmestelle 68753 Waghäusel-Wiesental: AfB gGmbH Shop Waghäusel-Wiesental,0,0,0,Germany,open,0,0,0,0,8.5224505,49.2246438
+610,Spain | Reus | Hub Reus,0,0,0,Spain,open,0,0,0,0,1.1076133,41.1555564
+611,Germany | Beilngries | Labdoo Annahmestelle 92339 Beilngries: Reparatur Initiative Beilngries,20,13,35,Germany,open,20,4,3,13,11.473829,49.0351602
+612,Spain | Manresa | Manresa - Esparraguera,0,0,0,Spain,open,0,0,0,0,1.8286765,41.7288939
+613,Spain | Manresa | Manresa - Esparraguera,0,0,0,Spain,open,0,0,0,0,1.8286765,41.7288939
+614,Germany | Hennef | Labdoo Annahmestelle 53773 Hennef: Furbyte,0,0,0,Germany,open,0,0,0,0,7.2847945,50.7754417
+615,Spain | Calafell | Biblioteca pública Casa Nova de Segur de Calafell,0,0,0,Spain,open,0,0,0,0,1.5687244,41.2009871
+616,Spain | Madrid | Red de Bibliotecas Públicas Madrid,0,0,0,Spain,open,0,0,0,0,-3.703507,40.416782
+617,Spain | Madrid | Biblioteca Pública Luis Rosales,0,0,0,Spain,open,0,7,0,0,-3.703507,40.416782
+618,Spain | Madrid | Biblioteca Pública Elena Fortún,0,0,0,Spain,open,0,0,0,0,-3.703507,40.416782
+619,Spain | Cunit | Labdoo City Hub Cunit - Biblioteca Municipal Marta Mata,0,0,0,Spain,open,0,0,0,0,1.6344596,41.197596
+620,Germany | Dülmen | Labdoo Annahmestelle 48249 Dülmen: Mierisch EDV,0,0,0,Germany,open,0,0,1,0,7.2791406,51.8283677
+621,Germany | Krefeld | Labdoo Annahmestelle 47809 Krefeld: GSAK,0,0,0,Germany,open,0,1,1,0,6.5623343,51.3331205
+622,Germany | Kaiserslautern | Labdoo Annahmestelle 67655 Kaiserslautern: 42Kaiserslautern gGmbH,0,0,0,Germany,open,0,0,0,0,7.7689951,49.4432174
+623,Germany | Senden | Labdoo Annahmestelle 48308 Senden: Siegfried Kohlschein,0,0,0,Germany,open,0,1,0,0,10.0471189,48.3251884
+624,Kenya | Kakuma | Labdoo Hub CASE/ Kakuma Refugee Camp/ Kenya,0,0,0,Kenya,open,0,0,0,0,10.1974008,10.6300096
+625,United States |  Lake Elsinore | Nurturing Purpose Labdoo Hub,359,331,7,United States,open,179,28,0,151,-117.3272615,33.6680772
+626,Germany | Stuttgart | Labdoo Annahmestelle 70186 Stuttgart: Anton Mech,25,22,12,Germany,open,25,3,0,22,9.1800132,48.7784485
+627,"Germany | Heppenheim | Labdoo Annahmestelle 64646 Heppenheim: AWZ Heppenheim, Wertstoffhof des ZAKB ",0,0,0,Germany,open,0,0,0,0,8.66768,49.64999
+628,Germany | Kamp-Linfort | Labdoo Annahmestelle 47475 Kamp-Lintfort: Abfall- und Energiezentrum (AEZ) Asdonkshof,0,0,0,Germany,open,0,3,2,0,0.0,0.0
+629,Germany | Crailsheim | Labdoo Annahmestelle 74564 Crailsheim:  Alla Bakhmisova / Stärke der Einheit e.V.,15,0,100,Germany,open,15,0,15,0,10.0720195,49.1365626
+630,"Germany | Mettmann | Labdoo Annahmestelle 40822 Mettmann: Kreis Mettmann, Abfallberatung",0,0,0,Germany,open,0,5,0,0,6.9777778,51.2527778
+631,Germany | Velbert | Labdoo Annahmestelle 42549 Velbert: Julien Ettel,0,0,0,Germany,open,0,0,0,0,7.0439912,51.3406713
+632,Spain | Madrid | Labdoo.org (Madrid),0,0,0,Spain,open,0,0,0,0,-3.703507,40.416782
+633,United States | Irvine | Saddleback Church Hub - Irvine North Campus,0,0,0,United States,open,0,0,0,0,-117.825981,33.6856969
+634,Spain | Arrefice | CIFP Zonzamas. Reutiliza y Conecta,0,0,0,Spain,open,0,0,0,0,-66.5617848,8.6783121
+635,Switzerland | Le Mont-sur-Lausanne | Annahmestelle 1052 Le Mont-sur-Lausanne (VD),0,0,0,Switzerland,open,0,0,0,0,6.6354534,46.5530996
+636,Germany | Langenzenn | Labdoo Annahmestelle 90579 Langenzenn: Euronics Jakob e.K.,0,0,0,Germany,open,0,0,0,0,10.7948937,49.4946086
