@@ -3,9 +3,9 @@ import { ISO_COUNTRY_NAMES } from "./countries";
 import { YearlyTotal, Device, DeviceStage } from "./types";
 import { YEARLY_TOTALS } from "./yearly_totals";
 import { YEARLY_BY_COUNTRY } from "./yearly_by_country";
-import {YEARLY_BY_EDOOVILLAGE} from "./yearly_by_edoovillage";
+import { YEARLY_BY_EDOOVILLAGE } from "./yearly_by_edoovillage";
 import { YEARLY_BY_HUB } from "./yearly_by_hub";
-import { DEVICES} from "./devices";
+import { DEVICES } from "./devices";
 
 export interface LocationPoint {
   id: string;
@@ -20,11 +20,6 @@ export interface LocationPoint {
   studentsServed?: number; // receiving centers only
 }
 
-
-
-
-
-
 /* -----------------------------
    TYPES
 ------------------------------*/
@@ -38,80 +33,38 @@ export type ReceiverCountry = {
   name: string;
 };
 
-/* -----------------------------
-   EXPORTS (same API you had)
-------------------------------*/
-
 export const DONORS: Record<string, DonorCountry> = {};
 export const RECEIVERS: Record<string, ReceiverCountry> = {};
 
-/* -----------------------------
-   OPTIONAL: country name map
-   (since CSV doesn't include names)
-------------------------------*/
+const NAME_TO_ISO: Record<string, string> = {};
+for (const [iso, name] of Object.entries(ISO_COUNTRY_NAMES)) {
+  NAME_TO_ISO[name] = iso;
+}
 
-const COUNTRY_NAMES: Record<string, string> = {
-  AFG: "Afghanistan",
-  AGO: "Angola",
-  DEU: "Germany",
-  USA: "United States",
-  GBR: "United Kingdom",
-  FRA: "France",
-  // extend if needed
-};
+const countryTotals = new Map<string, { donated: number; received: number }>();
 
-/* -----------------------------
-   LOAD CSV
-------------------------------*/
+for (const row of YEARLY_BY_COUNTRY) {
+  const iso = NAME_TO_ISO[row.country];
+  if (!iso) continue;
+  const existing = countryTotals.get(iso) ?? { donated: 0, received: 0 };
+  existing.donated += row.donated;
+  existing.received += row.received;
+  countryTotals.set(iso, existing);
+}
 
-const loadCountryTotals = async () => {
-  const res = await fetch("/country_total.csv");
-  const csvText = await res.text();
-
-  const parsed = Papa.parse(csvText, {
-    header: true,
-    skipEmptyLines: true,
-  });
-
-  const rows = parsed.data as any[];
-
-  for (const row of rows) {
-    const iso = row.iso;
-
-    const donated = Number(row.donated || 0);
-    const received = Number(row.received || 0);
-
-    const name = ISO_COUNTRY_NAMES[iso] ?? iso;
-    // donors object (only if donations exist)
-    if (donated > 0) {
-      DONORS[iso] = {
-        donations: donated,
-        name,
-      };
-    }
-
-    // receivers object (only if received exists)
-    if (received > 0) {
-      RECEIVERS[iso] = {
-        locations: received,
-        name,
-      };
-    }
-  }
-};
-
-/* -----------------------------
-   INIT ON IMPORT
-------------------------------*/
-
-loadCountryTotals();
-
-
+for (const [iso, totals] of countryTotals) {
+  const name = ISO_COUNTRY_NAMES[iso] ?? iso;
+  if (totals.donated > 0) DONORS[iso] = { donations: totals.donated, name };
+  if (totals.received > 0)
+    RECEIVERS[iso] = { locations: totals.received, name };
+}
 
 const makeId = (label: string) =>
-  label.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  label
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 
-// ✅ THIS is now a REAL array
 export const POINTS: LocationPoint[] = [];
 
 // internal load once
@@ -129,7 +82,7 @@ const loadPoints = async () => {
 
   const result: LocationPoint[] = rows.map((row) => {
     const type = row.type as "donor" | "receiver";
-    
+
     const base: LocationPoint = {
       id: row.label,
       iso: row.iso,
@@ -157,16 +110,11 @@ const loadPoints = async () => {
     };
   });
 
-  // 🔥 IMPORTANT: mutate the exported array (keeps references alive)
   POINTS.push(...result);
 };
 
 // auto-run once when module is imported
 loadPoints();
-
-
-
-
 
 export const MEDIAN_INCOME: Record<string, number> = {
   DEU: 3800,
@@ -275,11 +223,9 @@ export function getCountryName(iso: string): string {
 
 export interface CountryYearlySeries {
   years: number[];
-  values: number[];
-  role: "donated" | "received";
+  donated: number[];
+  received: number[];
 }
-
-
 
 export function getCountryYearlySeries(
   iso: string,
@@ -287,9 +233,9 @@ export function getCountryYearlySeries(
   const countryName = ISO_COUNTRY_NAMES[iso];
   if (!countryName) return null;
 
-  const rows = YEARLY_BY_COUNTRY
-    .filter((r) => r.country === countryName)
-    .sort((a, b) => a.year - b.year);
+  const rows = YEARLY_BY_COUNTRY.filter((r) => r.country === countryName).sort(
+    (a, b) => a.year - b.year,
+  );
 
   if (rows.length === 0) return null;
 
@@ -322,8 +268,7 @@ export function getCountryYearlySeries(
   };
 }
 export function getPointById(id: string): LocationPoint | undefined {
-
-  console.log(id)
+  console.log(id);
   return POINTS.find((p) => p.id === id);
 }
 
@@ -335,12 +280,12 @@ export interface HubYearlySeries {
 
 export function getHubYearlySeries(id: string): HubYearlySeries | null {
   const point = getPointById(id);
-  console.log(point)
+  console.log(point);
   if (!point) return null;
 
-  const isReceiver = point.type === "recipient";
+  const isReceiver = point.type === "receiver";
   const isDonator = point.type === "donor";
-  console.log(isReceiver)
+  console.log(isReceiver);
   const source = isReceiver
     ? YEARLY_BY_EDOOVILLAGE
     : isDonator
@@ -350,17 +295,24 @@ export function getHubYearlySeries(id: string): HubYearlySeries | null {
   if (!source) return null;
   const entries = source
     .filter((e) =>
-      isReceiver ? e.edooId.trim() == id.trim() : e.hubId.trim() == id.trim()
+      isReceiver ? e.edooId.trim() == id.trim() : e.hubId.trim() == id.trim(),
     )
     .sort((a, b) => a.year - b.year);
-  console.log(source.filter((e) => e.edooId === "Edoovillage #2500 - Ukraine, Cherson: Hilfe für ukrainische"))
-  console.log(entries)
+  console.log(
+    source.filter(
+      (e) =>
+        e.edooId ===
+        "Edoovillage #2500 - Ukraine, Cherson: Hilfe für ukrainische",
+    ),
+  );
+  console.log(entries);
   if (entries.length === 0) return null;
 
   return {
     years: entries.map((e) => e.year),
     values: entries.map((e) => e.devices ?? 0),
-    role: point.type === "donor" ? "donated" : "received",  };
+    role: point.type === "donor" ? "donated" : "received",
+  };
 }
 export function isEligibleDonorHub(point: LocationPoint): boolean {
   return (
@@ -381,18 +333,15 @@ export const STAGE_LABELS: Record<DeviceStage, string> = {
 export function getDeviceBySerial(serial: string): Device | undefined {
   return DEVICES.find((d) => d.serial === serial);
 }
-export function searchDevicesBySerial(
-  query: string,
-  limit = 6,
-): Device[] {
+export function searchDevicesBySerial(query: string, limit = 6): Device[] {
   const normalized = query.trim().toLowerCase();
 
   if (normalized.length < 3) {
     return [];
   }
 
-  return DEVICES.filter((d) =>
-    d.serial?.toLowerCase().includes(normalized) ?? false,
+  return DEVICES.filter(
+    (d) => d.serial?.toLowerCase().includes(normalized) ?? false,
   ).slice(0, limit);
 }
 export interface DeviceJourney {
@@ -406,9 +355,7 @@ export function getDeviceJourney(serial: string): DeviceJourney | null {
   if (!device) return null;
   const hub = getPointById(device.hubId);
   if (!hub) return null;
-  const village = device.edooId
-    ? (getPointById(device.edooId) ?? null)
-    : null;
+  const village = device.edooId ? (getPointById(device.edooId) ?? null) : null;
   return { device, hub, village };
 }
 

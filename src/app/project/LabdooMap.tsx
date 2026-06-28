@@ -1,6 +1,12 @@
 "use client";
 
-import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
+import {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
 import {
   DONORS,
   RECEIVERS,
@@ -116,8 +122,6 @@ const NUM_TO_ISO: Record<string, string> = {
   "894": "ZMB",
   "716": "ZWE",
 };
-
-
 
 const SKIP_IDS = new Set(["10", "-99", "null"]);
 
@@ -565,7 +569,7 @@ const LabdooMap = forwardRef<LabdooMapHandle, LabdooMapProps>(
               distanceKm: haversineKm(lat, lng, p.lat, p.lng),
             }))
             .sort((a, b) => a.distanceKm - b.distanceKm);
-          console.log("el:", eligibleHubs)
+          console.log("el:", eligibleHubs);
           if (eligibleHubs.length === 0) {
             map.setView([lat, lng], 6);
             onNoEligibleHubsFoundRef.current?.();
@@ -598,10 +602,15 @@ const LabdooMap = forwardRef<LabdooMapHandle, LabdooMapProps>(
         function focusHub(id: string) {
           const point = getPointById(id);
           if (!point) return;
+
+          if (nearestHubModeActive && selectedPointId === id) {
+            onViewChangeRef.current?.({ kind: "hub", id });
+            return;
+          }
+
           exitNearestHubMode();
           selectedPointId = id;
           activeISO = point.iso;
-          map.setView([point.lat, point.lng], Math.max(map.getZoom(), 8));
           buildMarkers();
           onViewChangeRef.current?.({ kind: "hub", id });
         }
@@ -641,20 +650,17 @@ const LabdooMap = forwardRef<LabdooMapHandle, LabdooMapProps>(
             opacity: faded ? 0.2 : 0.7,
           };
         }
-        //Najia here the click on a donator/receiver is triggered, just delete the content of the function
         // ─── Marker cluster ───────────────────────────────────────────────────────
         function markerInfo(point: LocationPoint) {
           if (arrowInfoVisible) return;
 
-          exitNearestHubMode();
           selectedPointId = point.id;
           activeISO = point.iso;
-          map.setView([point.lat, point.lng], Math.min(map.getZoom() + 1, 8));
           buildMarkers();
           onViewChangeRef.current?.({ kind: "hub", id: point.id });
         }
-        function buildMarkers() {
 
+        function buildMarkers() {
           if (clusterLayer) {
             map.removeLayer(clusterLayer);
             clusterLayer = null;
@@ -665,51 +671,59 @@ const LabdooMap = forwardRef<LabdooMapHandle, LabdooMapProps>(
             buildNearestHubModeMarkers();
             return;
           }
-        const z = map.getZoom();
-        if (z < 4 && !activeISO) return;
+          const z = map.getZoom();
+          if (z < 4 && !activeISO) return;
 
-        clusterLayer = new L.MarkerClusterGroup({
-          maxClusterRadius: 55,
-          disableClusteringAtZoom: 20,
-          iconCreateFunction(cluster: any) {
-            const children = cluster.getAllChildMarkers();
-            const n = children.length;
-            const hasDonor = children.some((m: any) => m.pointType === "donor");
-            const hasReceiver = children.some((m: any) => m.pointType === "recipient");
-            const isMixed = hasDonor && hasReceiver;
+          clusterLayer = new L.MarkerClusterGroup({
+            maxClusterRadius: 55,
+            disableClusteringAtZoom: 20,
+            iconCreateFunction(cluster: any) {
+              const children = cluster.getAllChildMarkers();
+              const n = children.length;
+              const hasDonor = children.some(
+                (m: any) => m.pointType === "donor",
+              );
+              const hasReceiver = children.some(
+                (m: any) => m.pointType === "recipient",
+              );
+              const isMixed = hasDonor && hasReceiver;
 
-            const bg = isMixed ? "#FFFFFF" : hasDonor ? "#2563EB" : "#EA580C";
-            const textColor = isMixed ? "#111827" : "#fff";
-            const border = isMixed ? "2px solid rgba(0,0,0,0.25)" : "2px solid rgba(255,255,255,0.9)";
+              const bg = isMixed ? "#FFFFFF" : hasDonor ? "#2563EB" : "#EA580C";
+              const textColor = isMixed ? "#111827" : "#fff";
+              const border = isMixed
+                ? "2px solid rgba(0,0,0,0.25)"
+                : "2px solid rgba(255,255,255,0.9)";
 
-            const sz = n > 30 ? 50 : n > 10 ? 40 : 32;
-            return L.divIcon({
-              html: `<div style="width:${sz}px;height:${sz}px;border-radius:50%;background:${bg};display:flex;align-items:center;justify-content:center;font-size:${sz > 40 ? 14 : 12}px;font-weight:500;color:${textColor};border:${border};box-shadow:0 1px 5px rgba(0,0,0,0.3)">${n}</div>`,
-              className: "", iconSize: [sz, sz], iconAnchor: [sz / 2, sz / 2],
+              const sz = n > 30 ? 50 : n > 10 ? 40 : 32;
+              return L.divIcon({
+                html: `<div style="width:${sz}px;height:${sz}px;border-radius:50%;background:${bg};display:flex;align-items:center;justify-content:center;font-size:${sz > 40 ? 14 : 12}px;font-weight:500;color:${textColor};border:${border};box-shadow:0 1px 5px rgba(0,0,0,0.3)">${n}</div>`,
+                className: "",
+                iconSize: [sz, sz],
+                iconAnchor: [sz / 2, sz / 2],
+              });
+            },
+          });
+
+          const pts = POINTS;
+          pts.forEach((p) => {
+            const c = p.type === "donor" ? "#2563EB" : "#EA580C";
+            const icon = L.divIcon({
+              html: `<div style="width:14px;height:14px;border-radius:50%;background:${c};border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,0.3);cursor:pointer"></div>`,
+              className: "",
+              iconSize: [14, 14],
+              iconAnchor: [7, 7],
             });
-          },
-        });
-
-        const pts = POINTS;
-        pts.forEach((p) => {
-          const c = p.type === "donor" ? "#2563EB" : "#EA580C";
-          const icon = L.divIcon({
-            html: `<div style="width:14px;height:14px;border-radius:50%;background:${c};border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,0.3);cursor:pointer"></div>`,
-            className: "", iconSize: [14, 14], iconAnchor: [7, 7],
+            const marker: any = L.marker([p.lat, p.lng], { icon });
+            marker.pointType = p.type; // tag for cluster composition check
+            marker.on("click", (e: any) => {
+              L.DomEvent.stopPropagation(e);
+              markerInfo(p);
+            });
+            marker.addTo(clusterLayer);
           });
-          const marker: any = L.marker([p.lat, p.lng], { icon });
-          marker.pointType = p.type; // tag for cluster composition check
-          marker.on("click", (e: any) => {
-            L.DomEvent.stopPropagation(e);
-            markerInfo(p);
-          });
-          marker.addTo(clusterLayer);
-        });
-        map.addLayer(clusterLayer);
-      }
+          map.addLayer(clusterLayer);
+        }
 
-     
-        
         function buildNearestHubModeMarkers() {
           const group = L.layerGroup();
           POINTS.filter((p) => p.type === "donor").forEach((p) => {
@@ -771,10 +785,6 @@ const LabdooMap = forwardRef<LabdooMapHandle, LabdooMapProps>(
         }
 
         // ─── Auto-show country info when zoomed ──────────────────────────────────
-        /**
-         * At zoom ≥ 5, find the GeoJSON feature whose centroid is closest to the
-         * map center and call showInfo for it, so the info panel updates as you pan.
-         */
         function autoShowCenterCountry() {
           if (arrowInfoVisible || nearestHubModeActive) return;
           const z = map.getZoom();
