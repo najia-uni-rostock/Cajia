@@ -13,14 +13,17 @@ interface SidebarProps {
   view: MapView;
   onBackToWorld: () => void;
   onBackToCountry: (iso: string) => void;
+  onShowNearestHub: () => void;
 }
 
 export default function Sidebar({
   view,
   onBackToWorld,
   onBackToCountry,
+  onShowNearestHub,
 }: SidebarProps) {
   const [rankingMode, setRankingMode] = useState<RankingMode>("donating");
+  const [donatePanelOpen, setDonatePanelOpen] = useState(false);
 
   const ranking = useMemo(() => {
     if (rankingMode === "donating") {
@@ -39,15 +42,44 @@ export default function Sidebar({
   return (
     <aside className="w-[340px] shrink-0 h-full overflow-y-auto border-r border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 p-5 flex flex-col gap-6">
       <div className="flex flex-col gap-2.5">
-        {/* TODO (S4): open the donate panel — Labdoo website link + nearest hub */}
         <button
           type="button"
-          onClick={() => {}}
-          className="flex items-center gap-2.5 w-full rounded-lg border border-zinc-200 dark:border-zinc-700 px-3.5 py-2.5 text-base font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
+          onClick={() => setDonatePanelOpen((prev) => !prev)}
+          className={`flex items-center gap-2.5 w-full rounded-lg border px-3.5 py-2.5 text-base font-medium transition-colors ${
+            donatePanelOpen
+              ? "border-blue-300 bg-blue-50 text-blue-700 dark:border-blue-700 dark:bg-blue-950 dark:text-blue-300"
+              : "border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800"
+          }`}
         >
           <span className="text-lg">💻</span>
-          Donate a device
+          <span className="flex-1 text-left">Donate a device</span>
+          <span className="text-sm">{donatePanelOpen ? "▲" : "▼"}</span>
         </button>
+
+        {donatePanelOpen && (
+          <div className="flex flex-col gap-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50 p-3">
+            <a
+              href="https://platform.labdoo.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2.5 w-full rounded-md border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
+            >
+              <span>↗</span>
+              Donate at Labdoo website
+            </a>
+            {/* TODO (S5): onShowNearestHub will request geolocation, zoom to the
+                user, and highlight the nearest active/on-demand hub on the map */}
+            <button
+              type="button"
+              onClick={onShowNearestHub}
+              className="flex items-center gap-2.5 w-full rounded-md border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
+            >
+              <span>📍</span>
+              Show your nearest hub
+            </button>
+          </div>
+        )}
+
         {/* TODO (S6): open the search overlay — serial number lookup */}
         <button
           type="button"
