@@ -21,9 +21,18 @@ export default function Project() {
     setView({ kind: "world" });
   }, []);
 
+  const handleBackToCountry = useCallback((iso: string) => {
+    mapHandleRef.current?.focusCountry(iso);
+    setView({ kind: "country", iso });
+  }, []);
+
   return (
     <div className="flex h-screen w-full overflow-hidden">
-      <Sidebar view={view} onBackToWorld={handleBackToWorld} />
+      <Sidebar
+        view={view}
+        onBackToWorld={handleBackToWorld}
+        onBackToCountry={handleBackToCountry}
+      />
       <div className="flex-1 relative h-full">
         <LabdooMap ref={mapHandleRef} onViewChange={handleViewChange} />
       </div>

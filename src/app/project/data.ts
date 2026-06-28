@@ -9,12 +9,14 @@ export interface ReceiverCountry {
 }
 
 export interface LocationPoint {
+  id: string;
   iso: string;
   lat: number;
   lng: number;
   type: "donor" | "receiver";
   count: number;
   label: string;
+  status?: "open" | "closed" | "inactive" | "completed";
 }
 
 export interface YearlyTotal {
@@ -58,260 +60,324 @@ export const RECEIVERS: Record<string, ReceiverCountry> = {
 
 export const POINTS: LocationPoint[] = [
   {
+    id: "berlin-hub",
     iso: "DEU",
     lat: 52.52,
     lng: 13.4,
     type: "donor",
     count: 420,
     label: "Berlin Hub",
+    status: "open",
   },
   {
+    id: "munich-hub",
     iso: "DEU",
     lat: 48.13,
     lng: 11.57,
     type: "donor",
     count: 220,
     label: "Munich Hub",
+    status: "closed",
   },
   {
+    id: "hamburg-hub",
     iso: "DEU",
     lat: 53.57,
     lng: 10.0,
     type: "donor",
     count: 200,
     label: "Hamburg Hub",
+    status: "open",
   },
   {
+    id: "new-york-hub",
     iso: "USA",
     lat: 40.71,
     lng: -74.0,
     type: "donor",
     count: 380,
     label: "New York Hub",
+    status: "open",
   },
   {
+    id: "los-angeles-hub",
     iso: "USA",
     lat: 34.05,
     lng: -118.24,
     type: "donor",
     count: 280,
     label: "Los Angeles Hub",
+    status: "open",
   },
   {
+    id: "chicago-hub",
     iso: "USA",
     lat: 41.88,
     lng: -87.63,
     type: "donor",
     count: 310,
     label: "Chicago Hub",
+    status: "open",
   },
   {
+    id: "san-francisco-hub",
     iso: "USA",
     lat: 37.77,
     lng: -122.42,
     type: "donor",
     count: 230,
     label: "San Francisco Hub",
+    status: "open",
   },
   {
+    id: "london-hub",
     iso: "GBR",
     lat: 51.51,
     lng: -0.12,
     type: "donor",
     count: 340,
     label: "London Hub",
+    status: "open",
   },
   {
+    id: "manchester-hub",
     iso: "GBR",
     lat: 53.48,
     lng: -2.24,
     type: "donor",
     count: 180,
     label: "Manchester Hub",
+    status: "open",
   },
   {
+    id: "paris-hub",
     iso: "FRA",
     lat: 48.85,
     lng: 2.35,
     type: "donor",
     count: 300,
     label: "Paris Hub",
+    status: "open",
   },
   {
+    id: "marseille-hub",
     iso: "FRA",
     lat: 43.29,
     lng: 5.37,
     type: "donor",
     count: 180,
     label: "Marseille Hub",
+    status: "inactive",
   },
   {
+    id: "amsterdam-hub",
     iso: "NLD",
     lat: 52.37,
     lng: 4.9,
     type: "donor",
     count: 390,
     label: "Amsterdam Hub",
+    status: "open",
   },
   {
+    id: "zurich-hub",
     iso: "CHE",
     lat: 47.37,
     lng: 8.54,
     type: "donor",
     count: 310,
     label: "Zurich Hub",
+    status: "open",
   },
   {
+    id: "nairobi-center",
     iso: "KEN",
     lat: -1.28,
     lng: 36.82,
     type: "receiver",
     count: 22,
     label: "Nairobi Center",
+    status: "open",
   },
   {
+    id: "mombasa-center",
     iso: "KEN",
     lat: -4.05,
     lng: 39.66,
     type: "receiver",
     count: 18,
     label: "Mombasa Center",
+    status: "open",
   },
   {
+    id: "eldoret-center",
     iso: "KEN",
     lat: 0.51,
     lng: 35.27,
     type: "receiver",
     count: 9,
     label: "Eldoret Center",
+    status: "open",
   },
   {
+    id: "kisumu-center",
     iso: "KEN",
     lat: -0.1,
     lng: 34.75,
     type: "receiver",
     count: 9,
     label: "Kisumu Center",
+    status: "open",
   },
   {
+    id: "accra-center",
     iso: "GHA",
     lat: 5.55,
     lng: -0.2,
     type: "receiver",
     count: 20,
     label: "Accra Center",
+    status: "open",
   },
   {
+    id: "kumasi-center",
     iso: "GHA",
     lat: 6.69,
     lng: -1.62,
     type: "receiver",
     count: 14,
     label: "Kumasi Center",
+    status: "completed",
   },
   {
+    id: "dar-es-salaam-center",
     iso: "TZA",
     lat: -6.79,
     lng: 39.27,
     type: "receiver",
     count: 25,
     label: "Dar es Salaam",
+    status: "open",
   },
   {
+    id: "arusha-center",
     iso: "TZA",
     lat: -3.36,
     lng: 36.68,
     type: "receiver",
     count: 17,
     label: "Arusha Center",
+    status: "completed",
   },
   {
+    id: "new-delhi-center",
     iso: "IND",
     lat: 28.61,
     lng: 77.2,
     type: "receiver",
     count: 28,
     label: "New Delhi Center",
+    status: "open",
   },
   {
+    id: "mumbai-center",
     iso: "IND",
     lat: 19.07,
     lng: 72.87,
     type: "receiver",
     count: 22,
     label: "Mumbai Center",
+    status: "open",
   },
   {
+    id: "bangalore-center",
     iso: "IND",
     lat: 12.97,
     lng: 77.59,
     type: "receiver",
     count: 17,
     label: "Bangalore Center",
+    status: "open",
   },
   {
+    id: "manila-center",
     iso: "PHL",
     lat: 14.59,
     lng: 120.98,
     type: "receiver",
     count: 38,
     label: "Manila Center",
+    status: "open",
   },
   {
+    id: "addis-ababa-center",
     iso: "ETH",
     lat: 9.03,
     lng: 38.74,
     type: "receiver",
     count: 31,
     label: "Addis Ababa",
+    status: "open",
   },
   {
+    id: "port-au-prince-center",
     iso: "HTI",
     lat: 18.54,
     lng: -72.33,
     type: "receiver",
     count: 16,
     label: "Port-au-Prince",
+    status: "open",
   },
   {
+    id: "lagos-hub",
     iso: "NGA",
     lat: 6.52,
     lng: 3.37,
     type: "receiver",
     count: 23,
     label: "Lagos Hub",
+    status: "open",
   },
   {
+    id: "abuja-hub",
     iso: "NGA",
     lat: 9.05,
     lng: 7.49,
     type: "receiver",
     count: 21,
     label: "Abuja Hub",
+    status: "open",
   },
   {
+    id: "kigali-center",
     iso: "RWA",
     lat: -1.94,
     lng: 30.06,
     type: "receiver",
     count: 22,
     label: "Kigali Center",
+    status: "open",
   },
   {
+    id: "dhaka-center",
     iso: "BGD",
     lat: 23.71,
     lng: 90.4,
     type: "receiver",
     count: 23,
     label: "Dhaka Center",
+    status: "open",
   },
   {
+    id: "kathmandu-center",
     iso: "NPL",
     lat: 27.7,
     lng: 85.31,
     type: "receiver",
     count: 19,
     label: "Kathmandu Center",
+    status: "open",
   },
 ];
 
@@ -466,4 +532,33 @@ export function getCountryYearlySeries(
   }
 
   return null;
+}
+export function getPointById(id: string): LocationPoint | undefined {
+  return POINTS.find((p) => p.id === id);
+}
+
+export interface HubYearlySeries {
+  years: number[];
+  values: number[];
+  role: "donated" | "received";
+}
+
+export function getHubYearlySeries(id: string): HubYearlySeries | null {
+  const point = getPointById(id);
+  if (!point) return null;
+
+  const countrySeries = getCountryYearlySeries(point.iso);
+  if (!countrySeries) return null;
+
+  const siblingTotal = POINTS.filter(
+    (p) => p.iso === point.iso && p.type === point.type,
+  ).reduce((sum, p) => sum + p.count, 0);
+
+  const share = siblingTotal > 0 ? point.count / siblingTotal : 0;
+
+  return {
+    years: countrySeries.years,
+    values: countrySeries.values.map((v) => Math.round(v * share)),
+    role: countrySeries.role,
+  };
 }

@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { DONORS, RECEIVERS, YEARLY_TOTALS } from "./data";
 import TimeSeriesChart from "./TimeSeriesChart";
 import CountryPanel from "./CountryPanel";
+import HubPanel from "./HubPanel";
 import type { MapView } from "./types";
 
 type RankingMode = "donating" | "receiving";
@@ -11,9 +12,14 @@ type RankingMode = "donating" | "receiving";
 interface SidebarProps {
   view: MapView;
   onBackToWorld: () => void;
+  onBackToCountry: (iso: string) => void;
 }
 
-export default function Sidebar({ view, onBackToWorld }: SidebarProps) {
+export default function Sidebar({
+  view,
+  onBackToWorld,
+  onBackToCountry,
+}: SidebarProps) {
   const [rankingMode, setRankingMode] = useState<RankingMode>("donating");
 
   const ranking = useMemo(() => {
@@ -128,8 +134,14 @@ export default function Sidebar({ view, onBackToWorld }: SidebarProps) {
             />
           </div>
         </>
-      ) : (
+      ) : view.kind === "country" ? (
         <CountryPanel iso={view.iso} onBackToWorld={onBackToWorld} />
+      ) : (
+        <HubPanel
+          id={view.id}
+          onBackToWorld={onBackToWorld}
+          onBackToCountry={onBackToCountry}
+        />
       )}
     </aside>
   );

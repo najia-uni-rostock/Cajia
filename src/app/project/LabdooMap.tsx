@@ -212,12 +212,14 @@ function loadCSS(href: string) {
   l.href = href;
   document.head.appendChild(l);
 }
-export interface LabdooMapHandle {
-  resetToWorldView: () => void;
-}
 
 interface LabdooMapProps {
   onViewChange?: (view: MapView) => void;
+}
+
+export interface LabdooMapHandle {
+  resetToWorldView: () => void;
+  focusCountry: (iso: string) => void;
 }
 
 const LabdooMap = forwardRef<LabdooMapHandle, LabdooMapProps>(
@@ -225,16 +227,18 @@ const LabdooMap = forwardRef<LabdooMapHandle, LabdooMapProps>(
     const mapRef = useRef<HTMLDivElement>(null);
     const mountedRef = useRef(false);
     const onViewChangeRef = useRef(onViewChange);
-    const actionsRef = useRef<{ resetToWorldView: () => void } | null>(null);
+    const actionsRef = useRef<{
+      resetToWorldView: () => void;
+      focusCountry: (iso: string) => void;
+    } | null>(null);
 
     useEffect(() => {
       onViewChangeRef.current = onViewChange;
     }, [onViewChange]);
 
     useImperativeHandle(ref, () => ({
-      resetToWorldView: () => {
-        actionsRef.current?.resetToWorldView();
-      },
+      resetToWorldView: () => actionsRef.current?.resetToWorldView(),
+      focusCountry: (iso: string) => actionsRef.current?.focusCountry(iso),
     }));
 
     useEffect(() => {
@@ -324,6 +328,7 @@ const LabdooMap = forwardRef<LabdooMapHandle, LabdooMapProps>(
         let geoLayer: any = null;
         let clusterLayer: any = null;
         let activeISO: string | null = null;
+        let selectedPointId: string | null = null;
 
         // Arrow / nearest-hub state
         let arrowSvgOverlay: HTMLElement | null = null; // overlay element for animated arch
@@ -650,28 +655,11 @@ const LabdooMap = forwardRef<LabdooMapHandle, LabdooMapProps>(
         function markerInfo(point: LocationPoint) {
           if (arrowInfoVisible) return;
 
+          selectedPointId = point.id;
           activeISO = point.iso;
-          const el = document.getElementById("lbdoo-info");
-          if (!el) return;
-
-          const typeLabel =
-            point.type === "donor" ? "Donor hub" : "Receiving center";
-          el.innerHTML = `
-          <div style="font-weight:500;font-size:14px;margin-bottom:8px">${point.label}</div>
-          <div style="font-size:12px;opacity:0.7;margin-bottom:4px">${typeLabel}</div>
-          <div style="font-size:12px;opacity:0.7">${point.type === "donor" ? "Donations" : "Receiving locations"}: <strong>${point.count}</strong></div>
-          <button id="lbdoo-clear" style="margin-top:8px;font-size:11px;opacity:0.5;background:none;border:none;cursor:pointer;padding:0">✕ clear</button>
-        `;
-          el.style.display = "block";
-          document
-            .getElementById("lbdoo-clear")
-            ?.addEventListener("click", () => {
-              activeISO = null;
-              el.style.display = "none";
-              refresh();
-            });
-
           map.setView([point.lat, point.lng], Math.min(map.getZoom() + 1, 8));
+          buildMarkers();
+          onViewChangeRef.current?.({ kind: "hub", id: point.id });
         }
 
         function buildMarkers() {
@@ -702,12 +690,17 @@ const LabdooMap = forwardRef<LabdooMapHandle, LabdooMapProps>(
 
           const pts = POINTS;
           pts.forEach((p) => {
+            const isSelected = p.id === selectedPointId;
             const c = p.type === "donor" ? "#2563EB" : "#EA580C";
+            const size = isSelected ? 22 : 14;
+            const ring = isSelected
+              ? `border:3px solid #fff;box-shadow:0 0 0 3px ${c}, 0 1px 6px rgba(0,0,0,0.35);`
+              : `border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,0.3);`;
             const icon = L.divIcon({
-              html: `<div style="width:14px;height:14px;border-radius:50%;background:${c};border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,0.3);cursor:pointer"></div>`,
+              html: `<div style="width:${size}px;height:${size}px;border-radius:50%;background:${c};${ring}cursor:pointer"></div>`,
               className: "",
-              iconSize: [14, 14],
-              iconAnchor: [7, 7],
+              iconSize: [size, size],
+              iconAnchor: [size / 2, size / 2],
             });
             const marker = L.marker([p.lat, p.lng], { icon });
             marker.on("click", (e: any) => {
@@ -793,13 +786,32 @@ const LabdooMap = forwardRef<LabdooMapHandle, LabdooMapProps>(
         function resetToWorldView() {
           if (arrowInfoVisible) clearArrow();
           activeISO = null;
+          selectedPointId = null;
           map.setView([20, 10], 2);
           const el = document.getElementById("lbdoo-info");
           if (el) el.style.display = "none";
           refresh();
         }
 
-        actionsRef.current = { resetToWorldView };
+        function focusCountry(iso: string) {
+          if (arrowInfoVisible) clearArrow();
+          selectedPointId = null;
+          activeISO = iso;
+          if (geoLayer) {
+            geoLayer.eachLayer((layer: any) => {
+              if (layer.feature?.properties?._iso === iso) {
+                map.fitBounds(layer.getBounds(), {
+                  padding: [40, 40],
+                  maxZoom: 8,
+                });
+              }
+            });
+          }
+          refresh();
+          onViewChangeRef.current?.({ kind: "country", iso });
+        }
+
+        actionsRef.current = { resetToWorldView, focusCountry };
 
         // ─── Load world data ──────────────────────────────────────────────────────
         try {
@@ -839,6 +851,7 @@ const LabdooMap = forwardRef<LabdooMapHandle, LabdooMapProps>(
                 click(e: any) {
                   L.DomEvent.stopPropagation(e);
                   if (!iso || arrowInfoVisible) return;
+                  selectedPointId = null;
                   activeISO = iso;
                   showInfo(iso);
                   map.fitBounds(layer.getBounds(), {
@@ -890,6 +903,7 @@ const LabdooMap = forwardRef<LabdooMapHandle, LabdooMapProps>(
           const z = map.getZoom();
           if (z < 5) {
             activeISO = null;
+            selectedPointId = null;
             const el = document.getElementById("lbdoo-info");
             if (
               el &&
@@ -906,6 +920,7 @@ const LabdooMap = forwardRef<LabdooMapHandle, LabdooMapProps>(
         map.on("click", () => {
           if (arrowInfoVisible) return;
           activeISO = null;
+          selectedPointId = null;
           const el = document.getElementById("lbdoo-info");
           if (el && !el.innerHTML.includes("Nearest Donor Hub"))
             el.style.display = "none";
