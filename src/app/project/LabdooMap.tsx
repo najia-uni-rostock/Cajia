@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 import { DONORS, RECEIVERS, POINTS } from "./data";
+import type { MapView } from "./types";
 
 const NUM_TO_ISO: Record<string, string> = {
   "4": "AFG",
@@ -211,28 +212,48 @@ function loadCSS(href: string) {
   l.href = href;
   document.head.appendChild(l);
 }
+export interface LabdooMapHandle {
+  resetToWorldView: () => void;
+}
 
-export default function LabdooMap() {
-  const mapRef = useRef<HTMLDivElement>(null);
-  const mountedRef = useRef(false);
+interface LabdooMapProps {
+  onViewChange?: (view: MapView) => void;
+}
 
-  useEffect(() => {
-    if (!mapRef.current || mountedRef.current) return;
-    mountedRef.current = true;
+const LabdooMap = forwardRef<LabdooMapHandle, LabdooMapProps>(
+  function LabdooMap({ onViewChange }, ref) {
+    const mapRef = useRef<HTMLDivElement>(null);
+    const mountedRef = useRef(false);
+    const onViewChangeRef = useRef(onViewChange);
+    const actionsRef = useRef<{ resetToWorldView: () => void } | null>(null);
 
-    loadCSS("https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css");
-    loadCSS(
-      "https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/MarkerCluster.css",
-    );
-    loadCSS(
-      "https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css",
-    );
+    useEffect(() => {
+      onViewChangeRef.current = onViewChange;
+    }, [onViewChange]);
 
-    // Inject keyframe animation for the animated arrow
-    if (!document.getElementById("lbdoo-keyframes")) {
-      const style = document.createElement("style");
-      style.id = "lbdoo-keyframes";
-      style.textContent = `
+    useImperativeHandle(ref, () => ({
+      resetToWorldView: () => {
+        actionsRef.current?.resetToWorldView();
+      },
+    }));
+
+    useEffect(() => {
+      if (!mapRef.current || mountedRef.current) return;
+      mountedRef.current = true;
+
+      loadCSS("https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css");
+      loadCSS(
+        "https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/MarkerCluster.css",
+      );
+      loadCSS(
+        "https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css",
+      );
+
+      // Inject keyframe animation for the animated arrow
+      if (!document.getElementById("lbdoo-keyframes")) {
+        const style = document.createElement("style");
+        style.id = "lbdoo-keyframes";
+        style.textContent = `
         @keyframes lbdoo-dash {
           to { stroke-dashoffset: 0; }
         }
@@ -248,113 +269,115 @@ export default function LabdooMap() {
           50%      { transform: translateY(-6px) scale(1.1); opacity: 0.8; }
         }
       `;
-      document.head.appendChild(style);
-    }
+        document.head.appendChild(style);
+      }
 
-    const init = async () => {
-      const w = window as any;
+      const init = async () => {
+        const w = window as any;
 
-      await loadScript(
-        "https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js",
-        () => !!w.L,
-      );
-      await loadScript(
-        "https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js",
-        () => typeof w.L?.MarkerClusterGroup !== "undefined",
-      );
-      await loadScript(
-        "https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js",
-        () => !!w.topojson,
-      );
+        await loadScript(
+          "https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js",
+          () => !!w.L,
+        );
+        await loadScript(
+          "https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js",
+          () => typeof w.L?.MarkerClusterGroup !== "undefined",
+        );
+        await loadScript(
+          "https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js",
+          () => !!w.topojson,
+        );
 
-      const L = w.L;
-      const topojson = w.topojson;
+        const L = w.L;
+        const topojson = w.topojson;
 
-      delete (L.Icon.Default.prototype as any)._getIconUrl;
-      L.Icon.Default.mergeOptions({
-        iconRetinaUrl:
-          "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
-        iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
-        shadowUrl:
-          "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
-      });
+        delete (L.Icon.Default.prototype as any)._getIconUrl;
+        L.Icon.Default.mergeOptions({
+          iconRetinaUrl:
+            "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+          iconUrl:
+            "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
+          shadowUrl:
+            "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+        });
 
-      if (!mapRef.current) return;
-
-      const map = L.map(mapRef.current, {
-        center: [20, 10],
-        zoom: 2,
-        minZoom: 2,
-        maxZoom: 12,
-        worldCopyJump: true,
-      });
-
-      L.tileLayer(
-        "https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png",
-        {
-          attribution:
-            '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors · CartoDB',
-          subdomains: "abcd",
-          opacity: 0.95,
-        },
-      ).addTo(map);
-
-      let geoLayer: any = null;
-      let clusterLayer: any = null;
-      let activeISO: string | null = null;
-
-      // Arrow / nearest-hub state
-      let arrowSvgOverlay: HTMLElement | null = null; // overlay element for animated arch
-      let arrowPathEl: SVGPathElement | null = null;
-      let arrowShadowEl: SVGPathElement | null = null;
-      let arrowPlaneEl: SVGElement | null = null;
-      let arrowDotEl: SVGElement | null = null;
-      let arrowInfoVisible = false;
-      let currentArrowParams: { donor: any; receiver: any } | null = null;
-      let nearestMarker: any = null; // user plonk
-      let nearestHubCircle: any = null; // highlighted hub ring
-
-      // ─── Animated arch arrow ──────────────────────────────────────────────────
-      /**
-       * drawDonationArrow(donor, receiver)
-       * donor/receiver: { lat, lng, label }
-       * Draws an animated curved arrow from donor to receiver, fades choropleth,
-       * shows an info box top-right, and adds a "Go back" button bottom-right.
-       */
-      function renderArrowOverlay(
-        donor: { lat: number; lng: number; label: string; count?: number },
-        receiver: { lat: number; lng: number; label: string; count?: number },
-      ) {
         if (!mapRef.current) return;
 
-        const pD = map.latLngToContainerPoint([donor.lat, donor.lng]);
-        const pR = map.latLngToContainerPoint([receiver.lat, receiver.lng]);
+        const map = L.map(mapRef.current, {
+          center: [20, 10],
+          zoom: 2,
+          minZoom: 2,
+          maxZoom: 12,
+          worldCopyJump: true,
+        });
 
-        const mx = (pD.x + pR.x) / 2;
-        const my = (pD.y + pR.y) / 2;
-        const dx = pR.x - pD.x;
-        const dy = pR.y - pD.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        const lift = Math.max(dist * 0.35, 60);
-        // Reverse arc direction by flipping the perpendicular offset.
-        const perpX = -dy / dist;
-        const perpY = dx / dist;
-        const cpx = mx + perpX * lift;
-        const cpy = my + perpY * lift;
+        L.tileLayer(
+          "https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png",
+          {
+            attribution:
+              '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors · CartoDB',
+            subdomains: "abcd",
+            opacity: 0.95,
+          },
+        ).addTo(map);
 
-        const pathD = `M ${pD.x} ${pD.y} Q ${cpx} ${cpy} ${pR.x} ${pR.y}`;
+        let geoLayer: any = null;
+        let clusterLayer: any = null;
+        let activeISO: string | null = null;
 
-        const size = map.getSize();
-        const W = size.x;
-        const H = size.y;
-        const mapContainer = map.getContainer();
-        const computedPosition = window.getComputedStyle(mapContainer).position;
-        if (!computedPosition || computedPosition === "static") {
-          mapContainer.style.position = "relative";
-        }
+        // Arrow / nearest-hub state
+        let arrowSvgOverlay: HTMLElement | null = null; // overlay element for animated arch
+        let arrowPathEl: SVGPathElement | null = null;
+        let arrowShadowEl: SVGPathElement | null = null;
+        let arrowPlaneEl: SVGElement | null = null;
+        let arrowDotEl: SVGElement | null = null;
+        let arrowInfoVisible = false;
+        let currentArrowParams: { donor: any; receiver: any } | null = null;
+        let nearestMarker: any = null; // user plonk
+        let nearestHubCircle: any = null; // highlighted hub ring
 
-        if (!arrowSvgOverlay) {
-          const svgHTML = `
+        // ─── Animated arch arrow ──────────────────────────────────────────────────
+        /**
+         * drawDonationArrow(donor, receiver)
+         * donor/receiver: { lat, lng, label }
+         * Draws an animated curved arrow from donor to receiver, fades choropleth,
+         * shows an info box top-right, and adds a "Go back" button bottom-right.
+         */
+        function renderArrowOverlay(
+          donor: { lat: number; lng: number; label: string; count?: number },
+          receiver: { lat: number; lng: number; label: string; count?: number },
+        ) {
+          if (!mapRef.current) return;
+
+          const pD = map.latLngToContainerPoint([donor.lat, donor.lng]);
+          const pR = map.latLngToContainerPoint([receiver.lat, receiver.lng]);
+
+          const mx = (pD.x + pR.x) / 2;
+          const my = (pD.y + pR.y) / 2;
+          const dx = pR.x - pD.x;
+          const dy = pR.y - pD.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const lift = Math.max(dist * 0.35, 60);
+          // Reverse arc direction by flipping the perpendicular offset.
+          const perpX = -dy / dist;
+          const perpY = dx / dist;
+          const cpx = mx + perpX * lift;
+          const cpy = my + perpY * lift;
+
+          const pathD = `M ${pD.x} ${pD.y} Q ${cpx} ${cpy} ${pR.x} ${pR.y}`;
+
+          const size = map.getSize();
+          const W = size.x;
+          const H = size.y;
+          const mapContainer = map.getContainer();
+          const computedPosition =
+            window.getComputedStyle(mapContainer).position;
+          if (!computedPosition || computedPosition === "static") {
+            mapContainer.style.position = "relative";
+          }
+
+          if (!arrowSvgOverlay) {
+            const svgHTML = `
             <svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}"
                  style="position:absolute;top:0;left:0;pointer-events:none;">
               <defs>
@@ -389,61 +412,61 @@ export default function LabdooMap() {
                 </animateMotion>
               </circle>
             </svg>`;
-          const svgEl = document.createElement("div");
-          svgEl.id = "lbdoo-arrow-svg";
-          svgEl.style.cssText =
-            "position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:650;";
-          svgEl.innerHTML = svgHTML;
-          mapContainer.appendChild(svgEl);
-          arrowSvgOverlay = svgEl;
-          arrowPathEl = svgEl.querySelector("#lbdoo-arch-path");
-          arrowShadowEl = svgEl.querySelector("#lbdoo-shadow");
-          arrowPlaneEl = svgEl.querySelector("#lbdoo-plane");
-          arrowDotEl = svgEl.querySelector("#lbdoo-plane-dot");
-        } else {
-          const svgEl = arrowSvgOverlay.querySelector("svg");
-          if (svgEl) {
-            svgEl.setAttribute("width", `${W}`);
-            svgEl.setAttribute("height", `${H}`);
+            const svgEl = document.createElement("div");
+            svgEl.id = "lbdoo-arrow-svg";
+            svgEl.style.cssText =
+              "position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:650;";
+            svgEl.innerHTML = svgHTML;
+            mapContainer.appendChild(svgEl);
+            arrowSvgOverlay = svgEl;
+            arrowPathEl = svgEl.querySelector("#lbdoo-arch-path");
+            arrowShadowEl = svgEl.querySelector("#lbdoo-shadow");
+            arrowPlaneEl = svgEl.querySelector("#lbdoo-plane");
+            arrowDotEl = svgEl.querySelector("#lbdoo-plane-dot");
+          } else {
+            const svgEl = arrowSvgOverlay.querySelector("svg");
+            if (svgEl) {
+              svgEl.setAttribute("width", `${W}`);
+              svgEl.setAttribute("height", `${H}`);
+            }
           }
+
+          arrowPathEl?.setAttribute("d", pathD);
+          arrowShadowEl?.setAttribute("d", pathD);
+          arrowPlaneEl?.setAttribute("d", "M-10,-4 L10,0 L-10,4 Z");
+          arrowDotEl?.setAttribute("r", "3.5");
         }
+        //najia here you can draw an arrow and bellow remove it
+        function drawDonationArrow(
+          donor: { lat: number; lng: number; label: string; count?: number },
+          receiver: { lat: number; lng: number; label: string; count?: number },
+        ) {
+          clearArrow();
+          arrowInfoVisible = true;
+          currentArrowParams = { donor, receiver };
 
-        arrowPathEl?.setAttribute("d", pathD);
-        arrowShadowEl?.setAttribute("d", pathD);
-        arrowPlaneEl?.setAttribute("d", "M-10,-4 L10,0 L-10,4 Z");
-        arrowDotEl?.setAttribute("r", "3.5");
-      }
-      //najia here you can draw an arrow and bellow remove it
-      function drawDonationArrow(
-        donor: { lat: number; lng: number; label: string; count?: number },
-        receiver: { lat: number; lng: number; label: string; count?: number },
-      ) {
-        clearArrow();
-        arrowInfoVisible = true;
-        currentArrowParams = { donor, receiver };
+          // Fade country layer
+          if (geoLayer)
+            geoLayer.setStyle(() => ({
+              fillColor: "#d4d4d4",
+              fillOpacity: 0.08,
+              color: "#bbb",
+              weight: 0.4,
+              opacity: 0.2,
+            }));
 
-        // Fade country layer
-        if (geoLayer)
-          geoLayer.setStyle(() => ({
-            fillColor: "#d4d4d4",
-            fillOpacity: 0.08,
-            color: "#bbb",
-            weight: 0.4,
-            opacity: 0.2,
-          }));
+          // Remove marker cluster
+          if (clusterLayer) {
+            map.removeLayer(clusterLayer);
+            clusterLayer = null;
+          }
 
-        // Remove marker cluster
-        if (clusterLayer) {
-          map.removeLayer(clusterLayer);
-          clusterLayer = null;
-        }
+          renderArrowOverlay(donor, receiver);
 
-        renderArrowOverlay(donor, receiver);
-
-        // Info box top-right
-        const infoEl = document.getElementById("lbdoo-arrow-info");
-        if (infoEl) {
-          infoEl.innerHTML = `
+          // Info box top-right
+          const infoEl = document.getElementById("lbdoo-arrow-info");
+          if (infoEl) {
+            infoEl.innerHTML = `
             <div style="font-weight:600;font-size:13px;margin-bottom:10px;color:#f97316;letter-spacing:0.01em">
               🚀 Donation Route
             </div>
@@ -457,485 +480,483 @@ export default function LabdooMap() {
               <strong>Receiver:</strong> ${receiver.label}
               ${receiver.count !== undefined ? `<br><span style="opacity:0.6;padding-left:15px">📦 ${receiver.count} locations</span>` : ""}
             </div>`;
-          infoEl.style.display = "block";
+            infoEl.style.display = "block";
+          }
+
+          // Go-back button bottom-right
+          const backEl = document.getElementById("lbdoo-go-back");
+          if (backEl) {
+            backEl.style.display = "flex";
+            backEl.onclick = () => {
+              clearArrow();
+              refresh();
+            };
+          }
         }
 
-        // Go-back button bottom-right
-        const backEl = document.getElementById("lbdoo-go-back");
-        if (backEl) {
-          backEl.style.display = "flex";
-          backEl.onclick = () => {
-            clearArrow();
-            refresh();
-          };
-        }
-      }
-
-      function clearArrow() {
-        arrowInfoVisible = false;
-        if (arrowSvgOverlay) {
-          arrowSvgOverlay.remove();
-          arrowSvgOverlay = null;
-        }
-        currentArrowParams = null;
-        const infoEl = document.getElementById("lbdoo-arrow-info");
-        if (infoEl) infoEl.style.display = "none";
-        const backEl = document.getElementById("lbdoo-go-back");
-        if (backEl) backEl.style.display = "none";
-      }
-
-      // ─── Nearest donor hub ────────────────────────────────────────────────────
-      /**
-       * showNearestDonorHub(lat, lng)
-       * Places a red plonk at the given coords, finds the nearest donor POINT,
-       * highlights it with an orange ring, and shows info.
-       */
-      //najia here you can call the nearest hub
-      function showNearestDonorHub(lat: number, lng: number) {
-        // Remove existing
-        if (nearestMarker) {
-          map.removeLayer(nearestMarker);
-          nearestMarker = null;
-        }
-        if (nearestHubCircle) {
-          map.removeLayer(nearestHubCircle);
-          nearestHubCircle = null;
+        function clearArrow() {
+          arrowInfoVisible = false;
+          if (arrowSvgOverlay) {
+            arrowSvgOverlay.remove();
+            arrowSvgOverlay = null;
+          }
+          currentArrowParams = null;
+          const infoEl = document.getElementById("lbdoo-arrow-info");
+          if (infoEl) infoEl.style.display = "none";
+          const backEl = document.getElementById("lbdoo-go-back");
+          if (backEl) backEl.style.display = "none";
         }
 
-        // User plonk — red teardrop
-        const plonkIcon = L.divIcon({
-          html: `
+        // ─── Nearest donor hub ────────────────────────────────────────────────────
+        /**
+         * showNearestDonorHub(lat, lng)
+         * Places a red plonk at the given coords, finds the nearest donor POINT,
+         * highlights it with an orange ring, and shows info.
+         */
+        //najia here you can call the nearest hub
+        function showNearestDonorHub(lat: number, lng: number) {
+          // Remove existing
+          if (nearestMarker) {
+            map.removeLayer(nearestMarker);
+            nearestMarker = null;
+          }
+          if (nearestHubCircle) {
+            map.removeLayer(nearestHubCircle);
+            nearestHubCircle = null;
+          }
+
+          // User plonk — red teardrop
+          const plonkIcon = L.divIcon({
+            html: `
             <div style="display:flex;flex-direction:column;align-items:center;animation:lbdoo-plonk 1.5s ease-in-out infinite;">
               <div style="width:18px;height:18px;border-radius:50% 50% 50% 0;background:#ef4444;border:2px solid #fff;box-shadow:0 2px 8px rgba(239,68,68,0.5);transform:rotate(-45deg);"></div>
               <div style="width:4px;height:10px;background:#ef4444;border-radius:0 0 3px 3px;margin-top:-2px;"></div>
             </div>`,
-          className: "",
-          iconSize: [22, 32],
-          iconAnchor: [11, 32],
-        });
+            className: "",
+            iconSize: [22, 32],
+            iconAnchor: [11, 32],
+          });
 
-        nearestMarker = L.marker([lat, lng], { icon: plonkIcon })
-          .bindPopup(
-            `<b>Your location</b><br>${lat.toFixed(4)}, ${lng.toFixed(4)}`,
-          )
-          .addTo(map);
+          nearestMarker = L.marker([lat, lng], { icon: plonkIcon })
+            .bindPopup(
+              `<b>Your location</b><br>${lat.toFixed(4)}, ${lng.toFixed(4)}`,
+            )
+            .addTo(map);
 
-        // Find nearest donor hub
-        const donorPoints = POINTS.filter((p) => p.type === "donor");
-        let nearest = donorPoints[0];
-        let minDist = Infinity;
-        donorPoints.forEach((p) => {
-          const d = haversineKm(lat, lng, p.lat, p.lng);
-          if (d < minDist) {
-            minDist = d;
-            nearest = p;
+          // Find nearest donor hub
+          const donorPoints = POINTS.filter((p) => p.type === "donor");
+          let nearest = donorPoints[0];
+          let minDist = Infinity;
+          donorPoints.forEach((p) => {
+            const d = haversineKm(lat, lng, p.lat, p.lng);
+            if (d < minDist) {
+              minDist = d;
+              nearest = p;
+            }
+          });
+
+          // Highlight ring around nearest hub
+          nearestHubCircle = L.circleMarker([nearest.lat, nearest.lng], {
+            radius: 18,
+            color: "#f97316",
+            weight: 3,
+            fillColor: "#2563EB",
+            fillOpacity: 0.85,
+            opacity: 1,
+          })
+            .bindPopup(
+              `<b>📍 Nearest Hub: ${nearest.label}</b><br>` +
+                `Donations: ${nearest.count}<br>` +
+                `Distance: ${Math.round(minDist)} km from your location`,
+            )
+            .addTo(map);
+
+          // Fit map to show both points
+          const bounds = L.latLngBounds([
+            [lat, lng],
+            [nearest.lat, nearest.lng],
+          ]);
+          map.fitBounds(bounds, { padding: [80, 80], maxZoom: 7 });
+
+          // Show info in the main info panel
+          showInfo(nearest.iso);
+          const infoEl = document.getElementById("lbdoo-info");
+          if (infoEl) {
+            const existing = infoEl.innerHTML;
+            infoEl.innerHTML =
+              `<div style="font-weight:600;font-size:13px;margin-bottom:6px;color:#f97316">📍 Nearest Donor Hub</div>` +
+              `<div style="font-size:12px;margin-bottom:4px"><strong>${nearest.label}</strong></div>` +
+              `<div style="font-size:12px;opacity:0.7;margin-bottom:4px">💻 ${nearest.count} donations</div>` +
+              `<div style="font-size:12px;opacity:0.7;margin-bottom:8px">📏 ${Math.round(minDist)} km away</div>` +
+              `<button id="lbdoo-clear-nearest" style="font-size:11px;opacity:0.5;background:none;border:none;cursor:pointer;padding:0">✕ clear</button>`;
+            infoEl.style.display = "block";
+            document
+              .getElementById("lbdoo-clear-nearest")
+              ?.addEventListener("click", () => {
+                if (nearestMarker) {
+                  map.removeLayer(nearestMarker);
+                  nearestMarker = null;
+                }
+                if (nearestHubCircle) {
+                  map.removeLayer(nearestHubCircle);
+                  nearestHubCircle = null;
+                }
+                infoEl.style.display = "none";
+              });
           }
-        });
-
-        // Highlight ring around nearest hub
-        nearestHubCircle = L.circleMarker([nearest.lat, nearest.lng], {
-          radius: 18,
-          color: "#f97316",
-          weight: 3,
-          fillColor: "#2563EB",
-          fillOpacity: 0.85,
-          opacity: 1,
-        })
-          .bindPopup(
-            `<b>📍 Nearest Hub: ${nearest.label}</b><br>` +
-              `Donations: ${nearest.count}<br>` +
-              `Distance: ${Math.round(minDist)} km from your location`,
-          )
-          .addTo(map);
-
-        // Fit map to show both points
-        const bounds = L.latLngBounds([
-          [lat, lng],
-          [nearest.lat, nearest.lng],
-        ]);
-        map.fitBounds(bounds, { padding: [80, 80], maxZoom: 7 });
-
-        // Show info in the main info panel
-        showInfo(nearest.iso);
-        const infoEl = document.getElementById("lbdoo-info");
-        if (infoEl) {
-          const existing = infoEl.innerHTML;
-          infoEl.innerHTML =
-            `<div style="font-weight:600;font-size:13px;margin-bottom:6px;color:#f97316">📍 Nearest Donor Hub</div>` +
-            `<div style="font-size:12px;margin-bottom:4px"><strong>${nearest.label}</strong></div>` +
-            `<div style="font-size:12px;opacity:0.7;margin-bottom:4px">💻 ${nearest.count} donations</div>` +
-            `<div style="font-size:12px;opacity:0.7;margin-bottom:8px">📏 ${Math.round(minDist)} km away</div>` +
-            `<button id="lbdoo-clear-nearest" style="font-size:11px;opacity:0.5;background:none;border:none;cursor:pointer;padding:0">✕ clear</button>`;
-          infoEl.style.display = "block";
-          document
-            .getElementById("lbdoo-clear-nearest")
-            ?.addEventListener("click", () => {
-              if (nearestMarker) {
-                map.removeLayer(nearestMarker);
-                nearestMarker = null;
-              }
-              if (nearestHubCircle) {
-                map.removeLayer(nearestHubCircle);
-                nearestHubCircle = null;
-              }
-              infoEl.style.display = "none";
-            });
         }
-      }
 
-      // Expose globally so it can be called from outside the component
-      (window as any).labdooShowNearestHub = showNearestDonorHub;
-      (window as any).labdooDrawArrow = drawDonationArrow;
+        // Expose globally so it can be called from outside the component
+        (window as any).labdooShowNearestHub = showNearestDonorHub;
+        (window as any).labdooDrawArrow = drawDonationArrow;
 
-      // ─── Country styling ──────────────────────────────────────────────────────
-      function countryStyle(feat: any) {
-        const iso: string = feat.properties._iso;
-        const d = DONORS[iso],
-          r = RECEIVERS[iso];
-        const z = map.getZoom();
-        if (arrowInfoVisible) {
+        // ─── Country styling ──────────────────────────────────────────────────────
+        function countryStyle(feat: any) {
+          const iso: string = feat.properties._iso;
+          const d = DONORS[iso],
+            r = RECEIVERS[iso];
+          const z = map.getZoom();
+          if (arrowInfoVisible) {
+            return {
+              fillColor: "#d4d4d4",
+              fillOpacity: 0.06,
+              color: "#bbb",
+              weight: 0.4,
+              opacity: 0.15,
+            };
+          }
+          const faded = z >= 5 || activeISO !== null;
+          let fill = "#d4d4d4";
+          const opacity = faded ? 0.05 : 0.75;
+          if (!faded) {
+            if (d && !r) fill = donorFill(d.donations);
+            else if (r && !d) fill = receiverFill(r.locations);
+            else if (d && r)
+              fill =
+                d.donations / MAX_D >= r.locations / MAX_R
+                  ? donorFill(d.donations)
+                  : receiverFill(r.locations);
+          }
           return {
-            fillColor: "#d4d4d4",
-            fillOpacity: 0.06,
-            color: "#bbb",
-            weight: 0.4,
-            opacity: 0.15,
+            fillColor: fill,
+            fillOpacity: opacity,
+            color: "#999",
+            weight: 0.5,
+            opacity: faded ? 0.2 : 0.7,
           };
         }
-        const faded = z >= 5 || activeISO !== null;
-        let fill = "#d4d4d4";
-        const opacity = faded ? 0.05 : 0.75;
-        if (!faded) {
-          if (d && !r) fill = donorFill(d.donations);
-          else if (r && !d) fill = receiverFill(r.locations);
-          else if (d && r)
-            fill =
-              d.donations / MAX_D >= r.locations / MAX_R
-                ? donorFill(d.donations)
-                : receiverFill(r.locations);
-        }
-        return {
-          fillColor: fill,
-          fillOpacity: opacity,
-          color: "#999",
-          weight: 0.5,
-          opacity: faded ? 0.2 : 0.7,
-        };
-      }
-      //Najia here the click on a donator/receiver is triggered, just delete the content of the function
-      // ─── Marker cluster ───────────────────────────────────────────────────────
-      function markerInfo(point: LocationPoint) {
-        if (arrowInfoVisible) return;
+        //Najia here the click on a donator/receiver is triggered, just delete the content of the function
+        // ─── Marker cluster ───────────────────────────────────────────────────────
+        function markerInfo(point: LocationPoint) {
+          if (arrowInfoVisible) return;
 
-        activeISO = point.iso;
-        const el = document.getElementById("lbdoo-info");
-        if (!el) return;
+          activeISO = point.iso;
+          const el = document.getElementById("lbdoo-info");
+          if (!el) return;
 
-        const typeLabel =
-          point.type === "donor" ? "Donor hub" : "Receiving center";
-        el.innerHTML = `
+          const typeLabel =
+            point.type === "donor" ? "Donor hub" : "Receiving center";
+          el.innerHTML = `
           <div style="font-weight:500;font-size:14px;margin-bottom:8px">${point.label}</div>
           <div style="font-size:12px;opacity:0.7;margin-bottom:4px">${typeLabel}</div>
           <div style="font-size:12px;opacity:0.7">${point.type === "donor" ? "Donations" : "Receiving locations"}: <strong>${point.count}</strong></div>
           <button id="lbdoo-clear" style="margin-top:8px;font-size:11px;opacity:0.5;background:none;border:none;cursor:pointer;padding:0">✕ clear</button>
         `;
-        el.style.display = "block";
-        document
-          .getElementById("lbdoo-clear")
-          ?.addEventListener("click", () => {
-            activeISO = null;
-            el.style.display = "none";
-            refresh();
-          });
-
-        map.setView([point.lat, point.lng], Math.min(map.getZoom() + 1, 8));
-      }
-
-      function buildMarkers() {
-        if (clusterLayer) {
-          map.removeLayer(clusterLayer);
-          clusterLayer = null;
-        }
-        if (arrowInfoVisible) return;
-
-        const z = map.getZoom();
-        if (z < 4 && !activeISO) return;
-
-        clusterLayer = new L.MarkerClusterGroup({
-          maxClusterRadius: 55,
-          disableClusteringAtZoom: 9,
-          iconCreateFunction(cluster: any) {
-            const n = cluster.getChildCount();
-            const sz = n > 30 ? 50 : n > 10 ? 40 : 32;
-            const bg = n > 30 ? "#EA580C" : "#2563EB";
-            return L.divIcon({
-              html: `<div style="width:${sz}px;height:${sz}px;border-radius:50%;background:${bg};display:flex;align-items:center;justify-content:center;font-size:${sz > 40 ? 14 : 12}px;font-weight:500;color:#fff;border:2px solid rgba(255,255,255,0.9);box-shadow:0 1px 5px rgba(0,0,0,0.3)">${n}</div>`,
-              className: "",
-              iconSize: [sz, sz],
-              iconAnchor: [sz / 2, sz / 2],
+          el.style.display = "block";
+          document
+            .getElementById("lbdoo-clear")
+            ?.addEventListener("click", () => {
+              activeISO = null;
+              el.style.display = "none";
+              refresh();
             });
-          },
-        });
 
-        const pts = POINTS;
-        pts.forEach((p) => {
-          const c = p.type === "donor" ? "#2563EB" : "#EA580C";
-          const icon = L.divIcon({
-            html: `<div style="width:14px;height:14px;border-radius:50%;background:${c};border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,0.3);cursor:pointer"></div>`,
-            className: "",
-            iconSize: [14, 14],
-            iconAnchor: [7, 7],
-          });
-          const marker = L.marker([p.lat, p.lng], { icon });
-          marker.on("click", (e: any) => {
-            L.DomEvent.stopPropagation(e);
-            markerInfo(p);
-          });
-          marker.addTo(clusterLayer);
-        });
-        map.addLayer(clusterLayer);
-      }
-
-      // ─── Legend ───────────────────────────────────────────────────────────────
-      function updateLegend(z: number) {
-        const el = document.getElementById("lbdoo-legend");
-        if (!el) return;
-        if (arrowInfoVisible) {
-          el.innerHTML = "";
-          return;
+          map.setView([point.lat, point.lng], Math.min(map.getZoom() + 1, 8));
         }
-        if (z >= 5) {
-          el.innerHTML = `
+
+        function buildMarkers() {
+          if (clusterLayer) {
+            map.removeLayer(clusterLayer);
+            clusterLayer = null;
+          }
+          if (arrowInfoVisible) return;
+
+          const z = map.getZoom();
+          if (z < 4 && !activeISO) return;
+
+          clusterLayer = new L.MarkerClusterGroup({
+            maxClusterRadius: 55,
+            disableClusteringAtZoom: 9,
+            iconCreateFunction(cluster: any) {
+              const n = cluster.getChildCount();
+              const sz = n > 30 ? 50 : n > 10 ? 40 : 32;
+              const bg = n > 30 ? "#EA580C" : "#2563EB";
+              return L.divIcon({
+                html: `<div style="width:${sz}px;height:${sz}px;border-radius:50%;background:${bg};display:flex;align-items:center;justify-content:center;font-size:${sz > 40 ? 14 : 12}px;font-weight:500;color:#fff;border:2px solid rgba(255,255,255,0.9);box-shadow:0 1px 5px rgba(0,0,0,0.3)">${n}</div>`,
+                className: "",
+                iconSize: [sz, sz],
+                iconAnchor: [sz / 2, sz / 2],
+              });
+            },
+          });
+
+          const pts = POINTS;
+          pts.forEach((p) => {
+            const c = p.type === "donor" ? "#2563EB" : "#EA580C";
+            const icon = L.divIcon({
+              html: `<div style="width:14px;height:14px;border-radius:50%;background:${c};border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,0.3);cursor:pointer"></div>`,
+              className: "",
+              iconSize: [14, 14],
+              iconAnchor: [7, 7],
+            });
+            const marker = L.marker([p.lat, p.lng], { icon });
+            marker.on("click", (e: any) => {
+              L.DomEvent.stopPropagation(e);
+              markerInfo(p);
+            });
+            marker.addTo(clusterLayer);
+          });
+          map.addLayer(clusterLayer);
+        }
+
+        // ─── Legend ───────────────────────────────────────────────────────────────
+        function updateLegend(z: number) {
+          const el = document.getElementById("lbdoo-legend");
+          if (!el) return;
+          if (arrowInfoVisible) {
+            el.innerHTML = "";
+            return;
+          }
+          if (z >= 5) {
+            el.innerHTML = `
             <div style="font-weight:500;font-size:13px;margin-bottom:6px">Location view</div>
             <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px"><span style="width:12px;height:12px;border-radius:50%;background:#2563EB;display:inline-block"></span> Donor hub</div>
             <div style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;border-radius:50%;background:#EA580C;display:inline-block"></span> Receiving center</div>`;
-        } else {
-          el.innerHTML = `
+          } else {
+            el.innerHTML = `
             <div style="font-weight:500;font-size:13px;margin-bottom:6px">Country view</div>
             <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px"><span style="width:14px;height:14px;border-radius:2px;background:#2563EB;display:inline-block;opacity:0.85"></span> Primarily donating</div>
             <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px"><span style="width:14px;height:14px;border-radius:2px;background:#EA580C;display:inline-block;opacity:0.85"></span> Primarily receiving</div>
             <div style="display:flex;align-items:center;gap:6px"><span style="width:14px;height:14px;border-radius:2px;background:#d4d4d4;border:0.5px solid #aaa;display:inline-block"></span> No data</div>`;
-        }
-      }
-
-      // ─── Country info panel ───────────────────────────────────────────────────
-      //Najia the next two funtions are the country info panel, juste delete the content
-      function showInfo(iso: string) {
-        const el = document.getElementById("lbdoo-info");
-        if (!el) return;
-        const d = DONORS[iso],
-          r = RECEIVERS[iso];
-        const name = d?.name ?? r?.name ?? iso;
-        let html = `<div style="font-weight:500;font-size:14px;margin-bottom:8px">${name}</div>`;
-        if (d)
-          html += `<div style="margin-bottom:4px;font-size:12px;opacity:0.7">💻 Donations: <strong>${d.donations}</strong></div>`;
-        if (r)
-          html += `<div style="font-size:12px;opacity:0.7">📦 Receiving locations: <strong>${r.locations}</strong></div>`;
-        if (!d && !r)
-          html += `<div style="font-size:12px;opacity:0.6">No data available</div>`;
-        html += `<button id="lbdoo-clear" style="margin-top:8px;font-size:11px;opacity:0.5;background:none;border:none;cursor:pointer;padding:0">✕ clear</button>`;
-        el.innerHTML = html;
-        el.style.display = "block";
-        document
-          .getElementById("lbdoo-clear")
-          ?.addEventListener("click", () => {
-            activeISO = null;
-            el.style.display = "none";
-            refresh();
-          });
-      }
-
-      // ─── Auto-show country info when zoomed ──────────────────────────────────
-      /**
-       * At zoom ≥ 5, find the GeoJSON feature whose centroid is closest to the
-       * map center and call showInfo for it, so the info panel updates as you pan.
-       */
-      function autoShowCenterCountry() {
-        if (arrowInfoVisible) return;
-        const z = map.getZoom();
-        if (z < 5) return;
-
-        const center = map.getCenter();
-        let bestISO: string | null = null;
-        let bestDist = Infinity;
-
-        if (!geoLayer) return;
-        geoLayer.eachLayer((layer: any) => {
-          const iso: string | null = layer.feature?.properties?._iso;
-          if (!iso) return;
-          try {
-            const bounds = layer.getBounds();
-            const c = bounds.getCenter();
-            const dLat = c.lat - center.lat;
-            const dLng = c.lng - center.lng;
-            const dist = dLat * dLat + dLng * dLng;
-            if (dist < bestDist) {
-              bestDist = dist;
-              bestISO = iso;
-            }
-          } catch {}
-        });
-
-        if (bestISO && bestISO !== activeISO) {
-          activeISO = bestISO;
-          showInfo(bestISO);
-        }
-      }
-
-      function refresh() {
-        if (geoLayer) geoLayer.setStyle((f: any) => countryStyle(f));
-        buildMarkers();
-        updateLegend(map.getZoom());
-        if (!arrowInfoVisible) autoShowCenterCountry();
-      }
-
-      // ─── Load world data ──────────────────────────────────────────────────────
-      try {
-        const resp = await fetch(
-          "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json",
-        );
-        const topo = await resp.json();
-        let geojson = topojson.feature(topo, topo.objects.countries);
-
-        // Remove Antarctica, unrecognised artefacts, and antimeridian-crossing features
-        geojson.features = geojson.features.filter((f: any) => {
-          const id = String(f.id);
-          return !SKIP_IDS.has(id) && f.id !== undefined && f.id !== null;
-        });
-        geojson = stripAntimeridianArtifacts(geojson);
-
-        geojson.features.forEach((f: any) => {
-          f.properties._iso = NUM_TO_ISO[String(f.id)] ?? null;
-        });
-
-        geoLayer = L.geoJSON(geojson, {
-          style: (f: any) => countryStyle(f),
-          onEachFeature(feat: any, layer: any) {
-            const iso: string = feat.properties._iso;
-            layer.on({
-              mouseover() {
-                if (
-                  !arrowInfoVisible &&
-                  map.getZoom() < 5 &&
-                  (DONORS[iso] || RECEIVERS[iso])
-                )
-                  layer.setStyle({ weight: 1.5, color: "#444" });
-              },
-              mouseout() {
-                geoLayer?.resetStyle(layer);
-              },
-              click(e: any) {
-                L.DomEvent.stopPropagation(e);
-                if (!iso || arrowInfoVisible) return;
-                activeISO = iso;
-                showInfo(iso);
-                map.fitBounds(layer.getBounds(), {
-                  padding: [40, 40],
-                  maxZoom: 8,
-                });
-                refresh();
-              },
-            });
-          },
-        }).addTo(map);
-
-        const statusEl = document.getElementById("lbdoo-status");
-        if (statusEl) statusEl.style.display = "none";
-        buildMarkers();
-        updateLegend(map.getZoom());
-      } catch (err) {
-        console.error("Map load error:", err);
-        const statusEl = document.getElementById("lbdoo-status");
-        if (statusEl)
-          statusEl.textContent = "Failed to load map data. Please reload.";
-      }
-
-      map.on("zoom", () => {
-        if (arrowInfoVisible && currentArrowParams) {
-          renderArrowOverlay(
-            currentArrowParams.donor,
-            currentArrowParams.receiver,
-          );
-        }
-      });
-
-      map.on("move", () => {
-        if (arrowInfoVisible && currentArrowParams) {
-          renderArrowOverlay(
-            currentArrowParams.donor,
-            currentArrowParams.receiver,
-          );
-        } else {
-          autoShowCenterCountry();
-        }
-      });
-
-      map.on("zoomend", () => {
-        const z = map.getZoom();
-        if (z < 5) {
-          activeISO = null;
-          const el = document.getElementById("lbdoo-info");
-          if (
-            el &&
-            !el.innerHTML.includes("Nearest Donor Hub") &&
-            !el.innerHTML.includes("Donation Route")
-          ) {
-            el.style.display = "none";
           }
         }
-        refresh();
-      });
 
-      map.on("click", () => {
-        if (arrowInfoVisible) return;
-        activeISO = null;
-        const el = document.getElementById("lbdoo-info");
-        if (el && !el.innerHTML.includes("Nearest Donor Hub"))
-          el.style.display = "none";
-        refresh();
-      });
-    };
+        // ─── Country info panel ───────────────────────────────────────────────────
+        function showInfo(iso: string) {
+          activeISO = iso;
+          onViewChangeRef.current?.({ kind: "country", iso });
+        }
 
-    init();
-  }, []);
+        // ─── Auto-show country info when zoomed ──────────────────────────────────
+        /**
+         * At zoom ≥ 5, find the GeoJSON feature whose centroid is closest to the
+         * map center and call showInfo for it, so the info panel updates as you pan.
+         */
+        function autoShowCenterCountry() {
+          if (arrowInfoVisible) return;
+          const z = map.getZoom();
+          if (z < 5) return;
 
-  return (
-    <div className="relative w-full h-full overflow-hidden">
-      <div ref={mapRef} style={{ width: "100%", height: "100%" }} />
+          const center = map.getCenter();
+          let bestISO: string | null = null;
+          let bestDist = Infinity;
 
-      <div
-        id="lbdoo-status"
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[2000] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-lg px-5 py-3 text-sm text-zinc-500"
-      >
-        Loading map data…
+          if (!geoLayer) return;
+          geoLayer.eachLayer((layer: any) => {
+            const iso: string | null = layer.feature?.properties?._iso;
+            if (!iso) return;
+            try {
+              const bounds = layer.getBounds();
+              const c = bounds.getCenter();
+              const dLat = c.lat - center.lat;
+              const dLng = c.lng - center.lng;
+              const dist = dLat * dLat + dLng * dLng;
+              if (dist < bestDist) {
+                bestDist = dist;
+                bestISO = iso;
+              }
+            } catch {}
+          });
+
+          if (bestISO && bestISO !== activeISO) {
+            activeISO = bestISO;
+            showInfo(bestISO);
+          }
+        }
+
+        function refresh() {
+          if (geoLayer) geoLayer.setStyle((f: any) => countryStyle(f));
+          buildMarkers();
+          updateLegend(map.getZoom());
+          if (!arrowInfoVisible) autoShowCenterCountry();
+        }
+        function resetToWorldView() {
+          if (arrowInfoVisible) clearArrow();
+          activeISO = null;
+          map.setView([20, 10], 2);
+          const el = document.getElementById("lbdoo-info");
+          if (el) el.style.display = "none";
+          refresh();
+        }
+
+        actionsRef.current = { resetToWorldView };
+
+        // ─── Load world data ──────────────────────────────────────────────────────
+        try {
+          const resp = await fetch(
+            "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json",
+          );
+          const topo = await resp.json();
+          let geojson = topojson.feature(topo, topo.objects.countries);
+
+          // Remove Antarctica, unrecognised artefacts, and antimeridian-crossing features
+          geojson.features = geojson.features.filter((f: any) => {
+            const id = String(f.id);
+            return !SKIP_IDS.has(id) && f.id !== undefined && f.id !== null;
+          });
+          geojson = stripAntimeridianArtifacts(geojson);
+
+          geojson.features.forEach((f: any) => {
+            f.properties._iso = NUM_TO_ISO[String(f.id)] ?? null;
+          });
+
+          geoLayer = L.geoJSON(geojson, {
+            style: (f: any) => countryStyle(f),
+            onEachFeature(feat: any, layer: any) {
+              const iso: string = feat.properties._iso;
+              layer.on({
+                mouseover() {
+                  if (
+                    !arrowInfoVisible &&
+                    map.getZoom() < 5 &&
+                    (DONORS[iso] || RECEIVERS[iso])
+                  )
+                    layer.setStyle({ weight: 1.5, color: "#444" });
+                },
+                mouseout() {
+                  geoLayer?.resetStyle(layer);
+                },
+                click(e: any) {
+                  L.DomEvent.stopPropagation(e);
+                  if (!iso || arrowInfoVisible) return;
+                  activeISO = iso;
+                  showInfo(iso);
+                  map.fitBounds(layer.getBounds(), {
+                    padding: [40, 40],
+                    maxZoom: 8,
+                  });
+                  refresh();
+                },
+              });
+            },
+          }).addTo(map);
+
+          const statusEl = document.getElementById("lbdoo-status");
+          if (statusEl) statusEl.style.display = "none";
+          buildMarkers();
+          updateLegend(map.getZoom());
+        } catch (err) {
+          console.error("Map load error:", err);
+          const statusEl = document.getElementById("lbdoo-status");
+          if (statusEl)
+            statusEl.textContent = "Failed to load map data. Please reload.";
+        }
+
+        map.on("zoom", () => {
+          if (arrowInfoVisible && currentArrowParams) {
+            renderArrowOverlay(
+              currentArrowParams.donor,
+              currentArrowParams.receiver,
+            );
+          }
+        });
+
+        map.on("move", () => {
+          if (arrowInfoVisible && currentArrowParams) {
+            renderArrowOverlay(
+              currentArrowParams.donor,
+              currentArrowParams.receiver,
+            );
+          }
+        });
+
+        map.on("moveend", () => {
+          if (!arrowInfoVisible) {
+            autoShowCenterCountry();
+          }
+        });
+
+        map.on("zoomend", () => {
+          const z = map.getZoom();
+          if (z < 5) {
+            activeISO = null;
+            const el = document.getElementById("lbdoo-info");
+            if (
+              el &&
+              !el.innerHTML.includes("Nearest Donor Hub") &&
+              !el.innerHTML.includes("Donation Route")
+            ) {
+              el.style.display = "none";
+            }
+            onViewChangeRef.current?.({ kind: "world" });
+          }
+          refresh();
+        });
+
+        map.on("click", () => {
+          if (arrowInfoVisible) return;
+          activeISO = null;
+          const el = document.getElementById("lbdoo-info");
+          if (el && !el.innerHTML.includes("Nearest Donor Hub"))
+            el.style.display = "none";
+          refresh();
+          onViewChangeRef.current?.({ kind: "world" });
+        });
+      };
+
+      init();
+    }, []);
+
+    return (
+      <div className="relative w-full h-full overflow-hidden">
+        <div ref={mapRef} style={{ width: "100%", height: "100%" }} />
+
+        <div
+          id="lbdoo-status"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[2000] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-lg px-5 py-3 text-sm text-zinc-500"
+        >
+          Loading map data…
+        </div>
+
+        <div
+          id="lbdoo-legend"
+          className="absolute bottom-6 left-3 z-[1000] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-lg px-3.5 py-2.5 text-xs text-zinc-500 dark:text-zinc-400 pointer-events-none"
+        />
+
+        <div
+          id="lbdoo-info"
+          className="absolute top-3 right-3 z-[1000] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-lg px-3.5 py-2.5 text-sm text-zinc-800 dark:text-zinc-200 min-w-[170px]"
+          style={{ display: "none" }}
+        />
+
+        <div
+          id="lbdoo-arrow-info"
+          className="absolute top-3 right-3 z-[1100] bg-white dark:bg-zinc-900 border border-orange-300 dark:border-orange-700 rounded-lg px-3.5 py-3 text-sm text-zinc-800 dark:text-zinc-200 min-w-[200px] shadow-lg"
+          style={{ display: "none" }}
+        />
+
+        <div
+          id="lbdoo-go-back"
+          className="absolute bottom-6 right-3 z-[1100] cursor-pointer"
+          style={{ display: "none" }}
+        >
+          <button className="flex items-center gap-2 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-600 rounded-lg px-3 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-200 shadow hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors">
+            ← Go back
+          </button>
+        </div>
       </div>
+    );
+  },
+);
 
-      <div
-        id="lbdoo-legend"
-        className="absolute bottom-6 left-3 z-[1000] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-lg px-3.5 py-2.5 text-xs text-zinc-500 dark:text-zinc-400 pointer-events-none"
-      />
-
-      <div
-        id="lbdoo-info"
-        className="absolute top-3 right-3 z-[1000] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-lg px-3.5 py-2.5 text-sm text-zinc-800 dark:text-zinc-200 min-w-[170px]"
-        style={{ display: "none" }}
-      />
-
-      <div
-        id="lbdoo-arrow-info"
-        className="absolute top-3 right-3 z-[1100] bg-white dark:bg-zinc-900 border border-orange-300 dark:border-orange-700 rounded-lg px-3.5 py-3 text-sm text-zinc-800 dark:text-zinc-200 min-w-[200px] shadow-lg"
-        style={{ display: "none" }}
-      />
-
-      <div
-        id="lbdoo-go-back"
-        className="absolute bottom-6 right-3 z-[1100] cursor-pointer"
-        style={{ display: "none" }}
-      >
-        <button className="flex items-center gap-2 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-600 rounded-lg px-3 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-200 shadow hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors">
-          ← Go back
-        </button>
-      </div>
-    </div>
-  );
-}
+export default LabdooMap;

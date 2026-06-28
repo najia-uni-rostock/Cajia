@@ -324,3 +324,146 @@ export const YEARLY_TOTALS: YearlyTotal[] = [
   { year: 2023, donated: 3800, received: 3100 },
   { year: 2024, donated: 4200, received: 3500 },
 ];
+
+export const MEDIAN_INCOME: Record<string, number> = {
+  DEU: 3800,
+  USA: 4200,
+  GBR: 3100,
+  FRA: 3000,
+  NLD: 3600,
+  CHE: 5200,
+  AUT: 3400,
+  BEL: 3300,
+  ESP: 2100,
+  CAN: 3700,
+  GHA: 150,
+  KEN: 180,
+  TZA: 110,
+  UGA: 95,
+  RWA: 100,
+  MOZ: 85,
+  ZMB: 120,
+  CMR: 140,
+  SEN: 160,
+  ETH: 90,
+  NGA: 200,
+  IND: 220,
+  BGD: 130,
+  NPL: 110,
+  PHL: 280,
+  HTI: 75,
+  BOL: 230,
+};
+
+export const DONATION_REASONS: Record<string, string[]> = {
+  GHA: [
+    "Limited access to computers in rural schools",
+    "High device cost relative to local income",
+  ],
+  KEN: [
+    "Growing number of students needing digital learning tools",
+    "Few functioning computer labs outside major cities",
+  ],
+  TZA: [
+    "Shortage of classroom computers in public schools",
+    "High import cost of new devices",
+  ],
+  UGA: [
+    "Limited electricity and device access in rural districts",
+    "Strong demand for vocational digital training",
+  ],
+  RWA: [
+    "National push for digital literacy in schools",
+    "Shortage of affordable refurbished devices",
+  ],
+  MOZ: [
+    "Few computer labs in secondary schools",
+    "High cost of new devices relative to income",
+  ],
+  ZMB: [
+    "Limited digital skills training infrastructure",
+    "Shortage of devices in community learning centers",
+  ],
+  CMR: [
+    "Growing student population without device access",
+    "Limited budget for school technology",
+  ],
+  SEN: [
+    "Expanding demand for digital literacy programs",
+    "High cost of imported electronics",
+  ],
+  ETH: [
+    "Shortage of computers in public schools",
+    "Limited access to vocational tech training",
+  ],
+  NGA: [
+    "Large student population relative to available devices",
+    "High cost of new devices relative to income",
+  ],
+  IND: [
+    "Rural schools with limited device access",
+    "Strong demand for digital learning resources",
+  ],
+  BGD: [
+    "Limited computer access in public schools",
+    "Growing need for digital skills training",
+  ],
+  NPL: [
+    "Few functioning computer labs in rural schools",
+    "High import cost of new devices",
+  ],
+  PHL: [
+    "Remote learning needs in underserved provinces",
+    "Shortage of devices for vocational training",
+  ],
+  HTI: [
+    "Limited school infrastructure and device access",
+    "High cost of new devices relative to income",
+  ],
+  BOL: [
+    "Few computer labs in rural communities",
+    "Growing demand for digital literacy programs",
+  ],
+};
+
+export function getCountryName(iso: string): string {
+  return DONORS[iso]?.name ?? RECEIVERS[iso]?.name ?? iso;
+}
+
+export interface CountryYearlySeries {
+  years: number[];
+  values: number[];
+  role: "donated" | "received";
+}
+
+export function getCountryYearlySeries(
+  iso: string,
+): CountryYearlySeries | null {
+  const donor = DONORS[iso];
+  if (donor) {
+    const totalDonated = YEARLY_TOTALS.reduce((sum, y) => sum + y.donated, 0);
+    return {
+      years: YEARLY_TOTALS.map((y) => y.year),
+      values: YEARLY_TOTALS.map((y) =>
+        Math.round((y.donated / totalDonated) * donor.donations),
+      ),
+      role: "donated",
+    };
+  }
+
+  const receiver = RECEIVERS[iso];
+  if (receiver) {
+    const totalLocations = Object.values(RECEIVERS).reduce(
+      (sum, r) => sum + r.locations,
+      0,
+    );
+    const countryShare = receiver.locations / totalLocations;
+    return {
+      years: YEARLY_TOTALS.map((y) => y.year),
+      values: YEARLY_TOTALS.map((y) => Math.round(y.received * countryShare)),
+      role: "received",
+    };
+  }
+
+  return null;
+}

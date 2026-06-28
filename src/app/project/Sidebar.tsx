@@ -3,10 +3,17 @@
 import { useMemo, useState } from "react";
 import { DONORS, RECEIVERS, YEARLY_TOTALS } from "./data";
 import TimeSeriesChart from "./TimeSeriesChart";
+import CountryPanel from "./CountryPanel";
+import type { MapView } from "./types";
 
 type RankingMode = "donating" | "receiving";
 
-export default function Sidebar() {
+interface SidebarProps {
+  view: MapView;
+  onBackToWorld: () => void;
+}
+
+export default function Sidebar({ view, onBackToWorld }: SidebarProps) {
   const [rankingMode, setRankingMode] = useState<RankingMode>("donating");
 
   const ranking = useMemo(() => {
@@ -46,78 +53,84 @@ export default function Sidebar() {
         </button>
       </div>
 
-      <div className="flex flex-col gap-2.5">
-        <h3 className="text-sm font-semibold uppercase tracking-wide text-zinc-400 dark:text-zinc-500">
-          Ranking
-        </h3>
-        <div className="flex flex-col gap-2 max-h-[260px] overflow-y-auto pr-1">
-          {ranking.map((item) => (
-            <div key={item.name} className="flex items-center gap-3">
-              <div className="flex-1 text-sm text-zinc-700 dark:text-zinc-300 truncate">
-                {item.name}
-              </div>
-              <div className="flex-1 h-2.5 rounded bg-zinc-100 dark:bg-zinc-800 overflow-hidden">
-                <div
-                  className="h-full rounded"
-                  style={{
-                    width: `${(item.value / maxValue) * 100}%`,
-                    backgroundColor: barColor,
-                  }}
-                />
-              </div>
-              <div className="w-12 text-right text-sm text-zinc-500 dark:text-zinc-400">
-                {item.value}
-              </div>
+      {view.kind === "world" ? (
+        <>
+          <div className="flex flex-col gap-2.5">
+            <h3 className="text-sm font-semibold uppercase tracking-wide text-zinc-400 dark:text-zinc-500">
+              Ranking
+            </h3>
+            <div className="flex flex-col gap-2 max-h-[260px] overflow-y-auto pr-1">
+              {ranking.map((item) => (
+                <div key={item.name} className="flex items-center gap-3">
+                  <div className="flex-1 text-sm text-zinc-700 dark:text-zinc-300 truncate">
+                    {item.name}
+                  </div>
+                  <div className="flex-1 h-2.5 rounded bg-zinc-100 dark:bg-zinc-800 overflow-hidden">
+                    <div
+                      className="h-full rounded"
+                      style={{
+                        width: `${(item.value / maxValue) * 100}%`,
+                        backgroundColor: barColor,
+                      }}
+                    />
+                  </div>
+                  <div className="w-12 text-right text-sm text-zinc-500 dark:text-zinc-400">
+                    {item.value}
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-        <div className="flex gap-1.5 mt-1">
-          <button
-            type="button"
-            onClick={() => setRankingMode("donating")}
-            className={`flex-1 text-sm rounded-md px-2.5 py-1.5 border transition-colors ${
-              rankingMode === "donating"
-                ? "border-blue-300 bg-blue-50 text-blue-700 dark:border-blue-700 dark:bg-blue-950 dark:text-blue-300"
-                : "border-zinc-200 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800"
-            }`}
-          >
-            Donating
-          </button>
-          <button
-            type="button"
-            onClick={() => setRankingMode("receiving")}
-            className={`flex-1 text-sm rounded-md px-2.5 py-1.5 border transition-colors ${
-              rankingMode === "receiving"
-                ? "border-orange-300 bg-orange-50 text-orange-700 dark:border-orange-700 dark:bg-orange-950 dark:text-orange-300"
-                : "border-zinc-200 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800"
-            }`}
-          >
-            Receiving
-          </button>
-        </div>
-      </div>
+            <div className="flex gap-1.5 mt-1">
+              <button
+                type="button"
+                onClick={() => setRankingMode("donating")}
+                className={`flex-1 text-sm rounded-md px-2.5 py-1.5 border transition-colors ${
+                  rankingMode === "donating"
+                    ? "border-blue-300 bg-blue-50 text-blue-700 dark:border-blue-700 dark:bg-blue-950 dark:text-blue-300"
+                    : "border-zinc-200 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800"
+                }`}
+              >
+                Donating
+              </button>
+              <button
+                type="button"
+                onClick={() => setRankingMode("receiving")}
+                className={`flex-1 text-sm rounded-md px-2.5 py-1.5 border transition-colors ${
+                  rankingMode === "receiving"
+                    ? "border-orange-300 bg-orange-50 text-orange-700 dark:border-orange-700 dark:bg-orange-950 dark:text-orange-300"
+                    : "border-zinc-200 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800"
+                }`}
+              >
+                Receiving
+              </button>
+            </div>
+          </div>
 
-      <div className="flex flex-col gap-2.5">
-        <h3 className="text-sm font-semibold uppercase tracking-wide text-zinc-400 dark:text-zinc-500">
-          Devices over time
-        </h3>
-        <TimeSeriesChart
-          categories={YEARLY_TOTALS.map((y) => y.year)}
-          series={[
-            {
-              label: "Donated",
-              color: "#2563EB",
-              values: YEARLY_TOTALS.map((y) => y.donated),
-            },
-            {
-              label: "Received",
-              color: "#EA580C",
-              values: YEARLY_TOTALS.map((y) => y.received),
-            },
-          ]}
-          height={190}
-        />
-      </div>
+          <div className="flex flex-col gap-2.5">
+            <h3 className="text-sm font-semibold uppercase tracking-wide text-zinc-400 dark:text-zinc-500">
+              Devices over time
+            </h3>
+            <TimeSeriesChart
+              categories={YEARLY_TOTALS.map((y) => y.year)}
+              series={[
+                {
+                  label: "Donated",
+                  color: "#2563EB",
+                  values: YEARLY_TOTALS.map((y) => y.donated),
+                },
+                {
+                  label: "Received",
+                  color: "#EA580C",
+                  values: YEARLY_TOTALS.map((y) => y.received),
+                },
+              ]}
+              height={190}
+            />
+          </div>
+        </>
+      ) : (
+        <CountryPanel iso={view.iso} onBackToWorld={onBackToWorld} />
+      )}
     </aside>
   );
 }
