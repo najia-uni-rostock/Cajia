@@ -1,100 +1,111 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-
-const DONORS: Record<string, { donations: number; name: string }> = {
-  DEU: { donations: 840, name: "Germany" },
-  USA: { donations: 1200, name: "United States" },
-  GBR: { donations: 620, name: "United Kingdom" },
-  FRA: { donations: 480, name: "France" },
-  NLD: { donations: 390, name: "Netherlands" },
-  CHE: { donations: 310, name: "Switzerland" },
-  AUT: { donations: 220, name: "Austria" },
-  BEL: { donations: 180, name: "Belgium" },
-  ESP: { donations: 160, name: "Spain" },
-  CAN: { donations: 290, name: "Canada" },
-};
-
-const RECEIVERS: Record<string, { locations: number; name: string }> = {
-  GHA: { locations: 34, name: "Ghana" },
-  KEN: { locations: 58, name: "Kenya" },
-  TZA: { locations: 42, name: "Tanzania" },
-  UGA: { locations: 29, name: "Uganda" },
-  RWA: { locations: 22, name: "Rwanda" },
-  MOZ: { locations: 18, name: "Mozambique" },
-  ZMB: { locations: 15, name: "Zambia" },
-  CMR: { locations: 25, name: "Cameroon" },
-  SEN: { locations: 12, name: "Senegal" },
-  ETH: { locations: 31, name: "Ethiopia" },
-  NGA: { locations: 44, name: "Nigeria" },
-  IND: { locations: 67, name: "India" },
-  BGD: { locations: 23, name: "Bangladesh" },
-  NPL: { locations: 19, name: "Nepal" },
-  PHL: { locations: 38, name: "Philippines" },
-  HTI: { locations: 16, name: "Haiti" },
-  BOL: { locations: 11, name: "Bolivia" },
-};
-
-interface LocationPoint {
-  iso: string;
-  lat: number;
-  lng: number;
-  type: "donor" | "receiver";
-  count: number;
-  label: string;
-}
-
-const POINTS: LocationPoint[] = [
-  { iso: "DEU", lat: 52.52, lng: 13.4,    type: "donor",    count: 420, label: "Berlin Hub" },
-  { iso: "DEU", lat: 48.13, lng: 11.57,   type: "donor",    count: 220, label: "Munich Hub" },
-  { iso: "DEU", lat: 53.57, lng: 10.0,    type: "donor",    count: 200, label: "Hamburg Hub" },
-  { iso: "USA", lat: 40.71, lng: -74.0,   type: "donor",    count: 380, label: "New York Hub" },
-  { iso: "USA", lat: 34.05, lng: -118.24, type: "donor",    count: 280, label: "Los Angeles Hub" },
-  { iso: "USA", lat: 41.88, lng: -87.63,  type: "donor",    count: 310, label: "Chicago Hub" },
-  { iso: "USA", lat: 37.77, lng: -122.42, type: "donor",    count: 230, label: "San Francisco Hub" },
-  { iso: "GBR", lat: 51.51, lng: -0.12,   type: "donor",    count: 340, label: "London Hub" },
-  { iso: "GBR", lat: 53.48, lng: -2.24,   type: "donor",    count: 180, label: "Manchester Hub" },
-  { iso: "FRA", lat: 48.85, lng: 2.35,    type: "donor",    count: 300, label: "Paris Hub" },
-  { iso: "FRA", lat: 43.29, lng: 5.37,    type: "donor",    count: 180, label: "Marseille Hub" },
-  { iso: "NLD", lat: 52.37, lng: 4.9,     type: "donor",    count: 390, label: "Amsterdam Hub" },
-  { iso: "CHE", lat: 47.37, lng: 8.54,    type: "donor",    count: 310, label: "Zurich Hub" },
-  { iso: "KEN", lat: -1.28, lng: 36.82,   type: "receiver", count: 22,  label: "Nairobi Center" },
-  { iso: "KEN", lat: -4.05, lng: 39.66,   type: "receiver", count: 18,  label: "Mombasa Center" },
-  { iso: "KEN", lat: 0.51,  lng: 35.27,   type: "receiver", count: 9,   label: "Eldoret Center" },
-  { iso: "KEN", lat: -0.1,  lng: 34.75,   type: "receiver", count: 9,   label: "Kisumu Center" },
-  { iso: "GHA", lat: 5.55,  lng: -0.2,    type: "receiver", count: 20,  label: "Accra Center" },
-  { iso: "GHA", lat: 6.69,  lng: -1.62,   type: "receiver", count: 14,  label: "Kumasi Center" },
-  { iso: "TZA", lat: -6.79, lng: 39.27,   type: "receiver", count: 25,  label: "Dar es Salaam" },
-  { iso: "TZA", lat: -3.36, lng: 36.68,   type: "receiver", count: 17,  label: "Arusha Center" },
-  { iso: "IND", lat: 28.61, lng: 77.2,    type: "receiver", count: 28,  label: "New Delhi Center" },
-  { iso: "IND", lat: 19.07, lng: 72.87,   type: "receiver", count: 22,  label: "Mumbai Center" },
-  { iso: "IND", lat: 12.97, lng: 77.59,   type: "receiver", count: 17,  label: "Bangalore Center" },
-  { iso: "PHL", lat: 14.59, lng: 120.98,  type: "receiver", count: 38,  label: "Manila Center" },
-  { iso: "ETH", lat: 9.03,  lng: 38.74,   type: "receiver", count: 31,  label: "Addis Ababa" },
-  { iso: "HTI", lat: 18.54, lng: -72.33,  type: "receiver", count: 16,  label: "Port-au-Prince" },
-  { iso: "NGA", lat: 6.52,  lng: 3.37,    type: "receiver", count: 23,  label: "Lagos Hub" },
-  { iso: "NGA", lat: 9.05,  lng: 7.49,    type: "receiver", count: 21,  label: "Abuja Hub" },
-  { iso: "RWA", lat: -1.94, lng: 30.06,   type: "receiver", count: 22,  label: "Kigali Center" },
-  { iso: "BGD", lat: 23.71, lng: 90.4,    type: "receiver", count: 23,  label: "Dhaka Center" },
-  { iso: "NPL", lat: 27.7,  lng: 85.31,   type: "receiver", count: 19,  label: "Kathmandu Center" },
-];
+import { DONORS, RECEIVERS, POINTS } from "./data";
 
 const NUM_TO_ISO: Record<string, string> = {
-  "4":"AFG","8":"ALB","12":"DZA","24":"AGO","32":"ARG","36":"AUS","40":"AUT",
-  "50":"BGD","56":"BEL","64":"BTN","68":"BOL","76":"BRA","100":"BGR","116":"KHM",
-  "120":"CMR","124":"CAN","144":"LKA","152":"CHL","156":"CHN","170":"COL","180":"COD",
-  "188":"CRI","191":"HRV","192":"CUB","204":"BEN","208":"DNK","218":"ECU","818":"EGY",
-  "231":"ETH","246":"FIN","250":"FRA","266":"GAB","276":"DEU","288":"GHA","320":"GTM",
-  "324":"GIN","332":"HTI","340":"HND","356":"IND","360":"IDN","364":"IRN","368":"IRQ",
-  "372":"IRL","376":"ISR","380":"ITA","388":"JAM","392":"JPN","404":"KEN","410":"KOR",
-  "418":"LAO","422":"LBN","430":"LBR","434":"LBY","450":"MDG","454":"MWI","458":"MYS",
-  "466":"MLI","484":"MEX","504":"MAR","508":"MOZ","516":"NAM","524":"NPL","528":"NLD",
-  "558":"NIC","566":"NGA","578":"NOR","586":"PAK","591":"PAN","598":"PNG","600":"PRY",
-  "604":"PER","608":"PHL","616":"POL","620":"PRT","642":"ROU","643":"RUS","646":"RWA",
-  "682":"SAU","686":"SEN","694":"SLE","706":"SOM","710":"ZAF","724":"ESP","729":"SDN",
-  "752":"SWE","756":"CHE","760":"SYR","764":"THA","768":"TGO","780":"TTO","788":"TUN",
-  "792":"TUR","800":"UGA","804":"UKR","826":"GBR","840":"USA","858":"URY","862":"VEN",
-  "704":"VNM","887":"YEM","894":"ZMB","716":"ZWE",
+  "4": "AFG",
+  "8": "ALB",
+  "12": "DZA",
+  "24": "AGO",
+  "32": "ARG",
+  "36": "AUS",
+  "40": "AUT",
+  "50": "BGD",
+  "56": "BEL",
+  "64": "BTN",
+  "68": "BOL",
+  "76": "BRA",
+  "100": "BGR",
+  "116": "KHM",
+  "120": "CMR",
+  "124": "CAN",
+  "144": "LKA",
+  "152": "CHL",
+  "156": "CHN",
+  "170": "COL",
+  "180": "COD",
+  "188": "CRI",
+  "191": "HRV",
+  "192": "CUB",
+  "204": "BEN",
+  "208": "DNK",
+  "218": "ECU",
+  "818": "EGY",
+  "231": "ETH",
+  "246": "FIN",
+  "250": "FRA",
+  "266": "GAB",
+  "276": "DEU",
+  "288": "GHA",
+  "320": "GTM",
+  "324": "GIN",
+  "332": "HTI",
+  "340": "HND",
+  "356": "IND",
+  "360": "IDN",
+  "364": "IRN",
+  "368": "IRQ",
+  "372": "IRL",
+  "376": "ISR",
+  "380": "ITA",
+  "388": "JAM",
+  "392": "JPN",
+  "404": "KEN",
+  "410": "KOR",
+  "418": "LAO",
+  "422": "LBN",
+  "430": "LBR",
+  "434": "LBY",
+  "450": "MDG",
+  "454": "MWI",
+  "458": "MYS",
+  "466": "MLI",
+  "484": "MEX",
+  "504": "MAR",
+  "508": "MOZ",
+  "516": "NAM",
+  "524": "NPL",
+  "528": "NLD",
+  "558": "NIC",
+  "566": "NGA",
+  "578": "NOR",
+  "586": "PAK",
+  "591": "PAN",
+  "598": "PNG",
+  "600": "PRY",
+  "604": "PER",
+  "608": "PHL",
+  "616": "POL",
+  "620": "PRT",
+  "642": "ROU",
+  "643": "RUS",
+  "646": "RWA",
+  "682": "SAU",
+  "686": "SEN",
+  "694": "SLE",
+  "706": "SOM",
+  "710": "ZAF",
+  "724": "ESP",
+  "729": "SDN",
+  "752": "SWE",
+  "756": "CHE",
+  "760": "SYR",
+  "764": "THA",
+  "768": "TGO",
+  "780": "TTO",
+  "788": "TUN",
+  "792": "TUR",
+  "800": "UGA",
+  "804": "UKR",
+  "826": "GBR",
+  "840": "USA",
+  "858": "URY",
+  "862": "VEN",
+  "704": "VNM",
+  "887": "YEM",
+  "894": "ZMB",
+  "716": "ZWE",
 };
 
 const SKIP_IDS = new Set(["10", "-99", "null"]);
@@ -117,7 +128,7 @@ function receiverFill(v: number) {
  * (i.e. a vertex sitting exactly on ±180 that belongs to a degenerate edge).
  */
 function clampLng(lng: number): number {
-  while (lng > 180)  lng -= 360;
+  while (lng > 180) lng -= 360;
   while (lng < -180) lng += 360;
   return lng;
 }
@@ -143,11 +154,13 @@ function stripAntimeridianArtifacts(geojson: any): any {
   function geometryHasJump(geom: any): boolean {
     if (!geom) return false;
     if (geom.type === "Polygon") {
-      return geom.coordinates.some((ring: number[][]) => ringHasAntimeridianJump(ring));
+      return geom.coordinates.some((ring: number[][]) =>
+        ringHasAntimeridianJump(ring),
+      );
     }
     if (geom.type === "MultiPolygon") {
       return geom.coordinates.some((poly: number[][][]) =>
-        poly.some((ring: number[][]) => ringHasAntimeridianJump(ring))
+        poly.some((ring: number[][]) => ringHasAntimeridianJump(ring)),
       );
     }
     return false;
@@ -160,7 +173,12 @@ function stripAntimeridianArtifacts(geojson: any): any {
 }
 
 /** Haversine distance in km */
-function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number): number {
+function haversineKm(
+  lat1: number,
+  lng1: number,
+  lat2: number,
+  lng2: number,
+): number {
   const R = 6371;
   const dLat = ((lat2 - lat1) * Math.PI) / 180;
   const dLng = ((lng2 - lng1) * Math.PI) / 180;
@@ -174,7 +192,10 @@ function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number): nu
 
 function loadScript(src: string, check: () => boolean): Promise<void> {
   return new Promise((resolve, reject) => {
-    if (check()) { resolve(); return; }
+    if (check()) {
+      resolve();
+      return;
+    }
     const s = document.createElement("script");
     s.src = src;
     s.onload = () => resolve();
@@ -200,8 +221,12 @@ export default function LabdooMap() {
     mountedRef.current = true;
 
     loadCSS("https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css");
-    loadCSS("https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/MarkerCluster.css");
-    loadCSS("https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css");
+    loadCSS(
+      "https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/MarkerCluster.css",
+    );
+    loadCSS(
+      "https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css",
+    );
 
     // Inject keyframe animation for the animated arrow
     if (!document.getElementById("lbdoo-keyframes")) {
@@ -231,15 +256,15 @@ export default function LabdooMap() {
 
       await loadScript(
         "https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js",
-        () => !!w.L
+        () => !!w.L,
       );
       await loadScript(
         "https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js",
-        () => typeof w.L?.MarkerClusterGroup !== "undefined"
+        () => typeof w.L?.MarkerClusterGroup !== "undefined",
       );
       await loadScript(
         "https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js",
-        () => !!w.topojson
+        () => !!w.topojson,
       );
 
       const L = w.L;
@@ -247,37 +272,47 @@ export default function LabdooMap() {
 
       delete (L.Icon.Default.prototype as any)._getIconUrl;
       L.Icon.Default.mergeOptions({
-        iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
-        iconUrl:       "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
-        shadowUrl:     "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+        iconRetinaUrl:
+          "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+        iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
+        shadowUrl:
+          "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
       });
 
       if (!mapRef.current) return;
 
       const map = L.map(mapRef.current, {
-        center: [20, 10], zoom: 2, minZoom: 2, maxZoom: 12, worldCopyJump: true,
+        center: [20, 10],
+        zoom: 2,
+        minZoom: 2,
+        maxZoom: 12,
+        worldCopyJump: true,
       });
 
-      L.tileLayer("https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png", {
-        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors · CartoDB',
-        subdomains: "abcd",
-        opacity: 0.95,
-      }).addTo(map);
+      L.tileLayer(
+        "https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png",
+        {
+          attribution:
+            '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors · CartoDB',
+          subdomains: "abcd",
+          opacity: 0.95,
+        },
+      ).addTo(map);
 
-      let geoLayer: any       = null;
-      let clusterLayer: any   = null;
+      let geoLayer: any = null;
+      let clusterLayer: any = null;
       let activeISO: string | null = null;
 
       // Arrow / nearest-hub state
-      let arrowSvgOverlay: HTMLElement | null = null;  // overlay element for animated arch
+      let arrowSvgOverlay: HTMLElement | null = null; // overlay element for animated arch
       let arrowPathEl: SVGPathElement | null = null;
       let arrowShadowEl: SVGPathElement | null = null;
       let arrowPlaneEl: SVGElement | null = null;
       let arrowDotEl: SVGElement | null = null;
-      let arrowInfoVisible        = false;
+      let arrowInfoVisible = false;
       let currentArrowParams: { donor: any; receiver: any } | null = null;
-      let nearestMarker: any      = null; // user plonk
-      let nearestHubCircle: any   = null; // highlighted hub ring
+      let nearestMarker: any = null; // user plonk
+      let nearestHubCircle: any = null; // highlighted hub ring
 
       // ─── Animated arch arrow ──────────────────────────────────────────────────
       /**
@@ -288,7 +323,7 @@ export default function LabdooMap() {
        */
       function renderArrowOverlay(
         donor: { lat: number; lng: number; label: string; count?: number },
-        receiver: { lat: number; lng: number; label: string; count?: number }
+        receiver: { lat: number; lng: number; label: string; count?: number },
       ) {
         if (!mapRef.current) return;
 
@@ -356,7 +391,8 @@ export default function LabdooMap() {
             </svg>`;
           const svgEl = document.createElement("div");
           svgEl.id = "lbdoo-arrow-svg";
-          svgEl.style.cssText = "position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:650;";
+          svgEl.style.cssText =
+            "position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:650;";
           svgEl.innerHTML = svgHTML;
           mapContainer.appendChild(svgEl);
           arrowSvgOverlay = svgEl;
@@ -380,19 +416,27 @@ export default function LabdooMap() {
       //najia here you can draw an arrow and bellow remove it
       function drawDonationArrow(
         donor: { lat: number; lng: number; label: string; count?: number },
-        receiver: { lat: number; lng: number; label: string; count?: number }
+        receiver: { lat: number; lng: number; label: string; count?: number },
       ) {
         clearArrow();
         arrowInfoVisible = true;
         currentArrowParams = { donor, receiver };
 
         // Fade country layer
-        if (geoLayer) geoLayer.setStyle(() => ({
-          fillColor: "#d4d4d4", fillOpacity: 0.08, color: "#bbb", weight: 0.4, opacity: 0.2
-        }));
+        if (geoLayer)
+          geoLayer.setStyle(() => ({
+            fillColor: "#d4d4d4",
+            fillOpacity: 0.08,
+            color: "#bbb",
+            weight: 0.4,
+            opacity: 0.2,
+          }));
 
         // Remove marker cluster
-        if (clusterLayer) { map.removeLayer(clusterLayer); clusterLayer = null; }
+        if (clusterLayer) {
+          map.removeLayer(clusterLayer);
+          clusterLayer = null;
+        }
 
         renderArrowOverlay(donor, receiver);
 
@@ -449,8 +493,14 @@ export default function LabdooMap() {
       //najia here you can call the nearest hub
       function showNearestDonorHub(lat: number, lng: number) {
         // Remove existing
-        if (nearestMarker) { map.removeLayer(nearestMarker); nearestMarker = null; }
-        if (nearestHubCircle) { map.removeLayer(nearestHubCircle); nearestHubCircle = null; }
+        if (nearestMarker) {
+          map.removeLayer(nearestMarker);
+          nearestMarker = null;
+        }
+        if (nearestHubCircle) {
+          map.removeLayer(nearestHubCircle);
+          nearestHubCircle = null;
+        }
 
         // User plonk — red teardrop
         const plonkIcon = L.divIcon({
@@ -465,7 +515,9 @@ export default function LabdooMap() {
         });
 
         nearestMarker = L.marker([lat, lng], { icon: plonkIcon })
-          .bindPopup(`<b>Your location</b><br>${lat.toFixed(4)}, ${lng.toFixed(4)}`)
+          .bindPopup(
+            `<b>Your location</b><br>${lat.toFixed(4)}, ${lng.toFixed(4)}`,
+          )
           .addTo(map);
 
         // Find nearest donor hub
@@ -474,7 +526,10 @@ export default function LabdooMap() {
         let minDist = Infinity;
         donorPoints.forEach((p) => {
           const d = haversineKm(lat, lng, p.lat, p.lng);
-          if (d < minDist) { minDist = d; nearest = p; }
+          if (d < minDist) {
+            minDist = d;
+            nearest = p;
+          }
         });
 
         // Highlight ring around nearest hub
@@ -485,14 +540,19 @@ export default function LabdooMap() {
           fillColor: "#2563EB",
           fillOpacity: 0.85,
           opacity: 1,
-        }).bindPopup(
-          `<b>📍 Nearest Hub: ${nearest.label}</b><br>` +
-          `Donations: ${nearest.count}<br>` +
-          `Distance: ${Math.round(minDist)} km from your location`
-        ).addTo(map);
+        })
+          .bindPopup(
+            `<b>📍 Nearest Hub: ${nearest.label}</b><br>` +
+              `Donations: ${nearest.count}<br>` +
+              `Distance: ${Math.round(minDist)} km from your location`,
+          )
+          .addTo(map);
 
         // Fit map to show both points
-        const bounds = L.latLngBounds([[lat, lng], [nearest.lat, nearest.lng]]);
+        const bounds = L.latLngBounds([
+          [lat, lng],
+          [nearest.lat, nearest.lng],
+        ]);
         map.fitBounds(bounds, { padding: [80, 80], maxZoom: 7 });
 
         // Show info in the main info panel
@@ -507,11 +567,19 @@ export default function LabdooMap() {
             `<div style="font-size:12px;opacity:0.7;margin-bottom:8px">📏 ${Math.round(minDist)} km away</div>` +
             `<button id="lbdoo-clear-nearest" style="font-size:11px;opacity:0.5;background:none;border:none;cursor:pointer;padding:0">✕ clear</button>`;
           infoEl.style.display = "block";
-          document.getElementById("lbdoo-clear-nearest")?.addEventListener("click", () => {
-            if (nearestMarker) { map.removeLayer(nearestMarker); nearestMarker = null; }
-            if (nearestHubCircle) { map.removeLayer(nearestHubCircle); nearestHubCircle = null; }
-            infoEl.style.display = "none";
-          });
+          document
+            .getElementById("lbdoo-clear-nearest")
+            ?.addEventListener("click", () => {
+              if (nearestMarker) {
+                map.removeLayer(nearestMarker);
+                nearestMarker = null;
+              }
+              if (nearestHubCircle) {
+                map.removeLayer(nearestHubCircle);
+                nearestHubCircle = null;
+              }
+              infoEl.style.display = "none";
+            });
         }
       }
 
@@ -522,21 +590,37 @@ export default function LabdooMap() {
       // ─── Country styling ──────────────────────────────────────────────────────
       function countryStyle(feat: any) {
         const iso: string = feat.properties._iso;
-        const d = DONORS[iso], r = RECEIVERS[iso];
+        const d = DONORS[iso],
+          r = RECEIVERS[iso];
         const z = map.getZoom();
         if (arrowInfoVisible) {
-          return { fillColor: "#d4d4d4", fillOpacity: 0.06, color: "#bbb", weight: 0.4, opacity: 0.15 };
+          return {
+            fillColor: "#d4d4d4",
+            fillOpacity: 0.06,
+            color: "#bbb",
+            weight: 0.4,
+            opacity: 0.15,
+          };
         }
         const faded = z >= 5 || activeISO !== null;
         let fill = "#d4d4d4";
         const opacity = faded ? 0.05 : 0.75;
         if (!faded) {
-          if      (d && !r) fill = donorFill(d.donations);
+          if (d && !r) fill = donorFill(d.donations);
           else if (r && !d) fill = receiverFill(r.locations);
-          else if (d &&  r) fill = d.donations / MAX_D >= r.locations / MAX_R
-            ? donorFill(d.donations) : receiverFill(r.locations);
+          else if (d && r)
+            fill =
+              d.donations / MAX_D >= r.locations / MAX_R
+                ? donorFill(d.donations)
+                : receiverFill(r.locations);
         }
-        return { fillColor: fill, fillOpacity: opacity, color: "#999", weight: 0.5, opacity: faded ? 0.2 : 0.7 };
+        return {
+          fillColor: fill,
+          fillOpacity: opacity,
+          color: "#999",
+          weight: 0.5,
+          opacity: faded ? 0.2 : 0.7,
+        };
       }
       //Najia here the click on a donator/receiver is triggered, just delete the content of the function
       // ─── Marker cluster ───────────────────────────────────────────────────────
@@ -547,7 +631,8 @@ export default function LabdooMap() {
         const el = document.getElementById("lbdoo-info");
         if (!el) return;
 
-        const typeLabel = point.type === "donor" ? "Donor hub" : "Receiving center";
+        const typeLabel =
+          point.type === "donor" ? "Donor hub" : "Receiving center";
         el.innerHTML = `
           <div style="font-weight:500;font-size:14px;margin-bottom:8px">${point.label}</div>
           <div style="font-size:12px;opacity:0.7;margin-bottom:4px">${typeLabel}</div>
@@ -555,17 +640,22 @@ export default function LabdooMap() {
           <button id="lbdoo-clear" style="margin-top:8px;font-size:11px;opacity:0.5;background:none;border:none;cursor:pointer;padding:0">✕ clear</button>
         `;
         el.style.display = "block";
-        document.getElementById("lbdoo-clear")?.addEventListener("click", () => {
-          activeISO = null;
-          el.style.display = "none";
-          refresh();
-        });
+        document
+          .getElementById("lbdoo-clear")
+          ?.addEventListener("click", () => {
+            activeISO = null;
+            el.style.display = "none";
+            refresh();
+          });
 
         map.setView([point.lat, point.lng], Math.min(map.getZoom() + 1, 8));
       }
 
       function buildMarkers() {
-        if (clusterLayer) { map.removeLayer(clusterLayer); clusterLayer = null; }
+        if (clusterLayer) {
+          map.removeLayer(clusterLayer);
+          clusterLayer = null;
+        }
         if (arrowInfoVisible) return;
 
         const z = map.getZoom();
@@ -575,12 +665,14 @@ export default function LabdooMap() {
           maxClusterRadius: 55,
           disableClusteringAtZoom: 9,
           iconCreateFunction(cluster: any) {
-            const n  = cluster.getChildCount();
+            const n = cluster.getChildCount();
             const sz = n > 30 ? 50 : n > 10 ? 40 : 32;
             const bg = n > 30 ? "#EA580C" : "#2563EB";
             return L.divIcon({
               html: `<div style="width:${sz}px;height:${sz}px;border-radius:50%;background:${bg};display:flex;align-items:center;justify-content:center;font-size:${sz > 40 ? 14 : 12}px;font-weight:500;color:#fff;border:2px solid rgba(255,255,255,0.9);box-shadow:0 1px 5px rgba(0,0,0,0.3)">${n}</div>`,
-              className: "", iconSize: [sz, sz], iconAnchor: [sz / 2, sz / 2],
+              className: "",
+              iconSize: [sz, sz],
+              iconAnchor: [sz / 2, sz / 2],
             });
           },
         });
@@ -590,7 +682,9 @@ export default function LabdooMap() {
           const c = p.type === "donor" ? "#2563EB" : "#EA580C";
           const icon = L.divIcon({
             html: `<div style="width:14px;height:14px;border-radius:50%;background:${c};border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,0.3);cursor:pointer"></div>`,
-            className: "", iconSize: [14, 14], iconAnchor: [7, 7],
+            className: "",
+            iconSize: [14, 14],
+            iconAnchor: [7, 7],
           });
           const marker = L.marker([p.lat, p.lng], { icon });
           marker.on("click", (e: any) => {
@@ -627,24 +721,28 @@ export default function LabdooMap() {
       // ─── Country info panel ───────────────────────────────────────────────────
       //Najia the next two funtions are the country info panel, juste delete the content
       function showInfo(iso: string) {
-
         const el = document.getElementById("lbdoo-info");
         if (!el) return;
-        const d = DONORS[iso], r = RECEIVERS[iso];
+        const d = DONORS[iso],
+          r = RECEIVERS[iso];
         const name = d?.name ?? r?.name ?? iso;
         let html = `<div style="font-weight:500;font-size:14px;margin-bottom:8px">${name}</div>`;
-        if (d) html += `<div style="margin-bottom:4px;font-size:12px;opacity:0.7">💻 Donations: <strong>${d.donations}</strong></div>`;
-        if (r) html += `<div style="font-size:12px;opacity:0.7">📦 Receiving locations: <strong>${r.locations}</strong></div>`;
-        if (!d && !r) html += `<div style="font-size:12px;opacity:0.6">No data available</div>`;
+        if (d)
+          html += `<div style="margin-bottom:4px;font-size:12px;opacity:0.7">💻 Donations: <strong>${d.donations}</strong></div>`;
+        if (r)
+          html += `<div style="font-size:12px;opacity:0.7">📦 Receiving locations: <strong>${r.locations}</strong></div>`;
+        if (!d && !r)
+          html += `<div style="font-size:12px;opacity:0.6">No data available</div>`;
         html += `<button id="lbdoo-clear" style="margin-top:8px;font-size:11px;opacity:0.5;background:none;border:none;cursor:pointer;padding:0">✕ clear</button>`;
         el.innerHTML = html;
         el.style.display = "block";
-        document.getElementById("lbdoo-clear")?.addEventListener("click", () => {
-          activeISO = null;
-          el.style.display = "none";
-          refresh();
-        });
-
+        document
+          .getElementById("lbdoo-clear")
+          ?.addEventListener("click", () => {
+            activeISO = null;
+            el.style.display = "none";
+            refresh();
+          });
       }
 
       // ─── Auto-show country info when zoomed ──────────────────────────────────
@@ -671,7 +769,10 @@ export default function LabdooMap() {
             const dLat = c.lat - center.lat;
             const dLng = c.lng - center.lng;
             const dist = dLat * dLat + dLng * dLng;
-            if (dist < bestDist) { bestDist = dist; bestISO = iso; }
+            if (dist < bestDist) {
+              bestDist = dist;
+              bestISO = iso;
+            }
           } catch {}
         });
 
@@ -690,7 +791,9 @@ export default function LabdooMap() {
 
       // ─── Load world data ──────────────────────────────────────────────────────
       try {
-        const resp = await fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json");
+        const resp = await fetch(
+          "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json",
+        );
         const topo = await resp.json();
         let geojson = topojson.feature(topo, topo.objects.countries);
 
@@ -711,16 +814,25 @@ export default function LabdooMap() {
             const iso: string = feat.properties._iso;
             layer.on({
               mouseover() {
-                if (!arrowInfoVisible && map.getZoom() < 5 && (DONORS[iso] || RECEIVERS[iso]))
+                if (
+                  !arrowInfoVisible &&
+                  map.getZoom() < 5 &&
+                  (DONORS[iso] || RECEIVERS[iso])
+                )
                   layer.setStyle({ weight: 1.5, color: "#444" });
               },
-              mouseout() { geoLayer?.resetStyle(layer); },
+              mouseout() {
+                geoLayer?.resetStyle(layer);
+              },
               click(e: any) {
                 L.DomEvent.stopPropagation(e);
                 if (!iso || arrowInfoVisible) return;
                 activeISO = iso;
                 showInfo(iso);
-                map.fitBounds(layer.getBounds(), { padding: [40, 40], maxZoom: 8 });
+                map.fitBounds(layer.getBounds(), {
+                  padding: [40, 40],
+                  maxZoom: 8,
+                });
                 refresh();
               },
             });
@@ -734,18 +846,25 @@ export default function LabdooMap() {
       } catch (err) {
         console.error("Map load error:", err);
         const statusEl = document.getElementById("lbdoo-status");
-        if (statusEl) statusEl.textContent = "Failed to load map data. Please reload.";
+        if (statusEl)
+          statusEl.textContent = "Failed to load map data. Please reload.";
       }
 
       map.on("zoom", () => {
         if (arrowInfoVisible && currentArrowParams) {
-          renderArrowOverlay(currentArrowParams.donor, currentArrowParams.receiver);
+          renderArrowOverlay(
+            currentArrowParams.donor,
+            currentArrowParams.receiver,
+          );
         }
       });
 
       map.on("move", () => {
         if (arrowInfoVisible && currentArrowParams) {
-          renderArrowOverlay(currentArrowParams.donor, currentArrowParams.receiver);
+          renderArrowOverlay(
+            currentArrowParams.donor,
+            currentArrowParams.receiver,
+          );
         } else {
           autoShowCenterCountry();
         }
@@ -756,7 +875,11 @@ export default function LabdooMap() {
         if (z < 5) {
           activeISO = null;
           const el = document.getElementById("lbdoo-info");
-          if (el && !el.innerHTML.includes("Nearest Donor Hub") && !el.innerHTML.includes("Donation Route")) {
+          if (
+            el &&
+            !el.innerHTML.includes("Nearest Donor Hub") &&
+            !el.innerHTML.includes("Donation Route")
+          ) {
             el.style.display = "none";
           }
         }
@@ -767,7 +890,8 @@ export default function LabdooMap() {
         if (arrowInfoVisible) return;
         activeISO = null;
         const el = document.getElementById("lbdoo-info");
-        if (el && !el.innerHTML.includes("Nearest Donor Hub")) el.style.display = "none";
+        if (el && !el.innerHTML.includes("Nearest Donor Hub"))
+          el.style.display = "none";
         refresh();
       });
     };
@@ -776,53 +900,41 @@ export default function LabdooMap() {
   }, []);
 
   return (
-    <div className="flex flex-1 flex-col w-full p-6 justify-center items-center">
+    <div className="relative w-full h-full overflow-hidden">
+      <div ref={mapRef} style={{ width: "100%", height: "100%" }} />
+
       <div
-        className="relative w-full rounded-xl overflow-hidden border border-zinc-200 dark:border-zinc-700"
-        style={{ height: 580 }}
+        id="lbdoo-status"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[2000] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-lg px-5 py-3 text-sm text-zinc-500"
       >
-        <div ref={mapRef} style={{ width: "100%", height: "100%" }} />
+        Loading map data…
+      </div>
 
-        {/* Loading status */}
-        <div
-          id="lbdoo-status"
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[2000] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-lg px-5 py-3 text-sm text-zinc-500"
-        >
-          Loading map data…
-        </div>
+      <div
+        id="lbdoo-legend"
+        className="absolute bottom-6 left-3 z-[1000] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-lg px-3.5 py-2.5 text-xs text-zinc-500 dark:text-zinc-400 pointer-events-none"
+      />
 
-        {/* Legend — bottom left */}
-        <div
-          id="lbdoo-legend"
-          className="absolute bottom-6 left-3 z-[1000] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-lg px-3.5 py-2.5 text-xs text-zinc-500 dark:text-zinc-400 pointer-events-none"
-        />
+      <div
+        id="lbdoo-info"
+        className="absolute top-3 right-3 z-[1000] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-lg px-3.5 py-2.5 text-sm text-zinc-800 dark:text-zinc-200 min-w-[170px]"
+        style={{ display: "none" }}
+      />
 
-        {/* Country / nearest hub info — top right */}
-        <div
-          id="lbdoo-info"
-          className="absolute top-3 right-3 z-[1000] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-lg px-3.5 py-2.5 text-sm text-zinc-800 dark:text-zinc-200 min-w-[170px]"
-          style={{ display: "none" }}
-        />
+      <div
+        id="lbdoo-arrow-info"
+        className="absolute top-3 right-3 z-[1100] bg-white dark:bg-zinc-900 border border-orange-300 dark:border-orange-700 rounded-lg px-3.5 py-3 text-sm text-zinc-800 dark:text-zinc-200 min-w-[200px] shadow-lg"
+        style={{ display: "none" }}
+      />
 
-        {/* Donation route info box — top right (shown during arrow mode) */}
-        <div
-          id="lbdoo-arrow-info"
-          className="absolute top-3 right-3 z-[1100] bg-white dark:bg-zinc-900 border border-orange-300 dark:border-orange-700 rounded-lg px-3.5 py-3 text-sm text-zinc-800 dark:text-zinc-200 min-w-[200px] shadow-lg"
-          style={{ display: "none" }}
-        />
-
-        {/* Go back button — bottom right */}
-        <div
-          id="lbdoo-go-back"
-          className="absolute bottom-6 right-3 z-[1100] cursor-pointer"
-          style={{ display: "none" }}
-        >
-          <button
-            className="flex items-center gap-2 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-600 rounded-lg px-3 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-200 shadow hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
-          >
-            ← Go back
-          </button>
-        </div>
+      <div
+        id="lbdoo-go-back"
+        className="absolute bottom-6 right-3 z-[1100] cursor-pointer"
+        style={{ display: "none" }}
+      >
+        <button className="flex items-center gap-2 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-600 rounded-lg px-3 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-200 shadow hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors">
+          ← Go back
+        </button>
       </div>
     </div>
   );
