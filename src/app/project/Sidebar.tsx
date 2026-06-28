@@ -7,6 +7,7 @@ import CountryPanel from "./CountryPanel";
 import HubPanel from "./HubPanel";
 import type { MapView } from "./types";
 import NearestHubPanel from "./NearestHubPanel";
+import DeviceJourneyPanel from "./DeviceJourneyPanel";
 
 type RankingMode = "donating" | "receiving";
 
@@ -16,6 +17,7 @@ interface SidebarProps {
   onBackToCountry: (iso: string) => void;
   onShowNearestHub: () => void;
   onViewHubDetails: (id: string) => void;
+  onOpenSearch: () => void;
   locationError: string | null;
   isLocatingNearestHub: boolean;
 }
@@ -26,6 +28,7 @@ export default function Sidebar({
   onBackToCountry,
   onShowNearestHub,
   onViewHubDetails,
+  onOpenSearch,
   locationError,
   isLocatingNearestHub,
 }: SidebarProps) {
@@ -96,10 +99,9 @@ export default function Sidebar({
           </div>
         )}
 
-        {/* TODO (S6): open the search overlay — serial number lookup */}
         <button
           type="button"
-          onClick={() => {}}
+          onClick={onOpenSearch}
           className="flex items-center gap-2.5 w-full rounded-lg border border-zinc-200 dark:border-zinc-700 px-3.5 py-2.5 text-base font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
         >
           <span className="text-lg">🔍</span>
@@ -190,12 +192,17 @@ export default function Sidebar({
           onBackToWorld={onBackToWorld}
           onBackToCountry={onBackToCountry}
         />
-      ) : (
+      ) : view.kind === "nearestHub" ? (
         <NearestHubPanel
           id={view.id}
           distanceKm={view.distanceKm}
           onBackToWorld={onBackToWorld}
           onViewHubDetails={onViewHubDetails}
+        />
+      ) : (
+        <DeviceJourneyPanel
+          serial={view.serial}
+          onBackToWorld={onBackToWorld}
         />
       )}
     </aside>

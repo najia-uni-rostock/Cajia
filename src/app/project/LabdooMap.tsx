@@ -7,6 +7,7 @@ import {
   POINTS,
   getPointById,
   isEligibleDonorHub,
+  getDeviceJourney,
 } from "./data";
 import type { MapView } from "./types";
 
@@ -224,6 +225,7 @@ export interface LabdooMapHandle {
   focusCountry: (iso: string) => void;
   showNearestHub: (lat: number, lng: number) => void;
   focusHub: (id: string) => void;
+  showDeviceJourney: (serial: string) => void;
 }
 
 interface LabdooMapProps {
@@ -242,6 +244,7 @@ const LabdooMap = forwardRef<LabdooMapHandle, LabdooMapProps>(
       focusCountry: (iso: string) => void;
       showNearestHub: (lat: number, lng: number) => void;
       focusHub: (id: string) => void;
+      showDeviceJourney: (serial: string) => void;
     } | null>(null);
 
     useEffect(() => {
@@ -255,6 +258,8 @@ const LabdooMap = forwardRef<LabdooMapHandle, LabdooMapProps>(
       showNearestHub: (lat: number, lng: number) =>
         actionsRef.current?.showNearestHub(lat, lng),
       focusHub: (id: string) => actionsRef.current?.focusHub(id),
+      showDeviceJourney: (serial: string) =>
+        actionsRef.current?.showDeviceJourney(serial),
     }));
 
     useEffect(() => {
@@ -356,7 +361,7 @@ const LabdooMap = forwardRef<LabdooMapHandle, LabdooMapProps>(
         let arrowInfoVisible = false;
         let currentArrowParams: { donor: any; receiver: any } | null = null;
         let nearestMarker: any = null; // user plonk
-
+        let journeyEndpointsLayer: any = null;
         // ─── Animated arch arrow ──────────────────────────────────────────────────
         /**
          * drawDonationArrow(donor, receiver)
@@ -457,7 +462,7 @@ const LabdooMap = forwardRef<LabdooMapHandle, LabdooMapProps>(
           arrowPlaneEl?.setAttribute("d", "M-10,-4 L10,0 L-10,4 Z");
           arrowDotEl?.setAttribute("r", "3.5");
         }
-        //najia here you can draw an arrow and bellow remove it
+
         function drawDonationArrow(
           donor: { lat: number; lng: number; label: string; count?: number },
           receiver: { lat: number; lng: number; label: string; count?: number },
@@ -466,7 +471,6 @@ const LabdooMap = forwardRef<LabdooMapHandle, LabdooMapProps>(
           arrowInfoVisible = true;
           currentArrowParams = { donor, receiver };
 
-          // Fade country layer
           if (geoLayer)
             geoLayer.setStyle(() => ({
               fillColor: "#d4d4d4",
@@ -476,43 +480,34 @@ const LabdooMap = forwardRef<LabdooMapHandle, LabdooMapProps>(
               opacity: 0.2,
             }));
 
-          // Remove marker cluster
           if (clusterLayer) {
             map.removeLayer(clusterLayer);
             clusterLayer = null;
           }
 
+          const donorIcon = L.divIcon({
+            html: `<div style="width:16px;height:16px;border-radius:50%;background:#2563EB;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,0.35)"></div>`,
+            className: "",
+            iconSize: [16, 16],
+            iconAnchor: [8, 8],
+          });
+          const receiverIcon = L.divIcon({
+            html: `<div style="width:16px;height:16px;border-radius:50%;background:#EA580C;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,0.35)"></div>`,
+            className: "",
+            iconSize: [16, 16],
+            iconAnchor: [8, 8],
+          });
+
+          journeyEndpointsLayer = L.layerGroup([
+            L.marker([donor.lat, donor.lng], { icon: donorIcon }).bindPopup(
+              `<b>${donor.label}</b><br>Hub`,
+            ),
+            L.marker([receiver.lat, receiver.lng], {
+              icon: receiverIcon,
+            }).bindPopup(`<b>${receiver.label}</b><br>Village`),
+          ]).addTo(map);
+
           renderArrowOverlay(donor, receiver);
-
-          // Info box top-right
-          const infoEl = document.getElementById("lbdoo-arrow-info");
-          if (infoEl) {
-            infoEl.innerHTML = `
-            <div style="font-weight:600;font-size:13px;margin-bottom:10px;color:#f97316;letter-spacing:0.01em">
-              🚀 Donation Route
-            </div>
-            <div style="font-size:12px;margin-bottom:6px">
-              <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#2563EB;margin-right:5px;vertical-align:middle"></span>
-              <strong>Donor:</strong> ${donor.label}
-              ${donor.count !== undefined ? `<br><span style="opacity:0.6;padding-left:15px">💻 ${donor.count} donations</span>` : ""}
-            </div>
-            <div style="font-size:12px;">
-              <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#f97316;margin-right:5px;vertical-align:middle"></span>
-              <strong>Receiver:</strong> ${receiver.label}
-              ${receiver.count !== undefined ? `<br><span style="opacity:0.6;padding-left:15px">📦 ${receiver.count} locations</span>` : ""}
-            </div>`;
-            infoEl.style.display = "block";
-          }
-
-          // Go-back button bottom-right
-          const backEl = document.getElementById("lbdoo-go-back");
-          if (backEl) {
-            backEl.style.display = "flex";
-            backEl.onclick = () => {
-              clearArrow();
-              refresh();
-            };
-          }
         }
 
         function clearArrow() {
@@ -521,11 +516,11 @@ const LabdooMap = forwardRef<LabdooMapHandle, LabdooMapProps>(
             arrowSvgOverlay.remove();
             arrowSvgOverlay = null;
           }
+          if (journeyEndpointsLayer) {
+            map.removeLayer(journeyEndpointsLayer);
+            journeyEndpointsLayer = null;
+          }
           currentArrowParams = null;
-          const infoEl = document.getElementById("lbdoo-arrow-info");
-          if (infoEl) infoEl.style.display = "none";
-          const backEl = document.getElementById("lbdoo-go-back");
-          if (backEl) backEl.style.display = "none";
         }
 
         // ─── Nearest donor hub ────────────────────────────────────────────────────
@@ -608,8 +603,6 @@ const LabdooMap = forwardRef<LabdooMapHandle, LabdooMapProps>(
           onViewChangeRef.current?.({ kind: "hub", id });
         }
 
-        // labdooDrawArrow stays on window for now — S6 (search) still calls it this way.
-        (window as any).labdooDrawArrow = drawDonationArrow;
         // ─── Country styling ──────────────────────────────────────────────────────
         function countryStyle(feat: any) {
           const iso: string = feat.properties._iso;
@@ -844,11 +837,52 @@ const LabdooMap = forwardRef<LabdooMapHandle, LabdooMapProps>(
           onViewChangeRef.current?.({ kind: "country", iso });
         }
 
+        function showDeviceJourney(serial: string) {
+          const journey = getDeviceJourney(serial);
+          if (!journey) return;
+
+          exitNearestHubMode();
+          selectedPointId = null;
+
+          if (journey.village) {
+            activeISO = journey.village.iso;
+            drawDonationArrow(
+              {
+                lat: journey.hub.lat,
+                lng: journey.hub.lng,
+                label: journey.hub.label,
+                count: journey.hub.count,
+              },
+              {
+                lat: journey.village.lat,
+                lng: journey.village.lng,
+                label: journey.village.label,
+                count: journey.village.count,
+              },
+            );
+            const bounds = L.latLngBounds([
+              [journey.hub.lat, journey.hub.lng],
+              [journey.village.lat, journey.village.lng],
+            ]);
+            map.fitBounds(bounds, { padding: [80, 80], maxZoom: 6 });
+          } else {
+            if (arrowInfoVisible) clearArrow();
+            activeISO = journey.hub.iso;
+            selectedPointId = journey.hub.id;
+            map.setView(
+              [journey.hub.lat, journey.hub.lng],
+              Math.max(map.getZoom(), 8),
+            );
+            refresh();
+          }
+        }
+
         actionsRef.current = {
           resetToWorldView,
           focusCountry,
           showNearestHub,
           focusHub,
+          showDeviceJourney,
         };
 
         // ─── Load world data ──────────────────────────────────────────────────────
@@ -939,6 +973,10 @@ const LabdooMap = forwardRef<LabdooMapHandle, LabdooMapProps>(
         });
 
         map.on("zoomend", () => {
+          if (arrowInfoVisible) {
+            refresh();
+            return;
+          }
           const z = map.getZoom();
           if (z < 5) {
             exitNearestHubMode();
@@ -977,22 +1015,6 @@ const LabdooMap = forwardRef<LabdooMapHandle, LabdooMapProps>(
           id="lbdoo-legend"
           className="absolute bottom-6 left-3 z-[1000] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-lg px-3.5 py-2.5 text-xs text-zinc-500 dark:text-zinc-400 pointer-events-none"
         />
-
-        <div
-          id="lbdoo-arrow-info"
-          className="absolute top-3 right-3 z-[1100] bg-white dark:bg-zinc-900 border border-orange-300 dark:border-orange-700 rounded-lg px-3.5 py-3 text-sm text-zinc-800 dark:text-zinc-200 min-w-[200px] shadow-lg"
-          style={{ display: "none" }}
-        />
-
-        <div
-          id="lbdoo-go-back"
-          className="absolute bottom-6 right-3 z-[1100] cursor-pointer"
-          style={{ display: "none" }}
-        >
-          <button className="flex items-center gap-2 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-600 rounded-lg px-3 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-200 shadow hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors">
-            ← Go back
-          </button>
-        </div>
       </div>
     );
   },

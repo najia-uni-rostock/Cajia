@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import Sidebar from "./Sidebar";
 import type { MapView } from "./types";
 import type { LabdooMapHandle } from "./LabdooMap";
+import SearchOverlay from "./SearchOverlay";
 
 const LabdooMap = dynamic(() => import("./LabdooMap"), { ssr: false });
 
@@ -13,6 +14,7 @@ export default function Project() {
   const [locationError, setLocationError] = useState<string | null>(null);
   const [isLocatingNearestHub, setIsLocatingNearestHub] = useState(false);
   const mapHandleRef = useRef<LabdooMapHandle>(null);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const handleViewChange = useCallback((next: MapView) => {
     setView(next);
@@ -62,6 +64,20 @@ export default function Project() {
     setLocationError("No donor hubs are currently accepting devices nearby.");
   }, []);
 
+  const handleOpenSearch = useCallback(() => {
+    setIsSearchOpen(true);
+  }, []);
+
+  const handleCloseSearch = useCallback(() => {
+    setIsSearchOpen(false);
+  }, []);
+
+  const handleSelectDevice = useCallback((serial: string) => {
+    mapHandleRef.current?.showDeviceJourney(serial);
+    setView({ kind: "deviceJourney", serial });
+    setIsSearchOpen(false);
+  }, []);
+
   return (
     <div className="flex h-screen w-full overflow-hidden">
       <Sidebar
@@ -70,6 +86,7 @@ export default function Project() {
         onBackToCountry={handleBackToCountry}
         onShowNearestHub={handleShowNearestHub}
         onViewHubDetails={handleViewHubDetails}
+        onOpenSearch={handleOpenSearch}
         locationError={locationError}
         isLocatingNearestHub={isLocatingNearestHub}
       />
@@ -79,6 +96,12 @@ export default function Project() {
           onViewChange={handleViewChange}
           onNoEligibleHubsFound={handleNoEligibleHubsFound}
         />
+        {isSearchOpen && (
+          <SearchOverlay
+            onClose={handleCloseSearch}
+            onSelectDevice={handleSelectDevice}
+          />
+        )}
       </div>
     </div>
   );

@@ -17,13 +17,27 @@ export interface LocationPoint {
   count: number;
   label: string;
   status?: "open" | "closed" | "inactive" | "completed";
-  onDemand?: boolean;
+  onDemand?: boolean; // donor hubs only
+  studentsServed?: number; // receiving centers only
 }
 
 export interface YearlyTotal {
   year: number;
   donated: number;
   received: number;
+}
+
+export type DeviceStage = "hub" | "transit" | "delivered";
+
+export interface Device {
+  serial: string;
+  model: string;
+  wh: number;
+  dateCreated: string;
+  stage: DeviceStage;
+  statusCode: string;
+  hubId: string;
+  villageId?: string; // only set once stage === "delivered"
 }
 
 export const DONORS: Record<string, DonorCountry> = {
@@ -212,6 +226,7 @@ export const POINTS: LocationPoint[] = [
     count: 22,
     label: "Nairobi Center",
     status: "open",
+    studentsServed: 1120,
   },
   {
     id: "mombasa-center",
@@ -222,6 +237,7 @@ export const POINTS: LocationPoint[] = [
     count: 18,
     label: "Mombasa Center",
     status: "open",
+    studentsServed: 860,
   },
   {
     id: "eldoret-center",
@@ -232,6 +248,7 @@ export const POINTS: LocationPoint[] = [
     count: 9,
     label: "Eldoret Center",
     status: "open",
+    studentsServed: 540,
   },
   {
     id: "kisumu-center",
@@ -242,6 +259,7 @@ export const POINTS: LocationPoint[] = [
     count: 9,
     label: "Kisumu Center",
     status: "open",
+    studentsServed: 610,
   },
   {
     id: "accra-center",
@@ -252,6 +270,7 @@ export const POINTS: LocationPoint[] = [
     count: 20,
     label: "Accra Center",
     status: "open",
+    studentsServed: 980,
   },
   {
     id: "kumasi-center",
@@ -262,6 +281,7 @@ export const POINTS: LocationPoint[] = [
     count: 14,
     label: "Kumasi Center",
     status: "completed",
+    studentsServed: 700,
   },
   {
     id: "dar-es-salaam-center",
@@ -272,6 +292,7 @@ export const POINTS: LocationPoint[] = [
     count: 25,
     label: "Dar es Salaam",
     status: "open",
+    studentsServed: 1050,
   },
   {
     id: "arusha-center",
@@ -282,6 +303,7 @@ export const POINTS: LocationPoint[] = [
     count: 17,
     label: "Arusha Center",
     status: "completed",
+    studentsServed: 720,
   },
   {
     id: "new-delhi-center",
@@ -292,6 +314,7 @@ export const POINTS: LocationPoint[] = [
     count: 28,
     label: "New Delhi Center",
     status: "open",
+    studentsServed: 1400,
   },
   {
     id: "mumbai-center",
@@ -302,6 +325,7 @@ export const POINTS: LocationPoint[] = [
     count: 22,
     label: "Mumbai Center",
     status: "open",
+    studentsServed: 1260,
   },
   {
     id: "bangalore-center",
@@ -312,6 +336,7 @@ export const POINTS: LocationPoint[] = [
     count: 17,
     label: "Bangalore Center",
     status: "open",
+    studentsServed: 890,
   },
   {
     id: "manila-center",
@@ -322,6 +347,7 @@ export const POINTS: LocationPoint[] = [
     count: 38,
     label: "Manila Center",
     status: "open",
+    studentsServed: 1530,
   },
   {
     id: "addis-ababa-center",
@@ -332,6 +358,7 @@ export const POINTS: LocationPoint[] = [
     count: 31,
     label: "Addis Ababa",
     status: "open",
+    studentsServed: 1180,
   },
   {
     id: "port-au-prince-center",
@@ -342,6 +369,7 @@ export const POINTS: LocationPoint[] = [
     count: 16,
     label: "Port-au-Prince",
     status: "open",
+    studentsServed: 640,
   },
   {
     id: "lagos-hub",
@@ -352,6 +380,7 @@ export const POINTS: LocationPoint[] = [
     count: 23,
     label: "Lagos Hub",
     status: "open",
+    studentsServed: 990,
   },
   {
     id: "abuja-hub",
@@ -362,6 +391,7 @@ export const POINTS: LocationPoint[] = [
     count: 21,
     label: "Abuja Hub",
     status: "open",
+    studentsServed: 870,
   },
   {
     id: "kigali-center",
@@ -372,6 +402,7 @@ export const POINTS: LocationPoint[] = [
     count: 22,
     label: "Kigali Center",
     status: "open",
+    studentsServed: 760,
   },
   {
     id: "dhaka-center",
@@ -382,6 +413,7 @@ export const POINTS: LocationPoint[] = [
     count: 23,
     label: "Dhaka Center",
     status: "open",
+    studentsServed: 1040,
   },
   {
     id: "kathmandu-center",
@@ -392,6 +424,7 @@ export const POINTS: LocationPoint[] = [
     count: 19,
     label: "Kathmandu Center",
     status: "open",
+    studentsServed: 690,
   },
 ];
 
@@ -581,4 +614,151 @@ export function isEligibleDonorHub(point: LocationPoint): boolean {
   return (
     point.type === "donor" && point.status === "open" && point.onDemand === true
   );
+}
+
+export const STAGE_LABELS: Record<DeviceStage, string> = {
+  hub: "At hub",
+  transit: "In transit",
+  delivered: "Delivered",
+};
+
+// Mock device set spanning all three lifecycle stages and several hubs,
+// so search results exercise hub/transit/delivered badges and (in S7)
+// both "still at hub" and "has a village to draw an arc to" cases.
+export const DEVICES: Device[] = [
+  {
+    serial: "LBD-004821",
+    model: "Acer Swift SF113-31",
+    wh: 48,
+    dateCreated: "2024-02-11",
+    stage: "hub",
+    statusCode: "S2",
+    hubId: "berlin-hub",
+  },
+  {
+    serial: "LBD-004822",
+    model: "Toshiba Z30-16K",
+    wh: 42,
+    dateCreated: "2024-03-02",
+    stage: "transit",
+    statusCode: "T1",
+    hubId: "amsterdam-hub",
+  },
+  {
+    serial: "LBD-004890",
+    model: "Lenovo ThinkPad T420",
+    wh: 62,
+    dateCreated: "2023-11-19",
+    stage: "delivered",
+    statusCode: "S4",
+    hubId: "london-hub",
+    villageId: "nairobi-center",
+  },
+  {
+    serial: "LBD-005112",
+    model: "HP EliteBook 840",
+    wh: 50,
+    dateCreated: "2023-09-04",
+    stage: "delivered",
+    statusCode: "S4",
+    hubId: "zurich-hub",
+    villageId: "accra-center",
+  },
+  {
+    serial: "LBD-005544",
+    model: "Dell Latitude E7440",
+    wh: 47,
+    dateCreated: "2024-05-22",
+    stage: "hub",
+    statusCode: "S0",
+    hubId: "new-york-hub",
+  },
+  {
+    serial: "LBD-005601",
+    model: "Asus VivoBook",
+    wh: 38,
+    dateCreated: "2024-04-15",
+    stage: "transit",
+    statusCode: "T2",
+    hubId: "paris-hub",
+  },
+  {
+    serial: "LBD-005789",
+    model: "Acer TravelMate P249",
+    wh: 45,
+    dateCreated: "2023-07-08",
+    stage: "delivered",
+    statusCode: "S4",
+    hubId: "hamburg-hub",
+    villageId: "kigali-center",
+  },
+  {
+    serial: "LBD-006023",
+    model: "Lenovo Yoga 11e",
+    wh: 40,
+    dateCreated: "2023-12-30",
+    stage: "delivered",
+    statusCode: "S6",
+    hubId: "chicago-hub",
+    villageId: "manila-center",
+  },
+  {
+    serial: "LBD-006140",
+    model: "HP ProBook 430",
+    wh: 44,
+    dateCreated: "2024-06-10",
+    stage: "hub",
+    statusCode: "S1",
+    hubId: "san-francisco-hub",
+  },
+  {
+    serial: "LBD-006298",
+    model: "Dell Inspiron 14",
+    wh: 41,
+    dateCreated: "2024-01-27",
+    stage: "delivered",
+    statusCode: "S4",
+    hubId: "amsterdam-hub",
+    villageId: "dhaka-center",
+  },
+];
+
+export function getDeviceBySerial(serial: string): Device | undefined {
+  return DEVICES.find((d) => d.serial === serial);
+}
+
+export function searchDevicesBySerial(query: string, limit = 6): Device[] {
+  const normalized = query.trim().toLowerCase();
+  if (!normalized) return [];
+  return DEVICES.filter((d) =>
+    d.serial.toLowerCase().includes(normalized),
+  ).slice(0, limit);
+}
+
+export interface DeviceJourney {
+  device: Device;
+  hub: LocationPoint;
+  village: LocationPoint | null;
+}
+
+export function getDeviceJourney(serial: string): DeviceJourney | null {
+  const device = getDeviceBySerial(serial);
+  if (!device) return null;
+  const hub = getPointById(device.hubId);
+  if (!hub) return null;
+  const village = device.villageId
+    ? (getPointById(device.villageId) ?? null)
+    : null;
+  return { device, hub, village };
+}
+
+// Placeholder until real Labdoo device-cost data is available.
+export const AVERAGE_LAPTOP_PRICE_USD = 280;
+
+export function getImpactDescription(iso: string): string | null {
+  const monthlyIncome = MEDIAN_INCOME[iso];
+  if (!monthlyIncome || monthlyIncome <= 0) return null;
+  const weeklyIncome = monthlyIncome / 4.345;
+  const weeks = Math.round(AVERAGE_LAPTOP_PRICE_USD / weeklyIncome);
+  return `≈ ${weeks} ${weeks === 1 ? "week" : "weeks"} of average income in ${getCountryName(iso)}`;
 }
