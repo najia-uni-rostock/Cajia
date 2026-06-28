@@ -17,6 +17,7 @@ interface SidebarProps {
   onShowNearestHub: () => void;
   onViewHubDetails: (id: string) => void;
   locationError: string | null;
+  isLocatingNearestHub: boolean;
 }
 
 export default function Sidebar({
@@ -26,6 +27,7 @@ export default function Sidebar({
   onShowNearestHub,
   onViewHubDetails,
   locationError,
+  isLocatingNearestHub,
 }: SidebarProps) {
   const [rankingMode, setRankingMode] = useState<RankingMode>("donating");
   const [donatePanelOpen, setDonatePanelOpen] = useState(false);
@@ -72,16 +74,19 @@ export default function Sidebar({
               <span>↗</span>
               Donate at Labdoo website
             </a>
-            {/* TODO (S5): onShowNearestHub will request geolocation, zoom to the
-                user, and highlight the nearest active/on-demand hub on the map */}
 
             <button
               type="button"
               onClick={onShowNearestHub}
-              className="flex items-center gap-2.5 w-full rounded-md border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
+              disabled={isLocatingNearestHub}
+              className="flex items-center gap-2.5 w-full rounded-md border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              <span>📍</span>
-              Show your nearest hub
+              {isLocatingNearestHub ? (
+                <span className="h-4 w-4 rounded-full border-2 border-zinc-300 dark:border-zinc-600 border-t-blue-600 dark:border-t-blue-400 animate-spin" />
+              ) : (
+                <span>📍</span>
+              )}
+              {isLocatingNearestHub ? "Locating…" : "Show your nearest hub"}
             </button>
             {locationError && (
               <p className="text-sm text-red-600 dark:text-red-400">

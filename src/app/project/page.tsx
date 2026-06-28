@@ -11,6 +11,7 @@ const LabdooMap = dynamic(() => import("./LabdooMap"), { ssr: false });
 export default function Project() {
   const [view, setView] = useState<MapView>({ kind: "world" });
   const [locationError, setLocationError] = useState<string | null>(null);
+  const [isLocatingNearestHub, setIsLocatingNearestHub] = useState(false);
   const mapHandleRef = useRef<LabdooMapHandle>(null);
 
   const handleViewChange = useCallback((next: MapView) => {
@@ -38,10 +39,12 @@ export default function Project() {
       return;
     }
     setLocationError(null);
+    setIsLocatingNearestHub(true);
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
         mapHandleRef.current?.showNearestHub(latitude, longitude);
+        setIsLocatingNearestHub(false);
       },
       (error) => {
         setLocationError(
@@ -49,6 +52,7 @@ export default function Project() {
             ? "Location permission was denied."
             : "Couldn't determine your location.",
         );
+        setIsLocatingNearestHub(false);
       },
       { enableHighAccuracy: false, timeout: 10000 },
     );
@@ -67,6 +71,7 @@ export default function Project() {
         onShowNearestHub={handleShowNearestHub}
         onViewHubDetails={handleViewHubDetails}
         locationError={locationError}
+        isLocatingNearestHub={isLocatingNearestHub}
       />
       <div className="flex-1 relative h-full">
         <LabdooMap
