@@ -1,7 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { DONORS, RECEIVERS, YEARLY_TOTALS } from "./data";
+import { DONORS, RECEIVERS } from "./data";
+import { YEARLY_TOTALS } from "./yearly_totals";
 import TimeSeriesChart from "./TimeSeriesChart";
 import CountryPanel from "./CountryPanel";
 import HubPanel from "./HubPanel";

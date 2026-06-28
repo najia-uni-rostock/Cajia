@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import {
   DONORS,
   RECEIVERS,
@@ -8,9 +8,10 @@ import {
   getPointById,
   isEligibleDonorHub,
   getDeviceJourney,
+  LocationPoint,
 } from "./data";
 import type { MapView } from "./types";
-
+console.log("DONORS:", DONORS);
 const NUM_TO_ISO: Record<string, string> = {
   "4": "AFG",
   "8": "ALB",
@@ -116,17 +117,19 @@ const NUM_TO_ISO: Record<string, string> = {
   "716": "ZWE",
 };
 
+
+
 const SKIP_IDS = new Set(["10", "-99", "null"]);
 
 const MAX_D = Math.max(...Object.values(DONORS).map((d) => d.donations));
 const MAX_R = Math.max(...Object.values(RECEIVERS).map((d) => d.locations));
 
 function donorFill(v: number) {
-  const t = v / MAX_D;
+  const t = Math.log10(v + 1) / Math.log10(MAX_D + 1);
   return `rgba(${Math.round(219 - t * 180)},${Math.round(234 - t * 185)},251,${(0.3 + t * 0.6).toFixed(2)})`;
 }
 function receiverFill(v: number) {
-  const t = v / MAX_R;
+  const t = Math.log10(v + 1) / Math.log10(MAX_R + 1);
   return `rgba(251,${Math.round(243 - t * 160)},${Math.round(200 - t * 170)},${(0.3 + t * 0.6).toFixed(2)})`;
 }
 
@@ -562,7 +565,7 @@ const LabdooMap = forwardRef<LabdooMapHandle, LabdooMapProps>(
               distanceKm: haversineKm(lat, lng, p.lat, p.lng),
             }))
             .sort((a, b) => a.distanceKm - b.distanceKm);
-
+          console.log("el:", eligibleHubs)
           if (eligibleHubs.length === 0) {
             map.setView([lat, lng], 6);
             onNoEligibleHubsFoundRef.current?.();
@@ -650,8 +653,8 @@ const LabdooMap = forwardRef<LabdooMapHandle, LabdooMapProps>(
           buildMarkers();
           onViewChangeRef.current?.({ kind: "hub", id: point.id });
         }
-
         function buildMarkers() {
+
           if (clusterLayer) {
             map.removeLayer(clusterLayer);
             clusterLayer = null;
@@ -662,50 +665,51 @@ const LabdooMap = forwardRef<LabdooMapHandle, LabdooMapProps>(
             buildNearestHubModeMarkers();
             return;
           }
+        const z = map.getZoom();
+        if (z < 4 && !activeISO) return;
 
-          const z = map.getZoom();
-          if (z < 4 && !activeISO) return;
+        clusterLayer = new L.MarkerClusterGroup({
+          maxClusterRadius: 55,
+          disableClusteringAtZoom: 20,
+          iconCreateFunction(cluster: any) {
+            const children = cluster.getAllChildMarkers();
+            const n = children.length;
+            const hasDonor = children.some((m: any) => m.pointType === "donor");
+            const hasReceiver = children.some((m: any) => m.pointType === "recipient");
+            const isMixed = hasDonor && hasReceiver;
 
-          clusterLayer = new L.MarkerClusterGroup({
-            maxClusterRadius: 55,
-            disableClusteringAtZoom: 9,
-            iconCreateFunction(cluster: any) {
-              const n = cluster.getChildCount();
-              const sz = n > 30 ? 50 : n > 10 ? 40 : 32;
-              const bg = n > 30 ? "#EA580C" : "#2563EB";
-              return L.divIcon({
-                html: `<div style="width:${sz}px;height:${sz}px;border-radius:50%;background:${bg};display:flex;align-items:center;justify-content:center;font-size:${sz > 40 ? 14 : 12}px;font-weight:500;color:#fff;border:2px solid rgba(255,255,255,0.9);box-shadow:0 1px 5px rgba(0,0,0,0.3)">${n}</div>`,
-                className: "",
-                iconSize: [sz, sz],
-                iconAnchor: [sz / 2, sz / 2],
-              });
-            },
-          });
+            const bg = isMixed ? "#FFFFFF" : hasDonor ? "#2563EB" : "#EA580C";
+            const textColor = isMixed ? "#111827" : "#fff";
+            const border = isMixed ? "2px solid rgba(0,0,0,0.25)" : "2px solid rgba(255,255,255,0.9)";
 
-          const pts = POINTS;
-          pts.forEach((p) => {
-            const isSelected = p.id === selectedPointId;
-            const c = p.type === "donor" ? "#2563EB" : "#EA580C";
-            const size = isSelected ? 22 : 14;
-            const ring = isSelected
-              ? `border:3px solid #fff;box-shadow:0 0 0 3px ${c}, 0 1px 6px rgba(0,0,0,0.35);`
-              : `border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,0.3);`;
-            const icon = L.divIcon({
-              html: `<div style="width:${size}px;height:${size}px;border-radius:50%;background:${c};${ring}cursor:pointer"></div>`,
-              className: "",
-              iconSize: [size, size],
-              iconAnchor: [size / 2, size / 2],
+            const sz = n > 30 ? 50 : n > 10 ? 40 : 32;
+            return L.divIcon({
+              html: `<div style="width:${sz}px;height:${sz}px;border-radius:50%;background:${bg};display:flex;align-items:center;justify-content:center;font-size:${sz > 40 ? 14 : 12}px;font-weight:500;color:${textColor};border:${border};box-shadow:0 1px 5px rgba(0,0,0,0.3)">${n}</div>`,
+              className: "", iconSize: [sz, sz], iconAnchor: [sz / 2, sz / 2],
             });
-            const marker = L.marker([p.lat, p.lng], { icon });
-            marker.on("click", (e: any) => {
-              L.DomEvent.stopPropagation(e);
-              markerInfo(p);
-            });
-            marker.addTo(clusterLayer);
-          });
-          map.addLayer(clusterLayer);
-        }
+          },
+        });
 
+        const pts = POINTS;
+        pts.forEach((p) => {
+          const c = p.type === "donor" ? "#2563EB" : "#EA580C";
+          const icon = L.divIcon({
+            html: `<div style="width:14px;height:14px;border-radius:50%;background:${c};border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,0.3);cursor:pointer"></div>`,
+            className: "", iconSize: [14, 14], iconAnchor: [7, 7],
+          });
+          const marker: any = L.marker([p.lat, p.lng], { icon });
+          marker.pointType = p.type; // tag for cluster composition check
+          marker.on("click", (e: any) => {
+            L.DomEvent.stopPropagation(e);
+            markerInfo(p);
+          });
+          marker.addTo(clusterLayer);
+        });
+        map.addLayer(clusterLayer);
+      }
+
+     
+        
         function buildNearestHubModeMarkers() {
           const group = L.layerGroup();
           POINTS.filter((p) => p.type === "donor").forEach((p) => {

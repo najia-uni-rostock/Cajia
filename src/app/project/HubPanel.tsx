@@ -46,7 +46,7 @@ export default function HubPanel({
   const countryName = getCountryName(point.iso);
   const series = getHubYearlySeries(id);
   const isDonor = point.type === "donor";
-  const statLabel = isDonor ? "Donations" : "Receiving locations";
+  const statLabel = isDonor ? "Donations" : "Received Devices";
 
   return (
     <div className="flex flex-col gap-5">

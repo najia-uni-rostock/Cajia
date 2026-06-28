@@ -59,17 +59,23 @@ export default function CountryPanel({
           <h3 className="text-sm font-semibold uppercase tracking-wide text-zinc-400 dark:text-zinc-500">
             Devices over time
           </h3>
-          <TimeSeriesChart
-            categories={series.years}
-            series={[
-              {
-                label: series.role === "donated" ? "Donated" : "Received",
-                color: series.role === "donated" ? "#2563EB" : "#EA580C",
-                values: series.values,
-              },
-            ]}
-            height={170}
-          />
+<TimeSeriesChart
+  categories={series.years}
+  series={[
+    {
+      label: "Donated",
+      color: "#2563EB",
+      values: series.donated,
+    },
+    {
+      label: "Received",
+      color: "#EA580C",
+      values: series.received,
+    },
+  ]}
+  height={170}
+/>
+          
         </div>
       )}
 

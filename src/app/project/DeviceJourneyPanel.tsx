@@ -4,9 +4,10 @@ import {
   getDeviceJourney,
   getImpactDescription,
   STAGE_LABELS,
-  type DeviceStage,
 } from "./data";
-
+import {
+    type DeviceStage,
+} from "./types"
 interface DeviceJourneyPanelProps {
   serial: string;
   onBackToWorld: () => void;
