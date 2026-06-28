@@ -6,6 +6,7 @@ import TimeSeriesChart from "./TimeSeriesChart";
 import CountryPanel from "./CountryPanel";
 import HubPanel from "./HubPanel";
 import type { MapView } from "./types";
+import NearestHubPanel from "./NearestHubPanel";
 
 type RankingMode = "donating" | "receiving";
 
@@ -14,6 +15,8 @@ interface SidebarProps {
   onBackToWorld: () => void;
   onBackToCountry: (iso: string) => void;
   onShowNearestHub: () => void;
+  onViewHubDetails: (id: string) => void;
+  locationError: string | null;
 }
 
 export default function Sidebar({
@@ -21,6 +24,8 @@ export default function Sidebar({
   onBackToWorld,
   onBackToCountry,
   onShowNearestHub,
+  onViewHubDetails,
+  locationError,
 }: SidebarProps) {
   const [rankingMode, setRankingMode] = useState<RankingMode>("donating");
   const [donatePanelOpen, setDonatePanelOpen] = useState(false);
@@ -69,6 +74,7 @@ export default function Sidebar({
             </a>
             {/* TODO (S5): onShowNearestHub will request geolocation, zoom to the
                 user, and highlight the nearest active/on-demand hub on the map */}
+
             <button
               type="button"
               onClick={onShowNearestHub}
@@ -77,6 +83,11 @@ export default function Sidebar({
               <span>📍</span>
               Show your nearest hub
             </button>
+            {locationError && (
+              <p className="text-sm text-red-600 dark:text-red-400">
+                {locationError}
+              </p>
+            )}
           </div>
         )}
 
@@ -168,11 +179,18 @@ export default function Sidebar({
         </>
       ) : view.kind === "country" ? (
         <CountryPanel iso={view.iso} onBackToWorld={onBackToWorld} />
-      ) : (
+      ) : view.kind === "hub" ? (
         <HubPanel
           id={view.id}
           onBackToWorld={onBackToWorld}
           onBackToCountry={onBackToCountry}
+        />
+      ) : (
+        <NearestHubPanel
+          id={view.id}
+          distanceKm={view.distanceKm}
+          onBackToWorld={onBackToWorld}
+          onViewHubDetails={onViewHubDetails}
         />
       )}
     </aside>

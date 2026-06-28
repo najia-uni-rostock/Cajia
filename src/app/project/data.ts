@@ -17,6 +17,7 @@ export interface LocationPoint {
   count: number;
   label: string;
   status?: "open" | "closed" | "inactive" | "completed";
+  onDemand?: boolean;
 }
 
 export interface YearlyTotal {
@@ -68,6 +69,7 @@ export const POINTS: LocationPoint[] = [
     count: 420,
     label: "Berlin Hub",
     status: "open",
+    onDemand: true,
   },
   {
     id: "munich-hub",
@@ -78,6 +80,7 @@ export const POINTS: LocationPoint[] = [
     count: 220,
     label: "Munich Hub",
     status: "closed",
+    onDemand: false,
   },
   {
     id: "hamburg-hub",
@@ -88,6 +91,7 @@ export const POINTS: LocationPoint[] = [
     count: 200,
     label: "Hamburg Hub",
     status: "open",
+    onDemand: true,
   },
   {
     id: "new-york-hub",
@@ -98,6 +102,7 @@ export const POINTS: LocationPoint[] = [
     count: 380,
     label: "New York Hub",
     status: "open",
+    onDemand: true,
   },
   {
     id: "los-angeles-hub",
@@ -108,6 +113,7 @@ export const POINTS: LocationPoint[] = [
     count: 280,
     label: "Los Angeles Hub",
     status: "open",
+    onDemand: false,
   },
   {
     id: "chicago-hub",
@@ -118,6 +124,7 @@ export const POINTS: LocationPoint[] = [
     count: 310,
     label: "Chicago Hub",
     status: "open",
+    onDemand: true,
   },
   {
     id: "san-francisco-hub",
@@ -128,6 +135,7 @@ export const POINTS: LocationPoint[] = [
     count: 230,
     label: "San Francisco Hub",
     status: "open",
+    onDemand: true,
   },
   {
     id: "london-hub",
@@ -138,6 +146,7 @@ export const POINTS: LocationPoint[] = [
     count: 340,
     label: "London Hub",
     status: "open",
+    onDemand: true,
   },
   {
     id: "manchester-hub",
@@ -148,6 +157,7 @@ export const POINTS: LocationPoint[] = [
     count: 180,
     label: "Manchester Hub",
     status: "open",
+    onDemand: true,
   },
   {
     id: "paris-hub",
@@ -158,6 +168,7 @@ export const POINTS: LocationPoint[] = [
     count: 300,
     label: "Paris Hub",
     status: "open",
+    onDemand: true,
   },
   {
     id: "marseille-hub",
@@ -168,6 +179,7 @@ export const POINTS: LocationPoint[] = [
     count: 180,
     label: "Marseille Hub",
     status: "inactive",
+    onDemand: false,
   },
   {
     id: "amsterdam-hub",
@@ -178,6 +190,7 @@ export const POINTS: LocationPoint[] = [
     count: 390,
     label: "Amsterdam Hub",
     status: "open",
+    onDemand: true,
   },
   {
     id: "zurich-hub",
@@ -188,6 +201,7 @@ export const POINTS: LocationPoint[] = [
     count: 310,
     label: "Zurich Hub",
     status: "open",
+    onDemand: true,
   },
   {
     id: "nairobi-center",
@@ -561,4 +575,10 @@ export function getHubYearlySeries(id: string): HubYearlySeries | null {
     values: countrySeries.values.map((v) => Math.round(v * share)),
     role: countrySeries.role,
   };
+}
+
+export function isEligibleDonorHub(point: LocationPoint): boolean {
+  return (
+    point.type === "donor" && point.status === "open" && point.onDemand === true
+  );
 }

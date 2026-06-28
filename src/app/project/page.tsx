@@ -10,6 +10,7 @@ const LabdooMap = dynamic(() => import("./LabdooMap"), { ssr: false });
 
 export default function Project() {
   const [view, setView] = useState<MapView>({ kind: "world" });
+  const [locationError, setLocationError] = useState<string | null>(null);
   const mapHandleRef = useRef<LabdooMapHandle>(null);
 
   const handleViewChange = useCallback((next: MapView) => {
@@ -26,10 +27,35 @@ export default function Project() {
     setView({ kind: "country", iso });
   }, []);
 
+  const handleViewHubDetails = useCallback((id: string) => {
+    mapHandleRef.current?.focusHub(id);
+    setView({ kind: "hub", id });
+  }, []);
+
   const handleShowNearestHub = useCallback(() => {
-    // TODO (S5): request geolocation permission, then call
-    // mapHandleRef.current?.showNearestHub(lat, lng) once that map action exists
-    console.log("TODO (S5): show nearest hub — geolocation not wired up yet");
+    if (!("geolocation" in navigator)) {
+      setLocationError("Geolocation is not supported in this browser.");
+      return;
+    }
+    setLocationError(null);
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        mapHandleRef.current?.showNearestHub(latitude, longitude);
+      },
+      (error) => {
+        setLocationError(
+          error.code === error.PERMISSION_DENIED
+            ? "Location permission was denied."
+            : "Couldn't determine your location.",
+        );
+      },
+      { enableHighAccuracy: false, timeout: 10000 },
+    );
+  }, []);
+
+  const handleNoEligibleHubsFound = useCallback(() => {
+    setLocationError("No donor hubs are currently accepting devices nearby.");
   }, []);
 
   return (
@@ -39,9 +65,15 @@ export default function Project() {
         onBackToWorld={handleBackToWorld}
         onBackToCountry={handleBackToCountry}
         onShowNearestHub={handleShowNearestHub}
+        onViewHubDetails={handleViewHubDetails}
+        locationError={locationError}
       />
       <div className="flex-1 relative h-full">
-        <LabdooMap ref={mapHandleRef} onViewChange={handleViewChange} />
+        <LabdooMap
+          ref={mapHandleRef}
+          onViewChange={handleViewChange}
+          onNoEligibleHubsFound={handleNoEligibleHubsFound}
+        />
       </div>
     </div>
   );

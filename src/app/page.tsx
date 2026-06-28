@@ -5,10 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 
 export default function Home() {
-  const handleBackToCountry = useCallback((iso: string) => {
-    mapHandleRef.current?.focusCountry(iso);
-    setView({ kind: "country", iso });
-  }, []);
   return (
     <div className="flex flex-1 flex-col w-full p-6 justify-center items-center gap-12">
       <div className="flex flex-col max-w-3xl items-center gap-6 text-center sm:items-start sm:text-left">
