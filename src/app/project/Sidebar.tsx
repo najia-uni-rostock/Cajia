@@ -51,15 +51,15 @@ export default function Sidebar({
   const barColor = rankingMode === "donating" ? "#2563EB" : "#EA580C";
 
   return (
-    <aside className="w-[340px] shrink-0 h-full overflow-y-auto border-r border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 p-5 flex flex-col gap-6">
+    <aside className="w-[340px] shrink-0 h-full overflow-y-auto border-r border-zinc-800 bg-zinc-950 text-zinc-100 p-5 flex flex-col gap-6 shadow-[inset_-1px_0_0_rgba(255,255,255,0.04)]">
       <div className="flex flex-col gap-2.5">
         <button
           type="button"
           onClick={() => setDonatePanelOpen((prev) => !prev)}
           className={`flex items-center gap-2.5 w-full rounded-lg border px-3.5 py-2.5 text-base font-medium transition-colors ${
             donatePanelOpen
-              ? "border-blue-300 bg-blue-50 text-blue-700 dark:border-blue-700 dark:bg-blue-950 dark:text-blue-300"
-              : "border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800"
+              ? "border-blue-700 bg-blue-950/70 text-blue-200"
+              : "border-zinc-800 bg-zinc-900/80 text-zinc-100 hover:bg-zinc-800"
           }`}
         >
           <span className="text-lg">💻</span>
@@ -68,12 +68,12 @@ export default function Sidebar({
         </button>
 
         {donatePanelOpen && (
-          <div className="flex flex-col gap-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50 p-3">
+          <div className="flex flex-col gap-2 rounded-lg border border-zinc-800 bg-zinc-900/80 p-3">
             <a
               href="https://platform.labdoo.org"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2.5 w-full rounded-md border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
+              className="flex items-center gap-2.5 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm font-medium text-zinc-100 hover:bg-zinc-800 transition-colors"
             >
               <span>↗</span>
               Donate at Labdoo website
@@ -83,7 +83,7 @@ export default function Sidebar({
               type="button"
               onClick={onShowNearestHub}
               disabled={isLocatingNearestHub}
-              className="flex items-center gap-2.5 w-full rounded-md border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+              className="flex items-center gap-2.5 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm font-medium text-zinc-100 hover:bg-zinc-800 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {isLocatingNearestHub ? (
                 <span className="h-4 w-4 rounded-full border-2 border-zinc-300 dark:border-zinc-600 border-t-blue-600 dark:border-t-blue-400 animate-spin" />
@@ -103,7 +103,7 @@ export default function Sidebar({
         <button
           type="button"
           onClick={onOpenSearch}
-          className="flex items-center gap-2.5 w-full rounded-lg border border-zinc-200 dark:border-zinc-700 px-3.5 py-2.5 text-base font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
+          className="flex items-center gap-2.5 w-full rounded-lg border border-zinc-800 bg-zinc-900/80 px-3.5 py-2.5 text-base font-medium text-zinc-100 hover:bg-zinc-800 transition-colors"
         >
           <span className="text-lg">🔍</span>
           Search your device
@@ -143,8 +143,8 @@ export default function Sidebar({
                 onClick={() => setRankingMode("donating")}
                 className={`flex-1 text-sm rounded-md px-2.5 py-1.5 border transition-colors ${
                   rankingMode === "donating"
-                    ? "border-blue-300 bg-blue-50 text-blue-700 dark:border-blue-700 dark:bg-blue-950 dark:text-blue-300"
-                    : "border-zinc-200 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800"
+                    ? "border-blue-700 bg-blue-950/70 text-blue-200"
+                    : "border-zinc-800 bg-zinc-900 text-zinc-400 hover:bg-zinc-800"
                 }`}
               >
                 Donating
@@ -154,8 +154,8 @@ export default function Sidebar({
                 onClick={() => setRankingMode("receiving")}
                 className={`flex-1 text-sm rounded-md px-2.5 py-1.5 border transition-colors ${
                   rankingMode === "receiving"
-                    ? "border-orange-300 bg-orange-50 text-orange-700 dark:border-orange-700 dark:bg-orange-950 dark:text-orange-300"
-                    : "border-zinc-200 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800"
+                    ? "border-orange-700 bg-orange-950/70 text-orange-200"
+                    : "border-zinc-800 bg-zinc-900 text-zinc-400 hover:bg-zinc-800"
                 }`}
               >
                 Receiving

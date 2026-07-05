@@ -6,6 +6,7 @@ import { YEARLY_BY_COUNTRY } from "./yearly_by_country";
 import { YEARLY_BY_EDOOVILLAGE } from "./yearly_by_edoovillage";
 import { YEARLY_BY_HUB } from "./yearly_by_hub";
 import { DEVICES } from "./devices";
+import { COUNTRY_TOTAL } from "./country_total";
 
 export interface LocationPoint {
   id: string;
@@ -41,9 +42,10 @@ for (const [iso, name] of Object.entries(ISO_COUNTRY_NAMES)) {
   NAME_TO_ISO[name] = iso;
 }
 
+
 const countryTotals = new Map<string, { donated: number; received: number }>();
 
-for (const row of YEARLY_BY_COUNTRY) {
+for (const row of COUNTRY_TOTAL) {
   const iso = NAME_TO_ISO[row.country];
   if (!iso) continue;
   const existing = countryTotals.get(iso) ?? { donated: 0, received: 0 };
@@ -280,11 +282,11 @@ export interface HubYearlySeries {
 
 export function getHubYearlySeries(id: string): HubYearlySeries | null {
   const point = getPointById(id);
-  console.log(point);
+  console.log();
   if (!point) return null;
 
-  const isReceiver = point.type === "receiver";
   const isDonator = point.type === "donor";
+  const isReceiver = !isDonator;
   console.log(isReceiver);
   const source = isReceiver
     ? YEARLY_BY_EDOOVILLAGE
@@ -298,14 +300,7 @@ export function getHubYearlySeries(id: string): HubYearlySeries | null {
       isReceiver ? e.edooId.trim() == id.trim() : e.hubId.trim() == id.trim(),
     )
     .sort((a, b) => a.year - b.year);
-  console.log(
-    source.filter(
-      (e) =>
-        e.edooId ===
-        "Edoovillage #2500 - Ukraine, Cherson: Hilfe für ukrainische",
-    ),
-  );
-  console.log(entries);
+  
   if (entries.length === 0) return null;
 
   return {
@@ -316,7 +311,7 @@ export function getHubYearlySeries(id: string): HubYearlySeries | null {
 }
 export function isEligibleDonorHub(point: LocationPoint): boolean {
   return (
-    point.type === "donor" //&& point.status === "open" && point.onDemand === true
+    point.type === "donor" && point.status === "open" 
   );
 }
 

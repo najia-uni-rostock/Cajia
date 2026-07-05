@@ -19,18 +19,18 @@ import {
 import type { MapView } from "./types";
 console.log("DONORS:", DONORS);
 const NUM_TO_ISO: Record<string, string> = {
-  "4": "AFG",
-  "8": "ALB",
-  "12": "DZA",
-  "24": "AGO",
-  "32": "ARG",
-  "36": "AUS",
-  "40": "AUT",
-  "50": "BGD",
-  "56": "BEL",
-  "64": "BTN",
-  "68": "BOL",
-  "76": "BRA",
+  "004": "AFG",
+  "008": "ALB",
+  "012": "DZA",
+  "024": "AGO",
+  "032": "ARG",
+  "036": "AUS",
+  "040": "AUT",
+  "050": "BGD",
+  "056": "BEL",
+  "064": "BTN",
+  "068": "BOL",
+  "076": "BRA",
   "100": "BGR",
   "116": "KHM",
   "120": "CMR",
@@ -121,7 +121,155 @@ const NUM_TO_ISO: Record<string, string> = {
   "887": "YEM",
   "894": "ZMB",
   "716": "ZWE",
+  "010": "ATA", // Antarctica
+  "016": "ASM", // American Samoa
+  "020": "AND", // Andorra
+  "028": "ATG", // Antigua and Barbuda
+  "031": "AZE", // Azerbaijan
+  "044": "BHS", // Bahamas
+  "048": "BHR", // Bahrain
+  "051": "ARM", // Armenia
+  "052": "BRB", // Barbados
+  "060": "BMU", // Bermuda
+  "070": "BIH", // Bosnia and Herzegovina
+  "072": "BWA", // Botswana
+  "074": "ATF", // Bouvet Island (note: shares region with FSTA, see below)
+  "084": "BLZ", // Belize
+  "086": "IOT", // British Indian Ocean Territory
+  "090": "SLB", // Solomon Islands
+  "092": "VGB", // Virgin Islands (British)
+  "096": "BRN", // Brunei Darussalam
+  "104": "MMR", // Myanmar
+  "108": "BDI", // Burundi
+  "112": "BLR", // Belarus
+  "132": "CPV", // Cabo Verde
+  "136": "CYM", // Cayman Islands
+  "140": "CAF", // Central African Republic
+  "148": "TCD", // Chad
+  "158": "TWN", // Taiwan
+  "162": "CXR", // Christmas Island
+  "166": "CCK", // Cocos (Keeling) Islands
+  "174": "COM", // Comoros
+  "175": "MYT", // Mayotte
+  "178": "COG", // Congo
+  "184": "COK", // Cook Islands
+  "196": "CYP", // Cyprus
+  "203": "CZE", // Czechia
+  "212": "DMA", // Dominica
+  "214": "DOM", // Dominican Republic
+  "222": "SLV", // El Salvador
+  "226": "GNQ", // Equatorial Guinea
+  "232": "ERI", // Eritrea
+  "233": "EST", // Estonia
+  "234": "FRO", // Faroe Islands
+  "238": "FLK", // Falkland Islands
+  "239": "SGS", // South Georgia and the South Sandwich Islands
+  "242": "FJI", // Fiji
+  "254": "GUF", // French Guiana
+  "258": "PYF", // French Polynesia
+  "260": "ATF", // French Southern Territories
+  "262": "DJI", // Djibouti
+  "268": "GEO", // Georgia
+  "270": "GMB", // Gambia
+  "275": "PSE", // Palestine
+  "292": "GIB", // Gibraltar
+  "296": "KIR", // Kiribati
+  "300": "GRC", // Greece
+  "304": "GRL", // Greenland
+  "308": "GRD", // Grenada
+  "312": "GLP", // Guadeloupe
+  "316": "GUM", // Guam
+  "328": "GUY", // Guyana
+  "334": "HMD", // Heard Island and McDonald Islands
+  "336": "VAT", // Holy See
+  "344": "HKG", // Hong Kong
+  "348": "HUN", // Hungary
+  "352": "ISL", // Iceland
+  "384": "CIV", // Cote d'Ivoire
+  "398": "KAZ", // Kazakhstan
+  "400": "JOR", // Jordan
+  "408": "PRK", // North Korea
+  "414": "KWT", // Kuwait
+  "417": "KGZ", // Kyrgyzstan
+  "426": "LSO", // Lesotho
+  "428": "LVA", // Latvia
+  "438": "LIE", // Liechtenstein
+  "440": "LTU", // Lithuania
+  "442": "LUX", // Luxembourg
+  "446": "MAC", // Macao
+  "462": "MDV", // Maldives
+  "470": "MLT", // Malta
+  "474": "MTQ", // Martinique
+  "478": "MRT", // Mauritania
+  "480": "MUS", // Mauritius
+  "492": "MCO", // Monaco
+  "496": "MNG", // Mongolia
+  "498": "MDA", // Moldova
+  "499": "MNE", // Montenegro
+  "500": "MSR", // Montserrat
+  "512": "OMN", // Oman
+  "520": "NRU", // Nauru
+  "531": "CUW", // Curacao
+  "533": "ABW", // Aruba
+  "534": "SXM", // Sint Maarten
+  "535": "BES", // Bonaire, Sint Eustatius and Saba
+  "540": "NCL", // New Caledonia
+  "548": "VUT", // Vanuatu
+  "554": "NZL", // New Zealand
+  "562": "NER", // Niger
+  "570": "NIU", // Niue
+  "574": "NFK", // Norfolk Island
+  "580": "MNP", // Northern Mariana Islands
+  "581": "UMI", // United States Minor Outlying Islands
+  "583": "FSM", // Micronesia
+  "584": "MHL", // Marshall Islands
+  "585": "PLW", // Palau
+  "612": "PCN", // Pitcairn
+  "624": "GNB", // Guinea-Bissau
+  "626": "TLS", // Timor-Leste
+  "630": "PRI", // Puerto Rico
+  "634": "QAT", // Qatar
+  "638": "REU", // Reunion
+  "652": "BLM", // Saint Barthelemy
+  "654": "SHN", // Saint Helena
+  "659": "KNA", // Saint Kitts and Nevis
+  "660": "AIA", // Anguilla
+  "662": "LCA", // Saint Lucia
+  "663": "MAF", // Saint Martin
+  "666": "SPM", // Saint Pierre and Miquelon
+  "670": "VCT", // Saint Vincent and the Grenadines
+  "674": "SMR", // San Marino
+  "678": "STP", // Sao Tome and Principe
+  "688": "SRB", // Serbia
+  "690": "SYC", // Seychelles
+  "702": "SGP", // Singapore
+  "703": "SVK", // Slovakia
+  "705": "SVN", // Slovenia
+  "728": "SSD", // South Sudan
+  "732": "ESH", // Western Sahara
+  "740": "SUR", // Suriname
+  "744": "SJM", // Svalbard and Jan Mayen
+  "748": "SWZ", // Eswatini
+  "762": "TJK", // Tajikistan
+  "772": "TKL", // Tokelau
+  "776": "TON", // Tonga
+  "784": "ARE", // United Arab Emirates
+  "795": "TKM", // Turkmenistan
+  "796": "TCA", // Turks and Caicos Islands
+  "798": "TUV", // Tuvalu
+  "807": "MKD", // North Macedonia
+  "831": "GGY", // Guernsey
+  "832": "JEY", // Jersey
+  "833": "IMN", // Isle of Man
+  "834": "TZA", // Tanzania
+  "850": "VIR", // US Virgin Islands
+  "854": "BFA", // Burkina Faso
+  "860": "UZB", // Uzbekistan
+  "876": "WLF", // Wallis and Futuna
+  "882": "WSM", // Samoa
 };
+
+
 
 const SKIP_IDS = new Set(["10", "-99", "null"]);
 
@@ -638,7 +786,7 @@ const LabdooMap = forwardRef<LabdooMapHandle, LabdooMapProps>(
             else if (r && !d) fill = receiverFill(r.locations);
             else if (d && r)
               fill =
-                d.donations / MAX_D >= r.locations / MAX_R
+                d.donations >= r.locations
                   ? donorFill(d.donations)
                   : receiverFill(r.locations);
           }

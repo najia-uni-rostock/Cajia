@@ -47,7 +47,12 @@ export default function HubPanel({
   const series = getHubYearlySeries(id);
   const isDonor = point.type === "donor";
   const statLabel = isDonor ? "Donations" : "Received Devices";
-
+  const displayedCount = series
+  ? Math.max(
+      point.count,
+      series.values.reduce((sum, value) => sum + value, 0)
+    )
+  : point.count;
   return (
     <div className="flex flex-col gap-5">
       <div className="flex items-center gap-1.5 text-sm text-zinc-500 dark:text-zinc-400 flex-wrap">
@@ -86,38 +91,44 @@ export default function HubPanel({
           {statLabel}
         </h3>
         <p className="text-base text-zinc-700 dark:text-zinc-300">
-          {point.count.toLocaleString()}
+          {displayedCount.toLocaleString()}
         </p>
       </div>
 
-      {point.status && (
-        <span
-          className={`text-sm rounded-md px-2.5 py-1 border w-fit capitalize ${
-            STATUS_STYLES[point.status] ?? STATUS_STYLES.open
-          }`}
-        >
-          {point.status}
-        </span>
-      )}
+    {point.status && point.status !== "none" && (
+      <span
+        className={`text-sm rounded-md px-2.5 py-1 border w-fit capitalize ${
+          STATUS_STYLES[point.status] ?? STATUS_STYLES.open
+        }`}
+      >
+        {point.status}
+      </span>
+    )}
 
-      {series && (
-        <div className="flex flex-col gap-2">
-          <h3 className="text-sm font-semibold uppercase tracking-wide text-zinc-400 dark:text-zinc-500">
-            {isDonor ? "Donations" : "Receptions"} over time
-          </h3>
-          <TimeSeriesChart
-            categories={series.years}
-            series={[
-              {
-                label: series.role === "donated" ? "Donated" : "Received",
-                color: series.role === "donated" ? "#2563EB" : "#EA580C",
-                values: series.values,
-              },
-            ]}
-            height={170}
-          />
-        </div>
-      )}
+     {series ? (
+  <div className="flex flex-col gap-2">
+    <h3 className="text-sm font-semibold uppercase tracking-wide text-zinc-400 dark:text-zinc-500">
+      {isDonor ? "Donations" : "Receptions"} over time
+    </h3>
+    <TimeSeriesChart
+      categories={series.years}
+      series={[
+        {
+          label: series.role === "donated" ? "Donated" : "Received",
+          color: series.role === "donated" ? "#2563EB" : "#EA580C",
+          values: series.values,
+        },
+      ]}
+      height={170}
+    />
+  </div>
+) : (
+  <div className="rounded-lg border border-zinc-200 dark:border-zinc-700 p-4">
+    <p className="text-sm text-zinc-500 dark:text-zinc-400">
+      No historical data is available
+    </p>
+  </div>
+)}
     </div>
   );
 }
